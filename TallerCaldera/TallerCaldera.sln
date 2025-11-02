@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TallerCaldera", "TallerCaldera\TallerCaldera.csproj", "{3BFA5E6C-02B6-4F9E-9493-E583F062771B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3BFA5E6C-02B6-4F9E-9493-E583F062771B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BFA5E6C-02B6-4F9E-9493-E583F062771B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BFA5E6C-02B6-4F9E-9493-E583F062771B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BFA5E6C-02B6-4F9E-9493-E583F062771B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E38F7F90-1879-4358-8DA5-1879C3DFE5DA}
+	EndGlobalSection
+EndGlobal
