@@ -1,12 +1,139 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Proyectos\\TallerCaldera\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Proyectos\\CalderaProject\\TallerCaldera\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3BFA5E6C-02B6-4F9E-9493-E583F062771B}|TallerCaldera\\TallerCaldera.csproj|c:\\proyectos\\calderaproject\\tallercaldera\\tallercaldera\\models\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3BFA5E6C-02B6-4F9E-9493-E583F062771B}|TallerCaldera\\TallerCaldera.csproj|solutionrelative:tallercaldera\\models\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3BFA5E6C-02B6-4F9E-9493-E583F062771B}|TallerCaldera\\TallerCaldera.csproj|c:\\proyectos\\calderaproject\\tallercaldera\\tallercaldera\\models\\alert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3BFA5E6C-02B6-4F9E-9493-E583F062771B}|TallerCaldera\\TallerCaldera.csproj|solutionrelative:tallercaldera\\models\\alert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3BFA5E6C-02B6-4F9E-9493-E583F062771B}|TallerCaldera\\TallerCaldera.csproj|c:\\proyectos\\calderaproject\\tallercaldera\\tallercaldera\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3BFA5E6C-02B6-4F9E-9493-E583F062771B}|TallerCaldera\\TallerCaldera.csproj|solutionrelative:tallercaldera\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3BFA5E6C-02B6-4F9E-9493-E583F062771B}|TallerCaldera\\TallerCaldera.csproj|c:\\proyectos\\calderaproject\\tallercaldera\\tallercaldera\\models\\fileattachment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3BFA5E6C-02B6-4F9E-9493-E583F062771B}|TallerCaldera\\TallerCaldera.csproj|solutionrelative:tallercaldera\\models\\fileattachment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3BFA5E6C-02B6-4F9E-9493-E583F062771B}|TallerCaldera\\TallerCaldera.csproj|c:\\proyectos\\calderaproject\\tallercaldera\\tallercaldera\\models\\vehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3BFA5E6C-02B6-4F9E-9493-E583F062771B}|TallerCaldera\\TallerCaldera.csproj|solutionrelative:tallercaldera\\models\\vehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3BFA5E6C-02B6-4F9E-9493-E583F062771B}|TallerCaldera\\TallerCaldera.csproj|c:\\proyectos\\calderaproject\\tallercaldera\\tallercaldera\\models\\maintenance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3BFA5E6C-02B6-4F9E-9493-E583F062771B}|TallerCaldera\\TallerCaldera.csproj|solutionrelative:tallercaldera\\models\\maintenance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{3BFA5E6C-02B6-4F9E-9493-E583F062771B}|TallerCaldera\\TallerCaldera.csproj|c:\\proyectos\\calderaproject\\tallercaldera\\tallercaldera\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{3BFA5E6C-02B6-4F9E-9493-E583F062771B}|TallerCaldera\\TallerCaldera.csproj|solutionrelative:tallercaldera\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Alert.cs",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera\\TallerCaldera\\Models\\Alert.cs",
+              "RelativeDocumentMoniker": "TallerCaldera\\Models\\Alert.cs",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera\\TallerCaldera\\Models\\Alert.cs",
+              "RelativeToolTip": "TallerCaldera\\Models\\Alert.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T23:42:33.124Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ApplicationUser.cs",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera\\TallerCaldera\\Models\\ApplicationUser.cs",
+              "RelativeDocumentMoniker": "TallerCaldera\\Models\\ApplicationUser.cs",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera\\TallerCaldera\\Models\\ApplicationUser.cs",
+              "RelativeToolTip": "TallerCaldera\\Models\\ApplicationUser.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T23:41:43.225Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera\\TallerCaldera\\Models\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "TallerCaldera\\Models\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera\\TallerCaldera\\Models\\ApplicationDbContext.cs",
+              "RelativeToolTip": "TallerCaldera\\Models\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T23:40:07.317Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FileAttachment.cs",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera\\TallerCaldera\\Models\\FileAttachment.cs",
+              "RelativeDocumentMoniker": "TallerCaldera\\Models\\FileAttachment.cs",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera\\TallerCaldera\\Models\\FileAttachment.cs",
+              "RelativeToolTip": "TallerCaldera\\Models\\FileAttachment.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T23:32:42.849Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Maintenance.cs",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera\\TallerCaldera\\Models\\Maintenance.cs",
+              "RelativeDocumentMoniker": "TallerCaldera\\Models\\Maintenance.cs",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera\\TallerCaldera\\Models\\Maintenance.cs",
+              "RelativeToolTip": "TallerCaldera\\Models\\Maintenance.cs",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAjwBoAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T23:29:19.091Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Vehicle.cs",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera\\TallerCaldera\\Models\\Vehicle.cs",
+              "RelativeDocumentMoniker": "TallerCaldera\\Models\\Vehicle.cs",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera\\TallerCaldera\\Models\\Vehicle.cs",
+              "RelativeToolTip": "TallerCaldera\\Models\\Vehicle.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-02T23:24:51.777Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera\\TallerCaldera\\appsettings.json",
+              "RelativeDocumentMoniker": "TallerCaldera\\appsettings.json",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera\\TallerCaldera\\appsettings.json",
+              "RelativeToolTip": "TallerCaldera\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-02T23:23:31.343Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "41ZKBaLgjyA=",
+  "dgSpecHash": "SrPpMFk3q34=",
   "success": true,
-  "projectFilePath": "C:\\Proyectos\\TallerCaldera\\TallerCaldera\\TallerCaldera.csproj",
+  "projectFilePath": "C:\\Proyectos\\CalderaProject\\TallerCaldera\\TallerCaldera\\TallerCaldera.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Rogers\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Rogers\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

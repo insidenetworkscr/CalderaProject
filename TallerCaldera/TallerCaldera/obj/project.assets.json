@@ -4459,11 +4459,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Proyectos\\TallerCaldera\\TallerCaldera\\TallerCaldera.csproj",
+      "projectUniqueName": "C:\\Proyectos\\CalderaProject\\TallerCaldera\\TallerCaldera\\TallerCaldera.csproj",
       "projectName": "TallerCaldera",
-      "projectPath": "C:\\Proyectos\\TallerCaldera\\TallerCaldera\\TallerCaldera.csproj",
+      "projectPath": "C:\\Proyectos\\CalderaProject\\TallerCaldera\\TallerCaldera\\TallerCaldera.csproj",
       "packagesPath": "C:\\Users\\Rogers\\.nuget\\packages\\",
-      "outputPath": "C:\\Proyectos\\TallerCaldera\\TallerCaldera\\obj\\",
+      "outputPath": "C:\\Proyectos\\CalderaProject\\TallerCaldera\\TallerCaldera\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
