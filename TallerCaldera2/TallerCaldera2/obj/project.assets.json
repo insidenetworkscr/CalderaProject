@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Proyectos\\TallerCaldera2\\TallerCaldera2\\TallerCaldera2.csproj",
+      "projectUniqueName": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\TallerCaldera2.csproj",
       "projectName": "TallerCaldera2",
-      "projectPath": "C:\\Proyectos\\TallerCaldera2\\TallerCaldera2\\TallerCaldera2.csproj",
+      "projectPath": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\TallerCaldera2.csproj",
       "packagesPath": "C:\\Users\\Rogers\\.nuget\\packages\\",
-      "outputPath": "C:\\Proyectos\\TallerCaldera2\\TallerCaldera2\\obj\\",
+      "outputPath": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
