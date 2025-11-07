@@ -57,7 +57,7 @@ namespace TallerCaldera2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Date,Plate,Type,Observations,Cost,Mileage,SketchJson,VehicleId")] Maintenance maintenance)
+        public async Task<IActionResult> Create([Bind("Id,Date,Plate,Type,Observations,Cost,Mileage,VehicleId")] Maintenance maintenance)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace TallerCaldera2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Date,Plate,Type,Observations,Cost,Mileage,SketchJson,VehicleId")] Maintenance maintenance)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Date,Plate,Type,Observations,Cost,Mileage,VehicleId")] Maintenance maintenance)
         {
             if (id != maintenance.Id)
             {

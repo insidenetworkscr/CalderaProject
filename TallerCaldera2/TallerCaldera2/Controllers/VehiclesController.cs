@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TallerCaldera.Models;
 using TallerCaldera2.Models;
@@ -19,122 +14,64 @@ namespace TallerCaldera2.Controllers
             _context = context;
         }
 
-        // GET: Vehicles
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Vehicles.ToListAsync());
+            var vehicles = await _context.Vehicles
+                .OrderByDescending(v => v.CreatedDate)
+                .ToListAsync();
+            return View(vehicles);
         }
 
-        // GET: Vehicles/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var vehicle = await _context.Vehicles
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (vehicle == null)
-            {
-                return NotFound();
-            }
-
+            if (id == null) return NotFound();
+            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == id);
+            if (vehicle == null) return NotFound();
             return View(vehicle);
         }
 
-        // GET: Vehicles/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+        public IActionResult Create() => View();
 
-        // POST: Vehicles/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Plate,CreatedDate,Brand,Model,Year,ClientName,ClientIdNumber,ClientPhone,FuelType,LastMaintenanceDate,OilType,SketchMarksJson")] Vehicle vehicle)
+        public async Task<IActionResult> Create(Vehicle vehicle)
         {
-            if (ModelState.IsValid)
-            {
-                _context.Add(vehicle);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(vehicle);
+            if (!ModelState.IsValid) return View(vehicle);
+            vehicle.CreatedDate = DateTime.UtcNow;
+            _context.Add(vehicle);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: Vehicles/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
+            if (id == null) return NotFound();
             var vehicle = await _context.Vehicles.FindAsync(id);
-            if (vehicle == null)
-            {
-                return NotFound();
-            }
+            if (vehicle == null) return NotFound();
             return View(vehicle);
         }
 
-        // POST: Vehicles/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Plate,CreatedDate,Brand,Model,Year,ClientName,ClientIdNumber,ClientPhone,FuelType,LastMaintenanceDate,OilType,SketchMarksJson")] Vehicle vehicle)
+        public async Task<IActionResult> Edit(int id, Vehicle vehicle)
         {
-            if (id != vehicle.Id)
-            {
-                return NotFound();
-            }
+            if (id != vehicle.Id) return NotFound();
+            if (!ModelState.IsValid) return View(vehicle);
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(vehicle);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!VehicleExists(vehicle.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(vehicle);
+            _context.Update(vehicle);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: Vehicles/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var vehicle = await _context.Vehicles
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (vehicle == null)
-            {
-                return NotFound();
-            }
-
+            if (id == null) return NotFound();
+            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == id);
+            if (vehicle == null) return NotFound();
             return View(vehicle);
         }
 
-        // POST: Vehicles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -143,15 +80,10 @@ namespace TallerCaldera2.Controllers
             if (vehicle != null)
             {
                 _context.Vehicles.Remove(vehicle);
+                await _context.SaveChangesAsync();
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool VehicleExists(int id)
-        {
-            return _context.Vehicles.Any(e => e.Id == id);
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TallerCaldera2.Models;
 
@@ -11,9 +12,11 @@ using TallerCaldera2.Models;
 namespace TallerCaldera2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251107001505_Correcciones")]
+    partial class Correcciones
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,6 +75,10 @@ namespace TallerCaldera2.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Plate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SketchJson")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -193,6 +200,10 @@ namespace TallerCaldera2.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OilType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhotoPath")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

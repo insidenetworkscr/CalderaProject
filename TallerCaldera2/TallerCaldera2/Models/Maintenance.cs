@@ -18,15 +18,13 @@ namespace TallerCaldera.Models
         public decimal? Cost { get; set; }
         public int? Mileage { get; set; } // Kilometraje
 
-        // Boceto específico del mantenimiento
-        public string SketchJson { get; set; }
+
 
         // FK a vehicle
         public int VehicleId { get; set; }
         [ForeignKey("VehicleId")]
         public Vehicle Vehicle { get; set; }
 
-        public ICollection<FileAttachment> Attachments { get; set; } = new List<FileAttachment>();
     }
 }
 

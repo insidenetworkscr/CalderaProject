@@ -1,101 +1,49 @@
 ﻿@model IEnumerable<TallerCaldera.Models.Vehicle>
-
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Vehículos";
 }
 
-<h1>Index</h1>
+<section class="page-block">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="page-title">Vehículos Registrados</h2>
+        <a asp-action="Create" class="btn btn-primary btn-rounded">
+            <i class="bi bi-plus-lg"></i> Nuevo Vehículo
+        </a>
+    </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Plate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Brand)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Model)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Year)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClientName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClientIdNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ClientPhone)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FuelType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastMaintenanceDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.OilType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SketchMarksJson)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Plate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Brand)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Model)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Year)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClientName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClientIdNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ClientPhone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FuelType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastMaintenanceDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OilType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SketchMarksJson)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="row">
+        @foreach (var v in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-soft border-0 rounded-3 h-100">
+                    <div class="card-body">
+                        <h5 class="fw-bold">@v.Brand @v.Model</h5>
+                        <p><strong>Placa:</strong> @v.Plate</p>
+                        <p><strong>Cliente:</strong> @v.ClientName</p>
+                        <p><strong>Teléfono:</strong> @v.ClientPhone</p>
+                        <p><strong>Combustible:</strong> @v.FuelType</p>
+                        <p><strong>Año:</strong> @v.Year</p>
+                        @if (v.LastMaintenanceDate != null)
+                        {
+                            <p><strong>Últ. Mantenimiento:</strong> @v.LastMaintenanceDate?.ToString("dd/MM/yyyy")</p>
+                        }
+                    </div>
+
+                    <div class="card-footer bg-transparent text-end">
+                        <a asp-action="Details" asp-route-id="@v.Id" class="btn btn-sm btn-outline-info">
+                            <i class="bi bi-eye"></i> Ver
+                        </a>
+                        <a asp-action="Edit" asp-route-id="@v.Id" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@v.Id" class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+
+

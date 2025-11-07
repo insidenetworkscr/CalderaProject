@@ -1,89 +1,92 @@
 ﻿@model TallerCaldera.Models.Vehicle
-
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Vehículo";
 }
 
-<h1>Edit</h1>
+<section class="page-block">
+    <h2 class="page-title mb-4">Editar Vehículo</h2>
 
-<h4>Vehicle</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="card shadow-soft p-4">
+        <!-- IMPORTANTE: method="post" y asp-route-id -->
+        <form asp-action="Edit"
+              asp-route-id="@Model.Id"
+              method="post"
+              class="row g-3" novalidate>
+            @Html.AntiForgeryToken()
+
+            <!-- id oculto por si el binder lo necesita del cuerpo -->
             <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <label asp-for="Plate" class="control-label"></label>
-                <input asp-for="Plate" class="form-control" />
+
+            <!-- Si no quieres permitir cambiar la fecha de creación,
+                 envíala como hidden para no perderla -->
+            <input type="hidden" asp-for="CreatedDate" />
+
+            <div class="col-md-4">
+                <label asp-for="Plate" class="form-label">Placa *</label>
+                <input asp-for="Plate" class="form-control" required />
                 <span asp-validation-for="Plate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CreatedDate" class="control-label"></label>
-                <input asp-for="CreatedDate" class="form-control" />
-                <span asp-validation-for="CreatedDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Brand" class="control-label"></label>
-                <input asp-for="Brand" class="form-control" />
+
+            <div class="col-md-4">
+                <label asp-for="Brand" class="form-label">Marca *</label>
+                <input asp-for="Brand" class="form-control" required />
                 <span asp-validation-for="Brand" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Model" class="control-label"></label>
-                <input asp-for="Model" class="form-control" />
+
+            <div class="col-md-4">
+                <label asp-for="Model" class="form-label">Modelo *</label>
+                <input asp-for="Model" class="form-control" required />
                 <span asp-validation-for="Model" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Year" class="control-label"></label>
-                <input asp-for="Year" class="form-control" />
+
+            <div class="col-md-2">
+                <label asp-for="Year" class="form-label">Año</label>
+                <input asp-for="Year" type="number" class="form-control" />
                 <span asp-validation-for="Year" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="ClientName" class="control-label"></label>
-                <input asp-for="ClientName" class="form-control" />
-                <span asp-validation-for="ClientName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ClientIdNumber" class="control-label"></label>
-                <input asp-for="ClientIdNumber" class="form-control" />
-                <span asp-validation-for="ClientIdNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ClientPhone" class="control-label"></label>
-                <input asp-for="ClientPhone" class="form-control" />
-                <span asp-validation-for="ClientPhone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FuelType" class="control-label"></label>
+
+            <div class="col-md-3">
+                <label asp-for="FuelType" class="form-label">Combustible</label>
                 <input asp-for="FuelType" class="form-control" />
                 <span asp-validation-for="FuelType" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="LastMaintenanceDate" class="control-label"></label>
-                <input asp-for="LastMaintenanceDate" class="form-control" />
-                <span asp-validation-for="LastMaintenanceDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OilType" class="control-label"></label>
+
+            <div class="col-md-3">
+                <label asp-for="OilType" class="form-label">Aceite</label>
                 <input asp-for="OilType" class="form-control" />
                 <span asp-validation-for="OilType" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="SketchMarksJson" class="control-label"></label>
-                <input asp-for="SketchMarksJson" class="form-control" />
-                <span asp-validation-for="SketchMarksJson" class="text-danger"></span>
+
+            <div class="col-md-4">
+                <label asp-for="LastMaintenanceDate" class="form-label">Último mantenimiento</label>
+                <input asp-for="LastMaintenanceDate" type="date" class="form-control" />
+                <span asp-validation-for="LastMaintenanceDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+
+            <div class="col-md-6">
+                <label asp-for="ClientName" class="form-label">Cliente *</label>
+                <input asp-for="ClientName" class="form-control" required />
+                <span asp-validation-for="ClientName" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="ClientIdNumber" class="form-label">Cédula</label>
+                <input asp-for="ClientIdNumber" class="form-control" />
+                <span asp-validation-for="ClientIdNumber" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-3">
+                <label asp-for="ClientPhone" class="form-label">Teléfono</label>
+                <input asp-for="ClientPhone" class="form-control" />
+                <span asp-validation-for="ClientPhone" class="text-danger"></span>
+            </div>
+
+            <div class="col-12 text-end mt-3">
+                <a asp-action="Index" class="btn btn-outline-secondary me-2">Cancelar</a>
+                <button type="submit" class="btn btn-primary px-4">Guardar cambios</button>
             </div>
         </form>
     </div>
-</div>
+</section>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
