@@ -14,6 +14,7 @@ namespace TallerCaldera2.Controllers
             _context = context;
         }
 
+        // GET: Vehicles
         public async Task<IActionResult> Index()
         {
             var vehicles = await _context.Vehicles
@@ -22,61 +23,91 @@ namespace TallerCaldera2.Controllers
             return View(vehicles);
         }
 
-        public async Task<IActionResult> Details(int? id)
+        // GET: Vehicles/Details/ABC123
+        public async Task<IActionResult> Details(string plate)
         {
-            if (id == null) return NotFound();
-            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == id);
+            if (plate == null) return NotFound();
+
+            var vehicle = await _context.Vehicles
+                .FirstOrDefaultAsync(v => v.Plate == plate);
+
             if (vehicle == null) return NotFound();
+
             return View(vehicle);
         }
 
+        // GET: Vehicles/Create
         public IActionResult Create() => View();
 
+        // POST: Vehicles/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Vehicle vehicle)
         {
             if (!ModelState.IsValid) return View(vehicle);
+
+            // La placa se escribe manualmente, no se genera
             vehicle.CreatedDate = DateTime.UtcNow;
             _context.Add(vehicle);
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Vehicles/Edit/ABC123
+        public async Task<IActionResult> Edit(string plate)
         {
-            if (id == null) return NotFound();
-            var vehicle = await _context.Vehicles.FindAsync(id);
+            if (plate == null) return NotFound();
+
+            var vehicle = await _context.Vehicles.FindAsync(plate);
             if (vehicle == null) return NotFound();
+
             return View(vehicle);
         }
 
+        // POST: Vehicles/Edit/ABC123
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Vehicle vehicle)
+        public async Task<IActionResult> Edit(string plate, Vehicle vehicle)
         {
-            if (id != vehicle.Id) return NotFound();
+            if (plate != vehicle.Plate) return NotFound();
             if (!ModelState.IsValid) return View(vehicle);
 
-            _context.Update(vehicle);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _context.Update(vehicle);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_context.Vehicles.Any(v => v.Plate == vehicle.Plate))
+                    return NotFound();
+                else
+                    throw;
+            }
 
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Delete(int? id)
+        // GET: Vehicles/Delete/ABC123
+        public async Task<IActionResult> Delete(string plate)
         {
-            if (id == null) return NotFound();
-            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Id == id);
+            if (plate == null) return NotFound();
+
+            var vehicle = await _context.Vehicles
+                .FirstOrDefaultAsync(v => v.Plate == plate);
+
             if (vehicle == null) return NotFound();
+
             return View(vehicle);
         }
 
+        // POST: Vehicles/Delete/ABC123
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string plate)
         {
-            var vehicle = await _context.Vehicles.FindAsync(id);
+            var vehicle = await _context.Vehicles.FindAsync(plate);
             if (vehicle != null)
             {
                 _context.Vehicles.Remove(vehicle);

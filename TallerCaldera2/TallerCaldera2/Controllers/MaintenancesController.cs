@@ -48,7 +48,7 @@ namespace TallerCaldera2.Controllers
         // GET: Maintenances/Create
         public IActionResult Create()
         {
-            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "Plate");
+            ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate");
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace TallerCaldera2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Date,Plate,Type,Observations,Cost,Mileage,VehicleId")] Maintenance maintenance)
+        public async Task<IActionResult> Create([Bind("Id,Date,Type,Observations,Cost,Mileage,VehiclePlate")] Maintenance maintenance)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +65,7 @@ namespace TallerCaldera2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "Plate", maintenance.VehicleId);
+            ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate", maintenance.VehiclePlate);
             return View(maintenance);
         }
 
@@ -82,7 +82,7 @@ namespace TallerCaldera2.Controllers
             {
                 return NotFound();
             }
-            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "Plate", maintenance.VehicleId);
+            ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate", maintenance.VehiclePlate);
             return View(maintenance);
         }
 
@@ -91,7 +91,7 @@ namespace TallerCaldera2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Date,Plate,Type,Observations,Cost,Mileage,VehicleId")] Maintenance maintenance)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Date,Type,Observations,Cost,Mileage,VehiclePlate")] Maintenance maintenance)
         {
             if (id != maintenance.Id)
             {
@@ -118,7 +118,7 @@ namespace TallerCaldera2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["VehicleId"] = new SelectList(_context.Vehicles, "Id", "Plate", maintenance.VehicleId);
+            ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate", maintenance.VehiclePlate);
             return View(maintenance);
         }
 

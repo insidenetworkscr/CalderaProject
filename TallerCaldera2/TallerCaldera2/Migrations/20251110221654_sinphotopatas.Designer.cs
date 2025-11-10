@@ -12,8 +12,8 @@ using TallerCaldera2.Models;
 namespace TallerCaldera2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251105231647_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20251110221654_sinphotopatas")]
+    partial class sinphotopatas
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,47 +53,6 @@ namespace TallerCaldera2.Migrations
                     b.ToTable("Alerts");
                 });
 
-            modelBuilder.Entity("TallerCaldera.Models.FileAttachment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ContentType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FileName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("MaintenanceId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("RelativePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<long>("Size")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("UploadedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int?>("VehicleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("MaintenanceId");
-
-                    b.HasIndex("VehicleId");
-
-                    b.ToTable("FileAttachments");
-                });
-
             modelBuilder.Entity("TallerCaldera.Models.Maintenance", b =>
                 {
                     b.Property<int>("Id")
@@ -119,10 +78,6 @@ namespace TallerCaldera2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SketchJson")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -135,6 +90,71 @@ namespace TallerCaldera2.Migrations
                     b.HasIndex("VehicleId");
 
                     b.ToTable("Maintenances");
+                });
+
+            modelBuilder.Entity("TallerCaldera.Models.Sketch", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("BaseImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Plate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("VehicleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VehicleId");
+
+                    b.ToTable("Sketches");
+                });
+
+            modelBuilder.Entity("TallerCaldera.Models.SketchMark", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Label")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Notes")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Severity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SketchId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("X")
+                        .HasColumnType("float");
+
+                    b.Property<double>("Y")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SketchId");
+
+                    b.ToTable("SketchMarks");
                 });
 
             modelBuilder.Entity("TallerCaldera.Models.Vehicle", b =>
@@ -181,16 +201,14 @@ namespace TallerCaldera2.Migrations
 
                     b.Property<string>("Plate")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SketchMarksJson")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Plate");
 
                     b.ToTable("Vehicles");
                 });
@@ -206,21 +224,6 @@ namespace TallerCaldera2.Migrations
                     b.Navigation("Vehicle");
                 });
 
-            modelBuilder.Entity("TallerCaldera.Models.FileAttachment", b =>
-                {
-                    b.HasOne("TallerCaldera.Models.Maintenance", "Maintenance")
-                        .WithMany("Attachments")
-                        .HasForeignKey("MaintenanceId");
-
-                    b.HasOne("TallerCaldera.Models.Vehicle", "Vehicle")
-                        .WithMany("Attachments")
-                        .HasForeignKey("VehicleId");
-
-                    b.Navigation("Maintenance");
-
-                    b.Navigation("Vehicle");
-                });
-
             modelBuilder.Entity("TallerCaldera.Models.Maintenance", b =>
                 {
                     b.HasOne("TallerCaldera.Models.Vehicle", "Vehicle")
@@ -232,16 +235,38 @@ namespace TallerCaldera2.Migrations
                     b.Navigation("Vehicle");
                 });
 
-            modelBuilder.Entity("TallerCaldera.Models.Maintenance", b =>
+            modelBuilder.Entity("TallerCaldera.Models.Sketch", b =>
                 {
-                    b.Navigation("Attachments");
+                    b.HasOne("TallerCaldera.Models.Vehicle", "Vehicle")
+                        .WithMany("Sketches")
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Vehicle");
+                });
+
+            modelBuilder.Entity("TallerCaldera.Models.SketchMark", b =>
+                {
+                    b.HasOne("TallerCaldera.Models.Sketch", "Sketch")
+                        .WithMany("Marks")
+                        .HasForeignKey("SketchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Sketch");
+                });
+
+            modelBuilder.Entity("TallerCaldera.Models.Sketch", b =>
+                {
+                    b.Navigation("Marks");
                 });
 
             modelBuilder.Entity("TallerCaldera.Models.Vehicle", b =>
                 {
-                    b.Navigation("Attachments");
-
                     b.Navigation("Maintenances");
+
+                    b.Navigation("Sketches");
                 });
 #pragma warning restore 612, 618
         }

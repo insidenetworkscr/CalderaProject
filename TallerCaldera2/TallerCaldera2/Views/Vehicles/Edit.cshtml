@@ -9,13 +9,13 @@
     <div class="card shadow-soft p-4">
         <!-- IMPORTANTE: method="post" y asp-route-id -->
         <form asp-action="Edit"
-              asp-route-id="@Model.Id"
+              asp-route-id="@Model.Plate"
               method="post"
               class="row g-3" novalidate>
             @Html.AntiForgeryToken()
 
             <!-- id oculto por si el binder lo necesita del cuerpo -->
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="Plate" />
 
             <!-- Si no quieres permitir cambiar la fecha de creación,
                  envíala como hidden para no perderla -->

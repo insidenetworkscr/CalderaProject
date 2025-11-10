@@ -10,9 +10,6 @@ namespace TallerCaldera.Models
 
         public DateTime Date { get; set; } = DateTime.UtcNow;
 
-        [Required]
-        public string Plate { get; set; } // para búsquedas rápidas (redundancia)
-
         public string Type { get; set; } // Tipo de mantenimiento
         public string Observations { get; set; }
         public decimal? Cost { get; set; }
@@ -21,10 +18,12 @@ namespace TallerCaldera.Models
 
 
         // FK a vehicle
-        public int VehicleId { get; set; }
-        [ForeignKey("VehicleId")]
-        public Vehicle Vehicle { get; set; }
+        [Required]
+        [ForeignKey("Vehicle")]
+        public string VehiclePlate { get; set; }
 
+        // 🔹 Propiedad de navegación
+        public Vehicle Vehicle { get; set; }
     }
 }
 

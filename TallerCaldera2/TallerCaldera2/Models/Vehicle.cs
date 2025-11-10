@@ -5,9 +5,9 @@ namespace TallerCaldera.Models
 {
     public class Vehicle
     {
-        [Key]
-        public int Id { get; set; }
+     
 
+        [Key] 
         [Required]
         public string Plate { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
@@ -22,9 +22,10 @@ namespace TallerCaldera.Models
 
         public string FuelType { get; set; }
         public DateTime? LastMaintenanceDate { get; set; }
+
         public string OilType { get; set; }
 
         public ICollection<Maintenance> Maintenances { get; set; } = new List<Maintenance>();
-        public ICollection<Sketch> Sketches { get; set; } = new List<Sketch>();
+        //public ICollection<Sketch> Sketches { get; set; } = new List<Sketch>();
     }
 }

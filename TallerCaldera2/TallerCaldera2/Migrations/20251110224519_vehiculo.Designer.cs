@@ -12,8 +12,8 @@ using TallerCaldera2.Models;
 namespace TallerCaldera2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251107023237_RemoveVehicleImagesAndFiles")]
-    partial class RemoveVehicleImagesAndFiles
+    [Migration("20251110224519_vehiculo")]
+    partial class vehiculo
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,9 +46,13 @@ namespace TallerCaldera2.Migrations
                     b.Property<int>("VehicleId")
                         .HasColumnType("int");
 
+                    b.Property<string>("VehiclePlate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("VehicleId");
+                    b.HasIndex("VehiclePlate");
 
                     b.ToTable("Alerts");
                 });
@@ -74,96 +78,25 @@ namespace TallerCaldera2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Plate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("int");
+                    b.Property<string>("VehiclePlate")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("VehicleId");
+                    b.HasIndex("VehiclePlate");
 
                     b.ToTable("Maintenances");
                 });
 
-            modelBuilder.Entity("TallerCaldera.Models.Sketch", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("BaseImagePath")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Plate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("VehicleId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("VehicleId");
-
-                    b.ToTable("Sketches");
-                });
-
-            modelBuilder.Entity("TallerCaldera.Models.SketchMark", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Label")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Notes")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Severity")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SketchId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("X")
-                        .HasColumnType("float");
-
-                    b.Property<double>("Y")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SketchId");
-
-                    b.ToTable("SketchMarks");
-                });
-
             modelBuilder.Entity("TallerCaldera.Models.Vehicle", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("Plate")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Brand")
                         .IsRequired()
@@ -199,16 +132,13 @@ namespace TallerCaldera2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Plate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("Plate");
 
-                    b.HasIndex("Plate");
+                    b.HasIndex("Plate")
+                        .IsUnique();
 
                     b.ToTable("Vehicles");
                 });
@@ -217,7 +147,7 @@ namespace TallerCaldera2.Migrations
                 {
                     b.HasOne("TallerCaldera.Models.Vehicle", "Vehicle")
                         .WithMany()
-                        .HasForeignKey("VehicleId")
+                        .HasForeignKey("VehiclePlate")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -228,45 +158,16 @@ namespace TallerCaldera2.Migrations
                 {
                     b.HasOne("TallerCaldera.Models.Vehicle", "Vehicle")
                         .WithMany("Maintenances")
-                        .HasForeignKey("VehicleId")
+                        .HasForeignKey("VehiclePlate")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Vehicle");
-                });
-
-            modelBuilder.Entity("TallerCaldera.Models.Sketch", b =>
-                {
-                    b.HasOne("TallerCaldera.Models.Vehicle", "Vehicle")
-                        .WithMany("Sketches")
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Vehicle");
-                });
-
-            modelBuilder.Entity("TallerCaldera.Models.SketchMark", b =>
-                {
-                    b.HasOne("TallerCaldera.Models.Sketch", "Sketch")
-                        .WithMany("Marks")
-                        .HasForeignKey("SketchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Sketch");
-                });
-
-            modelBuilder.Entity("TallerCaldera.Models.Sketch", b =>
-                {
-                    b.Navigation("Marks");
                 });
 
             modelBuilder.Entity("TallerCaldera.Models.Vehicle", b =>
                 {
                     b.Navigation("Maintenances");
-
-                    b.Navigation("Sketches");
                 });
 #pragma warning restore 612, 618
         }

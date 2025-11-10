@@ -3,21 +3,42 @@
     ViewData["Title"] = "Eliminar Vehículo";
 }
 
-<section class="page-block">
-    <h2 class="page-title text-danger mb-4">Eliminar Vehículo</h2>
+<div class="container py-4 px-5">
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body">
+            <h3 class="text-danger mb-4">¿Estás seguro de eliminar este vehículo?</h3>
+            <p class="text-muted mb-4">
+                Esta acción eliminará <strong>permanentemente</strong> el vehículo y todos sus mantenimientos asociados.
+            </p>
 
-    <div class="card shadow-soft p-4">
-        <p>¿Seguro que deseas eliminar <strong>@Model.Brand @Model.Model</strong> (Placa: <strong>@Model.Plate</strong>)?</p>
+            <dl class="row">
+                <dt class="col-sm-3">Placa</dt>
+                <dd class="col-sm-9">@Model.Plate</dd>
 
-        <form asp-action="Delete">
-            <input type="hidden" asp-for="Id" />
-            <div class="text-end mt-3">
-                <a asp-action="Index" class="btn btn-outline-secondary me-2">Cancelar</a>
-                <button type="submit" class="btn btn-danger px-4">
-                    <i class="bi bi-trash"></i> Eliminar
-                </button>
-            </div>
-        </form>
+                <dt class="col-sm-3">Cliente</dt>
+                <dd class="col-sm-9">@Model.ClientName</dd>
+
+                <dt class="col-sm-3">Vehículo</dt>
+                <dd class="col-sm-9">@Model.Brand @Model.Model (@Model.Year)</dd>
+
+                <dt class="col-sm-3">Teléfono</dt>
+                <dd class="col-sm-9">@Model.ClientPhone</dd>
+
+                <dt class="col-sm-3">Registrado</dt>
+                <dd class="col-sm-9">@Model.CreatedDate.ToString("dd/MM/yyyy")</dd>
+            </dl>
+
+            <form asp-action="Delete" method="post">
+                <input type="hidden" asp-for="Plate" />
+                <div class="d-flex justify-content-end mt-4">
+                    <a asp-action="Index" class="btn btn-outline-secondary me-2">
+                        <i class="bi bi-arrow-left"></i> Cancelar
+                    </a>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="bi bi-trash"></i> Eliminar
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
-</section>
-
+</div>
