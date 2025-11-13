@@ -1,58 +1,69 @@
 ﻿@model TallerCaldera.Models.Maintenance
 
 @{
-    ViewData["Title"] = "Editar mantenimiento";
+    ViewData["Title"] = "Editar Mantenimiento";
 }
 
-<h1>Editar mantenimiento</h1>
-
+<h1>Editar Mantenimiento</h1>
 <hr />
-<div class="row">
-    <div class="col-md-6">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
 
-            <div class="form-group mb-3">
-                <label asp-for="Date" class="control-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
+<form asp-action="Edit" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
 
-            <div class="form-group mb-3">
-                <label asp-for="Type" class="control-label"></label>
-                <input asp-for="Type" class="form-control" />
-                <span asp-validation-for="Type" class="text-danger"></span>
-            </div>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <div class="form-group mb-3">
-                <label asp-for="Observations" class="control-label"></label>
-                <input asp-for="Observations" class="form-control" />
-                <span asp-validation-for="Observations" class="text-danger"></span>
-            </div>
-
-            <div class="form-group mb-3">
-                <label asp-for="Cost" class="control-label"></label>
-                <input asp-for="Cost" class="form-control" />
-                <span asp-validation-for="Cost" class="text-danger"></span>
-            </div>
-
-            <div class="form-group mb-3">
-                <label asp-for="Mileage" class="control-label"></label>
-                <input asp-for="Mileage" class="form-control" />
-                <span asp-validation-for="Mileage" class="text-danger"></span>
-            </div>
-
-            <div class="form-group mb-3">
-                <label asp-for="VehiclePlate" class="control-label"></label>
-                <select asp-for="VehiclePlate" class="form-control" asp-items="ViewBag.VehiclePlate"></select>
-                <span asp-validation-for="VehiclePlate" class="text-danger"></span>
-            </div>
-
-            <div class="form-group mt-3">
-                <input type="submit" value="Guardar" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary ms-2">Volver a la lista</a>
-            </div>
-        </form>
+    <div class="mb-3">
+        <label asp-for="Date" class="form-label"></label>
+        <input asp-for="Date" class="form-control" />
     </div>
-</div>
+
+    <div class="mb-3">
+        <label asp-for="Type" class="form-label"></label>
+        <input asp-for="Type" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Observations" class="form-label"></label>
+        <input asp-for="Observations" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Cost" class="form-label"></label>
+        <input asp-for="Cost" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Mileage" class="form-label"></label>
+        <input asp-for="Mileage" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="VehiclePlate" class="form-label"></label>
+        <select asp-for="VehiclePlate" asp-items="ViewBag.VehiclePlate" class="form-control"></select>
+    </div>
+
+    <hr />
+
+    <h4>Agregar nuevas fotos</h4>
+    <input type="file" name="newPhotos" multiple class="form-control mb-3" accept="image/*" />
+
+    <h4>Fotos existentes</h4>
+
+    <div class="row">
+        @foreach (var photo in Model.Photos)
+        {
+            <div class="col-md-3 text-center mb-3">
+                <img src="@photo.ImageUrl" class="img-fluid rounded shadow-sm mb-2" />
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="deletePhotos" value="@photo.Id" />
+                    <label class="form-check-label">Eliminar</label>
+                </div>
+            </div>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3">Guardar cambios</button>
+    <a asp-action="Index" class="btn btn-secondary mt-3">Volver</a>
+
+</form>

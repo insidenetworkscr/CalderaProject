@@ -13,29 +13,41 @@
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.Date)</th>
-            <th>@Html.DisplayNameFor(model => model.Type)</th>
-            <th>@Html.DisplayNameFor(model => model.Observations)</th>
-            <th>@Html.DisplayNameFor(model => model.Cost)</th>
-            <th>@Html.DisplayNameFor(model => model.Mileage)</th>
+            <th>Fecha</th>
+            <th>Tipo</th>
             <th>Placa</th>
+            <th>Costo</th>
+            <th>Fotos</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var m in Model)
         {
             <tr>
-                <td>@item.Date.ToString("dd/MM/yyyy")</td>
-                <td>@item.Type</td>
-                <td>@(string.IsNullOrWhiteSpace(item.Observations) ? "—" : item.Observations)</td>
-                <td>₡@(item.Cost?.ToString("N0") ?? "0")</td>
-                <td>@(item.Mileage?.ToString("N0") ?? "—") km</td>
-                <td>@(item.Vehicle?.Plate ?? item.VehiclePlate)</td>
+                <td>@m.Date.ToString("dd/MM/yyyy")</td>
+                <td>@m.Type</td>
+                <td>@m.VehiclePlate</td>
+                <td>₡@(m.Cost?.ToString("N0") ?? "0")</td>
+
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
+                    @if (m.Photos != null && m.Photos.Any())
+                    {
+                        foreach (var p in m.Photos.Take(3))
+                        {
+                            <img src="@p.ImageUrl" width="50" class="rounded me-1 shadow-sm" />
+                        }
+                    }
+                    else
+                    {
+                        <span class="text-muted">—</span>
+                    }
+                </td>
+
+                <td>
+                    <a asp-action="Details" asp-route-id="@m.Id">Ver</a> |
+                    <a asp-action="Edit" asp-route-id="@m.Id">Editar</a> |
+                    <a asp-action="Delete" asp-route-id="@m.Id">Eliminar</a>
                 </td>
             </tr>
         }

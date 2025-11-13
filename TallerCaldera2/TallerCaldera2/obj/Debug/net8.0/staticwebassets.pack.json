@@ -245,6 +245,14 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "C:\\Proyectos2\\InsideProject\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\mantenimientos\\0a357577-5473-4e0c-9288-6686a077e9be.jpeg",
+      "PackagePath": "staticwebassets\\uploads\\mantenimientos\\0a357577-5473-4e0c-9288-6686a077e9be.jpeg"
+    },
+    {
+      "Id": "C:\\Proyectos2\\InsideProject\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\mantenimientos\\3c87fe8d-1906-4a7a-ac75-0e7b1a3caa6f.png",
+      "PackagePath": "staticwebassets\\uploads\\mantenimientos\\3c87fe8d-1906-4a7a-ac75-0e7b1a3caa6f.png"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.TallerCaldera2.Microsoft.AspNetCore.StaticWebAssetEndpoints.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssetEndpoints.props"
     },

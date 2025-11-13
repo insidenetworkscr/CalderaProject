@@ -1,9 +1,6 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using TallerCaldera.Models;
 using TallerCaldera2.Models;
 
@@ -12,26 +9,28 @@ namespace TallerCaldera2.Controllers
     public class MaintenancesController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly ILogger<MaintenancesController> _logger;
+        private readonly string uploadPath;
 
-        public MaintenancesController(ApplicationDbContext context, ILogger<MaintenancesController> logger)
+        public MaintenancesController(ApplicationDbContext context)
         {
             _context = context;
-            _logger = logger;
+            uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/mantenimientos");
+
+            if (!Directory.Exists(uploadPath))
+                Directory.CreateDirectory(uploadPath);
         }
 
-        // GET: Maintenances
+        // INDEX
         public async Task<IActionResult> Index()
         {
-            var query = _context.Maintenances
+            var data = _context.Maintenances
                 .Include(m => m.Vehicle)
-                .OrderByDescending(m => m.Date);
+                .Include(m => m.Photos);
 
-            var list = await query.ToListAsync();
-            return View(list);
+            return View(await data.ToListAsync());
         }
 
-        // GET: Maintenances/Details/5
+        // DETAILS
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -39,6 +38,7 @@ namespace TallerCaldera2.Controllers
 
             var maintenance = await _context.Maintenances
                 .Include(m => m.Vehicle)
+                .Include(m => m.Photos)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (maintenance == null)
@@ -47,48 +47,49 @@ namespace TallerCaldera2.Controllers
             return View(maintenance);
         }
 
-        // GET: Maintenances/Create
-        // opcionalmente recibe plate desde Detalles del vehículo
+        // GET: Create
         public IActionResult Create(string? vehiclePlate)
         {
-            ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate", vehiclePlate);
+            ViewData["VehiclePlate"] =
+                new SelectList(_context.Vehicles, "Plate", "Plate", vehiclePlate);
+
             return View();
         }
 
-        // POST: Maintenances/Create
+        // POST: Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Date,Type,Observations,Cost,Mileage,VehiclePlate")] Maintenance maintenance)
+        public async Task<IActionResult> Create(Maintenance maintenance, List<IFormFile> photos)
         {
-            _logger.LogInformation("=== POST /Maintenances/Create ===");
-            _logger.LogInformation("VehiclePlate: {Plate}, Type: {Type}, Cost: {Cost}, Date: {Date}",
-                maintenance.VehiclePlate, maintenance.Type, maintenance.Cost, maintenance.Date);
-
-            // Evitar que la navegación 'Vehicle' rompa la validación
             ModelState.Remove(nameof(Maintenance.Vehicle));
 
             if (!ModelState.IsValid)
             {
-                _logger.LogWarning("ModelState inválido en Create Maintenance:");
-                foreach (var kvp in ModelState)
-                {
-                    foreach (var error in kvp.Value.Errors)
-                    {
-                        _logger.LogWarning(" - {Key}: {Error}", kvp.Key, error.ErrorMessage);
-                    }
-                }
-
-                ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate", maintenance.VehiclePlate);
+                ViewData["VehiclePlate"] =
+                    new SelectList(_context.Vehicles, "Plate", "Plate", maintenance.VehiclePlate);
                 return View(maintenance);
             }
 
             _context.Add(maintenance);
+            await _context.SaveChangesAsync();
 
-            // Actualizar fecha del último mantenimiento del vehículo
-            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Plate == maintenance.VehiclePlate);
-            if (vehicle != null)
+            // GUARDAR FOTOS
+            foreach (var file in photos)
             {
-                vehicle.LastMaintenanceDate = maintenance.Date;
+                if (file.Length > 0)
+                {
+                    string fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+                    string filePath = Path.Combine(uploadPath, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                        await file.CopyToAsync(stream);
+
+                    _context.MaintenancePhotos.Add(new MaintenancePhoto
+                    {
+                        MaintenanceId = maintenance.Id,
+                        ImageUrl = $"/uploads/mantenimientos/{fileName}"
+                    });
+                }
             }
 
             await _context.SaveChangesAsync();
@@ -96,25 +97,26 @@ namespace TallerCaldera2.Controllers
             return RedirectToAction("Details", "Vehicles", new { plate = maintenance.VehiclePlate });
         }
 
-        // GET: Maintenances/Edit/5
+        // GET: Edit
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
-                return NotFound();
+            if (id == null) return NotFound();
 
-            var maintenance = await _context.Maintenances.FindAsync(id);
-            if (maintenance == null)
-                return NotFound();
+            var maintenance = await _context.Maintenances
+                .Include(m => m.Photos)
+                .FirstOrDefaultAsync(m => m.Id == id);
 
-            ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate", maintenance.VehiclePlate);
+            if (maintenance == null) return NotFound();
+
+            ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate");
 
             return View(maintenance);
         }
 
-        // POST: Maintenances/Edit/5
+        // POST: Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Date,Type,Observations,Cost,Mileage,VehiclePlate")] Maintenance maintenance)
+        public async Task<IActionResult> Edit(int id, Maintenance maintenance, List<IFormFile> newPhotos, List<int> deletePhotos)
         {
             if (id != maintenance.Id)
                 return NotFound();
@@ -123,89 +125,80 @@ namespace TallerCaldera2.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate", maintenance.VehiclePlate);
+                ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate");
                 return View(maintenance);
             }
 
-            try
-            {
-                _context.Update(maintenance);
+            _context.Update(maintenance);
+            await _context.SaveChangesAsync();
 
-                var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Plate == maintenance.VehiclePlate);
-                if (vehicle != null)
+            // ELIMINAR FOTOS SELECCIONADAS
+            if (deletePhotos != null)
+            {
+                foreach (var photoId in deletePhotos)
                 {
-                    // si quieres, solo actualizar si es la fecha más reciente
-                    if (!vehicle.LastMaintenanceDate.HasValue || maintenance.Date > vehicle.LastMaintenanceDate.Value)
+                    var photo = await _context.MaintenancePhotos.FindAsync(photoId);
+
+                    if (photo != null)
                     {
-                        vehicle.LastMaintenanceDate = maintenance.Date;
+                        string physicalPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", photo.ImageUrl.TrimStart('/'));
+
+                        if (System.IO.File.Exists(physicalPath))
+                            System.IO.File.Delete(physicalPath);
+
+                        _context.MaintenancePhotos.Remove(photo);
                     }
                 }
-
-                await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException)
+
+            // AGREGAR NUEVAS FOTOS
+            foreach (var file in newPhotos)
             {
-                if (!MaintenanceExists(maintenance.Id))
-                    return NotFound();
-                else
-                    throw;
+                if (file.Length > 0)
+                {
+                    string fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
+                    string filePath = Path.Combine(uploadPath, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                        await file.CopyToAsync(stream);
+
+                    _context.MaintenancePhotos.Add(new MaintenancePhoto
+                    {
+                        MaintenanceId = maintenance.Id,
+                        ImageUrl = $"/uploads/mantenimientos/{fileName}"
+                    });
+                }
             }
 
-            return RedirectToAction("Details", "Vehicles", new { plate = maintenance.VehiclePlate });
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Details", "Maintenances", new { id = maintenance.Id });
         }
 
-        // GET: Maintenances/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-                return NotFound();
-
-            var maintenance = await _context.Maintenances
-                .Include(m => m.Vehicle)
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (maintenance == null)
-                return NotFound();
-
-            return View(maintenance);
-        }
-
-        // POST: Maintenances/Delete/5
+        // DELETE
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var maintenance = await _context.Maintenances.FindAsync(id);
+            var maintenance = await _context.Maintenances
+                .Include(m => m.Photos)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
             if (maintenance != null)
             {
-                var plate = maintenance.VehiclePlate;
+                foreach (var photo in maintenance.Photos)
+                {
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", photo.ImageUrl.TrimStart('/'));
+
+                    if (System.IO.File.Exists(path))
+                        System.IO.File.Delete(path);
+                }
 
                 _context.Maintenances.Remove(maintenance);
                 await _context.SaveChangesAsync();
-
-                // Recalcular última fecha de mantenimiento
-                var vehicle = await _context.Vehicles
-                    .Include(v => v.Maintenances)
-                    .FirstOrDefaultAsync(v => v.Plate == plate);
-
-                if (vehicle != null)
-                {
-                    vehicle.LastMaintenanceDate = vehicle.Maintenances.Any()
-                        ? vehicle.Maintenances.Max(m => m.Date)
-                        : null;
-
-                    await _context.SaveChangesAsync();
-                }
-
-                return RedirectToAction("Details", "Vehicles", new { plate });
             }
 
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool MaintenanceExists(int id)
-        {
-            return _context.Maintenances.Any(e => e.Id == id);
         }
     }
 }

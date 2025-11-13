@@ -13,6 +13,7 @@ namespace TallerCaldera2.Models
         public DbSet<Vehicle> Vehicles { get; set; }
         public DbSet<Maintenance> Maintenances { get; set; }
         public DbSet<Alert> Alerts { get; set; }
+        public DbSet<MaintenancePhoto> MaintenancePhotos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder b)
         {
@@ -22,23 +23,28 @@ namespace TallerCaldera2.Models
             b.Entity<Vehicle>(entity =>
             {
                 entity.HasKey(v => v.Plate);
-
-                entity.HasIndex(v => v.Plate)
-                      .IsUnique(true);
+                entity.HasIndex(v => v.Plate).IsUnique(true);
             });
 
             // MAINTENANCE
             b.Entity<Maintenance>(entity =>
             {
                 entity.Property(m => m.Cost)
-                      .HasColumnType("decimal(18,2)");
+                    .HasColumnType("decimal(18,2)");
 
                 entity.HasOne(m => m.Vehicle)
-                      .WithMany(v => v.Maintenances)
-                      .HasForeignKey(m => m.VehiclePlate)
-                      .HasPrincipalKey(v => v.Plate)
-                      .OnDelete(DeleteBehavior.Cascade);
+                    .WithMany(v => v.Maintenances)
+                    .HasForeignKey(m => m.VehiclePlate)
+                    .HasPrincipalKey(v => v.Plate)
+                    .OnDelete(DeleteBehavior.Cascade);
             });
+
+            b.Entity<MaintenancePhoto>()
+                .HasOne(p => p.Maintenance)
+                .WithMany(m => m.Photos)
+                .HasForeignKey(p => p.MaintenanceId)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }
