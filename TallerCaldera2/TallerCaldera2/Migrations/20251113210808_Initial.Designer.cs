@@ -12,8 +12,8 @@ using TallerCaldera2.Models;
 namespace TallerCaldera2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251110224519_vehiculo")]
-    partial class vehiculo
+    [Migration("20251113210808_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

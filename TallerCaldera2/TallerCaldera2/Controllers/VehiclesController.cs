@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TallerCaldera.Models;
 using TallerCaldera2.Models;
@@ -20,6 +22,7 @@ namespace TallerCaldera2.Controllers
             var vehicles = await _context.Vehicles
                 .OrderByDescending(v => v.CreatedDate)
                 .ToListAsync();
+
             return View(vehicles);
         }
 
@@ -29,6 +32,7 @@ namespace TallerCaldera2.Controllers
             if (plate == null) return NotFound();
 
             var vehicle = await _context.Vehicles
+                .Include(v => v.Maintenances)
                 .FirstOrDefaultAsync(v => v.Plate == plate);
 
             if (vehicle == null) return NotFound();
@@ -46,7 +50,6 @@ namespace TallerCaldera2.Controllers
         {
             if (!ModelState.IsValid) return View(vehicle);
 
-            // La placa se escribe manualmente, no se genera
             vehicle.CreatedDate = DateTime.UtcNow;
             _context.Add(vehicle);
             await _context.SaveChangesAsync();

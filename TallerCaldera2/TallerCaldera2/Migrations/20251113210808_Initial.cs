@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TallerCaldera2.Migrations
 {
     /// <inheritdoc />
-    public partial class sinphotopatas : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,8 +15,6 @@ namespace TallerCaldera2.Migrations
                 name: "Vehicles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     Plate = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Brand = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -31,7 +29,7 @@ namespace TallerCaldera2.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Vehicles", x => x.Id);
+                    table.PrimaryKey("PK_Vehicles", x => x.Plate);
                 });
 
             migrationBuilder.CreateTable(
@@ -41,6 +39,7 @@ namespace TallerCaldera2.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     VehicleId = table.Column<int>(type: "int", nullable: false),
+                    VehiclePlate = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Message = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsShown = table.Column<bool>(type: "bit", nullable: false)
@@ -49,10 +48,10 @@ namespace TallerCaldera2.Migrations
                 {
                     table.PrimaryKey("PK_Alerts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Alerts_Vehicles_VehicleId",
-                        column: x => x.VehicleId,
+                        name: "FK_Alerts_Vehicles_VehiclePlate",
+                        column: x => x.VehiclePlate,
                         principalTable: "Vehicles",
-                        principalColumn: "Id",
+                        principalColumn: "Plate",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -63,94 +62,38 @@ namespace TallerCaldera2.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Plate = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Observations = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Cost = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     Mileage = table.Column<int>(type: "int", nullable: true),
-                    VehicleId = table.Column<int>(type: "int", nullable: false)
+                    VehiclePlate = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Maintenances", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Maintenances_Vehicles_VehicleId",
-                        column: x => x.VehicleId,
+                        name: "FK_Maintenances_Vehicles_VehiclePlate",
+                        column: x => x.VehiclePlate,
                         principalTable: "Vehicles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Sketches",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    VehicleId = table.Column<int>(type: "int", nullable: false),
-                    Plate = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BaseImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Sketches", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Sketches_Vehicles_VehicleId",
-                        column: x => x.VehicleId,
-                        principalTable: "Vehicles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SketchMarks",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SketchId = table.Column<int>(type: "int", nullable: false),
-                    X = table.Column<double>(type: "float", nullable: false),
-                    Y = table.Column<double>(type: "float", nullable: false),
-                    Label = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Severity = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Notes = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SketchMarks", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_SketchMarks_Sketches_SketchId",
-                        column: x => x.SketchId,
-                        principalTable: "Sketches",
-                        principalColumn: "Id",
+                        principalColumn: "Plate",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Alerts_VehicleId",
+                name: "IX_Alerts_VehiclePlate",
                 table: "Alerts",
-                column: "VehicleId");
+                column: "VehiclePlate");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Maintenances_VehicleId",
+                name: "IX_Maintenances_VehiclePlate",
                 table: "Maintenances",
-                column: "VehicleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Sketches_VehicleId",
-                table: "Sketches",
-                column: "VehicleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SketchMarks_SketchId",
-                table: "SketchMarks",
-                column: "SketchId");
+                column: "VehiclePlate");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vehicles_Plate",
                 table: "Vehicles",
-                column: "Plate");
+                column: "Plate",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -161,12 +104,6 @@ namespace TallerCaldera2.Migrations
 
             migrationBuilder.DropTable(
                 name: "Maintenances");
-
-            migrationBuilder.DropTable(
-                name: "SketchMarks");
-
-            migrationBuilder.DropTable(
-                name: "Sketches");
 
             migrationBuilder.DropTable(
                 name: "Vehicles");

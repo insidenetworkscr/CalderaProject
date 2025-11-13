@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace TallerCaldera.Models
 {
@@ -8,22 +10,28 @@ namespace TallerCaldera.Models
         [Key]
         public int Id { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; } = DateTime.UtcNow;
 
+        [Required]
+        [StringLength(200)]
         public string Type { get; set; } // Tipo de mantenimiento
-        public string Observations { get; set; }
+
+        [StringLength(2000)]
+        public string? Observations { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
         public decimal? Cost { get; set; }
+
         public int? Mileage { get; set; } // Kilometraje
 
-
-
-        // FK a vehicle
+        // 🔹 Llave foránea basada en la placa
         [Required]
-        [ForeignKey("Vehicle")]
         public string VehiclePlate { get; set; }
 
-        // 🔹 Propiedad de navegación
-        public Vehicle Vehicle { get; set; }
+        // 🔹 Propiedad de navegación (NO se valida en el ModelState)
+        [ForeignKey(nameof(VehiclePlate))]
+        [ValidateNever]
+        public Vehicle? Vehicle { get; set; }
     }
 }
-

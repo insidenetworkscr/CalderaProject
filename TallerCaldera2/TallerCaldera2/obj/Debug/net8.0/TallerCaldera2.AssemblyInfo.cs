@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TallerCaldera2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+afe10ced438779f222dca2d71076b8de83e9dec5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+982d0a21ad755629ee40fd43fe06a224868c7cda")]
 [assembly: System.Reflection.AssemblyProductAttribute("TallerCaldera2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TallerCaldera2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

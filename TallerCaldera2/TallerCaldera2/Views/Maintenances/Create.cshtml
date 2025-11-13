@@ -1,54 +1,57 @@
 ﻿@model TallerCaldera.Models.Maintenance
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Crear mantenimiento";
 }
 
-<h1>Create</h1>
+<h1>Crear mantenimiento</h1>
 
-<h4>Maintenance</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+
+            <div class="form-group mb-3">
                 <label asp-for="Date" class="control-label"></label>
                 <input asp-for="Date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <div class="form-group mb-3">
                 <label asp-for="Type" class="control-label"></label>
                 <input asp-for="Type" class="form-control" />
                 <span asp-validation-for="Type" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <div class="form-group mb-3">
                 <label asp-for="Observations" class="control-label"></label>
                 <input asp-for="Observations" class="form-control" />
                 <span asp-validation-for="Observations" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <div class="form-group mb-3">
                 <label asp-for="Cost" class="control-label"></label>
                 <input asp-for="Cost" class="form-control" />
                 <span asp-validation-for="Cost" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <div class="form-group mb-3">
                 <label asp-for="Mileage" class="control-label"></label>
                 <input asp-for="Mileage" class="form-control" />
                 <span asp-validation-for="Mileage" class="text-danger"></span>
             </div>
-            <div class="form-group">
+
+            <div class="form-group mb-3">
                 <label asp-for="VehiclePlate" class="control-label"></label>
-                <select asp-for="VehiclePlate" class ="form-control" asp-items="ViewBag.VehiclePlate"></select>
+                <select asp-for="VehiclePlate" class="form-control" asp-items="ViewBag.VehiclePlate"></select>
+                <span asp-validation-for="VehiclePlate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Crear" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary ms-2">Volver a la lista</a>
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-

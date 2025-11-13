@@ -1,54 +1,45 @@
 ﻿@model TallerCaldera.Models.Maintenance
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalle de mantenimiento";
 }
 
-<h1>Details</h1>
+<h1>Detalle de mantenimiento</h1>
 
 <div>
-    <h4>Maintenance</h4>
-    <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Date)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Date)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Observations)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Observations)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Cost)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Cost)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Mileage)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Mileage)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Vehicle)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Vehicle.Plate)
+        <dt class="col-sm-2">Fecha</dt>
+        <dd class="col-sm-10">@Model.Date.ToString("dd/MM/yyyy")</dd>
+
+        <dt class="col-sm-2">Tipo</dt>
+        <dd class="col-sm-10">@Model.Type</dd>
+
+        <dt class="col-sm-2">Observaciones</dt>
+        <dd class="col-sm-10">@Model.Observations</dd>
+
+        <dt class="col-sm-2">Costo</dt>
+        <dd class="col-sm-10">₡@(Model.Cost?.ToString("N0") ?? "0")</dd>
+
+        <dt class="col-sm-2">Kilometraje</dt>
+        <dd class="col-sm-10">@((Model.Mileage?.ToString("N0") ?? "—") + " km")</dd>
+
+        <dt class="col-sm-2">Vehículo</dt>
+        <dd class="col-sm-10">
+            @if (Model.Vehicle != null)
+            {
+                <a asp-controller="Vehicles" asp-action="Details" asp-route-plate="@Model.VehiclePlate">
+                    @Model.VehiclePlate - @Model.Vehicle.Brand @Model.Vehicle.Model
+                </a>
+            }
+            else
+            {
+                @Model.VehiclePlate
+            }
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Editar</a>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Volver a la lista</a>
 </div>

@@ -1,15 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-using TallerCaldera2.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TallerCaldera.Models
 {
     public class Vehicle
     {
-     
-
-        [Key] 
+        [Key]
         [Required]
         public string Plate { get; set; }
+
         public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
         public string Brand { get; set; }
@@ -22,10 +22,8 @@ namespace TallerCaldera.Models
 
         public string FuelType { get; set; }
         public DateTime? LastMaintenanceDate { get; set; }
-
         public string OilType { get; set; }
 
         public ICollection<Maintenance> Maintenances { get; set; } = new List<Maintenance>();
-        //public ICollection<Sketch> Sketches { get; set; } = new List<Sketch>();
     }
 }
