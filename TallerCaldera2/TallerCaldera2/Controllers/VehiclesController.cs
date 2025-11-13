@@ -29,13 +29,22 @@ namespace TallerCaldera2.Controllers
         // GET: Vehicles/Details/ABC123
         public async Task<IActionResult> Details(string plate)
         {
-            if (plate == null) return NotFound();
+            if (plate == null)
+                return NotFound();
 
+            // 📌 ***ESTO ES LO IMPORTANTE***
+            // Aquí se cargan los mantenimientos con:
+            // - Fotos
+            // - Bocetos
             var vehicle = await _context.Vehicles
                 .Include(v => v.Maintenances)
+                    .ThenInclude(m => m.Photos)
+                .Include(v => v.Maintenances)
+                    .ThenInclude(m => m.SketchMarks)
                 .FirstOrDefaultAsync(v => v.Plate == plate);
 
-            if (vehicle == null) return NotFound();
+            if (vehicle == null)
+                return NotFound();
 
             return View(vehicle);
         }
@@ -48,7 +57,8 @@ namespace TallerCaldera2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Vehicle vehicle)
         {
-            if (!ModelState.IsValid) return View(vehicle);
+            if (!ModelState.IsValid)
+                return View(vehicle);
 
             vehicle.CreatedDate = DateTime.UtcNow;
             _context.Add(vehicle);
@@ -60,10 +70,12 @@ namespace TallerCaldera2.Controllers
         // GET: Vehicles/Edit/ABC123
         public async Task<IActionResult> Edit(string plate)
         {
-            if (plate == null) return NotFound();
+            if (plate == null)
+                return NotFound();
 
             var vehicle = await _context.Vehicles.FindAsync(plate);
-            if (vehicle == null) return NotFound();
+            if (vehicle == null)
+                return NotFound();
 
             return View(vehicle);
         }
@@ -73,8 +85,11 @@ namespace TallerCaldera2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string plate, Vehicle vehicle)
         {
-            if (plate != vehicle.Plate) return NotFound();
-            if (!ModelState.IsValid) return View(vehicle);
+            if (plate != vehicle.Plate)
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return View(vehicle);
 
             try
             {
@@ -95,12 +110,14 @@ namespace TallerCaldera2.Controllers
         // GET: Vehicles/Delete/ABC123
         public async Task<IActionResult> Delete(string plate)
         {
-            if (plate == null) return NotFound();
+            if (plate == null)
+                return NotFound();
 
             var vehicle = await _context.Vehicles
                 .FirstOrDefaultAsync(v => v.Plate == plate);
 
-            if (vehicle == null) return NotFound();
+            if (vehicle == null)
+                return NotFound();
 
             return View(vehicle);
         }

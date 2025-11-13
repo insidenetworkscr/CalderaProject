@@ -1,69 +1,173 @@
 ﻿@model TallerCaldera.Models.Maintenance
 
 @{
-    ViewData["Title"] = "Editar Mantenimiento";
+    ViewData["Title"] = "Editar mantenimiento";
+    var initialSketch = string.Join("|", Model.SketchMarks?.Select(m => m.PosX + "," + m.PosY) ?? Enumerable.Empty<string>());
 }
 
-<h1>Editar Mantenimiento</h1>
-<hr />
+<h1>Editar mantenimiento</h1>
 
-<form asp-action="Edit" enctype="multipart/form-data">
-    <input type="hidden" asp-for="Id" />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit" enctype="multipart/form-data">
+       
 
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <div class="mb-3">
-        <label asp-for="Date" class="form-label"></label>
-        <input asp-for="Date" class="form-control" />
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="Type" class="form-label"></label>
-        <input asp-for="Type" class="form-control" />
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="Observations" class="form-label"></label>
-        <input asp-for="Observations" class="form-control" />
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="Cost" class="form-label"></label>
-        <input asp-for="Cost" class="form-control" />
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="Mileage" class="form-label"></label>
-        <input asp-for="Mileage" class="form-control" />
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="VehiclePlate" class="form-label"></label>
-        <select asp-for="VehiclePlate" asp-items="ViewBag.VehiclePlate" class="form-control"></select>
-    </div>
-
-    <hr />
-
-    <h4>Agregar nuevas fotos</h4>
-    <input type="file" name="newPhotos" multiple class="form-control mb-3" accept="image/*" />
-
-    <h4>Fotos existentes</h4>
-
-    <div class="row">
-        @foreach (var photo in Model.Photos)
-        {
-            <div class="col-md-3 text-center mb-3">
-                <img src="@photo.ImageUrl" class="img-fluid rounded shadow-sm mb-2" />
-
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="deletePhotos" value="@photo.Id" />
-                    <label class="form-check-label">Eliminar</label>
-                </div>
+            <div class="mb-3">
+                <label asp-for="Date" class="form-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
             </div>
-        }
+
+            <div class="mb-3">
+                <label asp-for="VehiclePlate" class="form-label">Placa</label>
+                <select asp-for="VehiclePlate" class="form-control" asp-items="ViewBag.VehiclePlate"></select>
+                <span asp-validation-for="VehiclePlate" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Type" class="form-label"></label>
+                <input asp-for="Type" class="form-control" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Observations" class="form-label"></label>
+                <textarea asp-for="Observations" class="form-control"></textarea>
+                <span asp-validation-for="Observations" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Cost" class="form-label"></label>
+                <input asp-for="Cost" class="form-control" />
+                <span asp-validation-for="Cost" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Mileage" class="form-label"></label>
+                <input asp-for="Mileage" class="form-control" />
+                <span asp-validation-for="Mileage" class="text-danger"></span>
+            </div>
+
+            <h5>Fotos existentes</h5>
+            @if (Model.Photos != null && Model.Photos.Any())
+            {
+                <div class="mb-3 d-flex flex-wrap">
+                    @foreach (var photo in Model.Photos)
+                    {
+                        <div class="me-3 mb-2 text-center">
+                            <img src="@photo.ImageUrl" style="width:80px;height:auto;border-radius:4px;display:block;margin-bottom:4px;" />
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="deletePhotoIds" value="@photo.Id" id="photo_@photo.Id" />
+                                <label class="form-check-label" for="photo_@photo.Id">Eliminar</label>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p class="text-muted">No hay fotos registradas.</p>
+            }
+
+            <div class="mb-3">
+                <label class="form-label">Agregar nuevas fotos</label>
+                <input type="file" name="newPhotos" class="form-control" multiple />
+            </div>
+
+            <hr />
+
+            <h5>Boceto del vehículo</h5>
+            <p class="text-muted">Haga clic para agregar <strong>X</strong>, y clic sobre una <strong>X</strong> para quitarla.</p>
+
+            <div id="sketch-container" class="border rounded sketch-container" style="max-width:600px;" data-initial-marks="@initialSketch">
+                <img id="sketch-image" src="~/images/car-sketch.png" alt="Boceto carro" style="width:100%;height:auto;" />
+            </div>
+
+            <input type="hidden" id="SketchData" name="SketchData" />
+
+            <div class="mt-4">
+                <input type="submit" value="Guardar cambios" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Volver</a>
+            </div>
+        </form>
     </div>
+</div>
 
-    <button type="submit" class="btn btn-primary mt-3">Guardar cambios</button>
-    <a asp-action="Index" class="btn btn-secondary mt-3">Volver</a>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 
-</form>
+    <style>
+        .sketch-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .sketch-mark {
+            position: absolute;
+            color: red;
+            font-weight: bold;
+            font-size: 22px;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
+
+    <script>
+        (function () {
+            const container = document.getElementById('sketch-container');
+            const hidden = document.getElementById('SketchData');
+            let marks = [];
+
+            function renderMarks() {
+                container.querySelectorAll('.sketch-mark').forEach(m => m.remove());
+
+                marks.forEach((m, index) => {
+                    const el = document.createElement('div');
+                    el.className = 'sketch-mark';
+                    el.textContent = 'X';
+                    el.style.left = m.x + 'px';
+                    el.style.top = m.y + 'px';
+                    el.dataset.index = index;
+
+                    el.addEventListener('click', function (ev) {
+                        ev.stopPropagation();
+                        const idx = parseInt(this.dataset.index);
+                        marks.splice(idx, 1);
+                        renderMarks();
+                    });
+
+                    container.appendChild(el);
+                });
+
+                hidden.value = marks.map(m => m.x + ',' + m.y).join('|');
+            }
+
+            // Cargar marcas iniciales desde data-attribute
+            const initial = container.getAttribute('data-initial-marks');
+            if (initial) {
+                initial.split('|').forEach(p => {
+                    const xy = p.split(',');
+                    if (xy.length === 2) {
+                        const x = parseInt(xy[0]);
+                        const y = parseInt(xy[1]);
+                        if (!isNaN(x) && !isNaN(y)) {
+                            marks.push({ x: x, y: y });
+                        }
+                    }
+                });
+                renderMarks();
+            }
+
+            container.addEventListener('click', function (e) {
+                const rect = container.getBoundingClientRect();
+                const x = Math.round(e.clientX - rect.left);
+                const y = Math.round(e.clientY - rect.top);
+                marks.push({ x: x, y: y });
+                renderMarks();
+            });
+        })();
+    </script>
+}

@@ -1,4 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using TallerCaldera.Models;
@@ -9,28 +16,28 @@ namespace TallerCaldera2.Controllers
     public class MaintenancesController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly string uploadPath;
+        private readonly IWebHostEnvironment _env;
 
-        public MaintenancesController(ApplicationDbContext context)
+        public MaintenancesController(ApplicationDbContext context, IWebHostEnvironment env)
         {
             _context = context;
-            uploadPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/mantenimientos");
-
-            if (!Directory.Exists(uploadPath))
-                Directory.CreateDirectory(uploadPath);
+            _env = env;
         }
 
-        // INDEX
+        // GET: Maintenances
         public async Task<IActionResult> Index()
         {
-            var data = _context.Maintenances
+            var maintenances = await _context.Maintenances
                 .Include(m => m.Vehicle)
-                .Include(m => m.Photos);
+                .Include(m => m.Photos)
+                .Include(m => m.SketchMarks)
+                .OrderByDescending(m => m.Date)
+                .ToListAsync();
 
-            return View(await data.ToListAsync());
+            return View(maintenances);
         }
 
-        // DETAILS
+        // GET: Maintenances/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -39,6 +46,7 @@ namespace TallerCaldera2.Controllers
             var maintenance = await _context.Maintenances
                 .Include(m => m.Vehicle)
                 .Include(m => m.Photos)
+                .Include(m => m.SketchMarks)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (maintenance == null)
@@ -47,135 +55,165 @@ namespace TallerCaldera2.Controllers
             return View(maintenance);
         }
 
-        // GET: Create
-        public IActionResult Create(string? vehiclePlate)
+        // GET: Maintenances/Create
+        public IActionResult Create(string vehiclePlate = null)
         {
-            ViewData["VehiclePlate"] =
-                new SelectList(_context.Vehicles, "Plate", "Plate", vehiclePlate);
-
-            return View();
+            ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate", vehiclePlate);
+            return View(new Maintenance
+            {
+                Date = DateTime.Now,
+                VehiclePlate = vehiclePlate
+            });
         }
 
-        // POST: Create
+        // POST: Maintenances/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Maintenance maintenance, List<IFormFile> photos)
+        public async Task<IActionResult> Create(
+            Maintenance maintenance,
+            List<IFormFile> photos,
+            string SketchData)
         {
-            ModelState.Remove(nameof(Maintenance.Vehicle));
-
             if (!ModelState.IsValid)
             {
-                ViewData["VehiclePlate"] =
-                    new SelectList(_context.Vehicles, "Plate", "Plate", maintenance.VehiclePlate);
+                ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate", maintenance.VehiclePlate);
                 return View(maintenance);
             }
 
+            // Guardar mantenimiento primero
             _context.Add(maintenance);
             await _context.SaveChangesAsync();
 
-            // GUARDAR FOTOS
-            foreach (var file in photos)
+            // Actualizar última fecha de mantenimiento del vehículo
+            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Plate == maintenance.VehiclePlate);
+            if (vehicle != null)
             {
-                if (file.Length > 0)
-                {
-                    string fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
-                    string filePath = Path.Combine(uploadPath, fileName);
-
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                        await file.CopyToAsync(stream);
-
-                    _context.MaintenancePhotos.Add(new MaintenancePhoto
-                    {
-                        MaintenanceId = maintenance.Id,
-                        ImageUrl = $"/uploads/mantenimientos/{fileName}"
-                    });
-                }
+                vehicle.LastMaintenanceDate = maintenance.Date;
             }
+
+            // Guardar fotos
+            await SavePhotosAsync(maintenance.Id, photos);
+
+            // Guardar marcas del boceto
+            SaveSketchMarks(maintenance.Id, SketchData);
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Details", "Vehicles", new { plate = maintenance.VehiclePlate });
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: Edit
+        // GET: Maintenances/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null)
+                return NotFound();
 
             var maintenance = await _context.Maintenances
                 .Include(m => m.Photos)
+                .Include(m => m.SketchMarks)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (maintenance == null) return NotFound();
+            if (maintenance == null)
+                return NotFound();
 
-            ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate");
+            ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate", maintenance.VehiclePlate);
 
             return View(maintenance);
         }
 
-        // POST: Edit
+        // POST: Maintenances/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Maintenance maintenance, List<IFormFile> newPhotos, List<int> deletePhotos)
+        public async Task<IActionResult> Edit(
+            int id,
+            Maintenance maintenance,
+            List<IFormFile> newPhotos,
+            string SketchData,
+            int[] deletePhotoIds)
         {
             if (id != maintenance.Id)
                 return NotFound();
 
-            ModelState.Remove(nameof(Maintenance.Vehicle));
+            var existing = await _context.Maintenances
+                .Include(m => m.Photos)
+                .Include(m => m.SketchMarks)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (existing == null)
+                return NotFound();
 
             if (!ModelState.IsValid)
             {
-                ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate");
-                return View(maintenance);
+                ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate", maintenance.VehiclePlate);
+                return View(existing);
             }
 
-            _context.Update(maintenance);
-            await _context.SaveChangesAsync();
+            // Actualizar campos básicos
+            existing.Date = maintenance.Date;
+            existing.Type = maintenance.Type;
+            existing.Observations = maintenance.Observations;
+            existing.Cost = maintenance.Cost;
+            existing.Mileage = maintenance.Mileage;
+            existing.VehiclePlate = maintenance.VehiclePlate;
 
-            // ELIMINAR FOTOS SELECCIONADAS
-            if (deletePhotos != null)
+            // Borrar fotos seleccionadas
+            if (deletePhotoIds != null && deletePhotoIds.Length > 0)
             {
-                foreach (var photoId in deletePhotos)
+                var toDelete = existing.Photos
+                    .Where(p => deletePhotoIds.Contains(p.Id))
+                    .ToList();
+
+                foreach (var photo in toDelete)
                 {
-                    var photo = await _context.MaintenancePhotos.FindAsync(photoId);
-
-                    if (photo != null)
+                    // borrar archivo físico
+                    if (!string.IsNullOrWhiteSpace(photo.ImageUrl))
                     {
-                        string physicalPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", photo.ImageUrl.TrimStart('/'));
-
-                        if (System.IO.File.Exists(physicalPath))
-                            System.IO.File.Delete(physicalPath);
-
-                        _context.MaintenancePhotos.Remove(photo);
+                        var physical = Path.Combine(_env.WebRootPath, photo.ImageUrl.TrimStart('/').Replace('/', Path.DirectorySeparatorChar));
+                        if (System.IO.File.Exists(physical))
+                            System.IO.File.Delete(physical);
                     }
+
+                    _context.MaintenancePhotos.Remove(photo);
                 }
             }
 
-            // AGREGAR NUEVAS FOTOS
-            foreach (var file in newPhotos)
+            // Agregar fotos nuevas
+            await SavePhotosAsync(existing.Id, newPhotos);
+
+            // Reemplazar marcas del boceto
+            var oldMarks = existing.SketchMarks.ToList();
+            _context.SketchMarks.RemoveRange(oldMarks);
+            SaveSketchMarks(existing.Id, SketchData);
+
+            // Actualizar fecha de último mantenimiento
+            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Plate == existing.VehiclePlate);
+            if (vehicle != null)
             {
-                if (file.Length > 0)
-                {
-                    string fileName = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
-                    string filePath = Path.Combine(uploadPath, fileName);
-
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                        await file.CopyToAsync(stream);
-
-                    _context.MaintenancePhotos.Add(new MaintenancePhoto
-                    {
-                        MaintenanceId = maintenance.Id,
-                        ImageUrl = $"/uploads/mantenimientos/{fileName}"
-                    });
-                }
+                vehicle.LastMaintenanceDate = existing.Date;
             }
 
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Details", "Maintenances", new { id = maintenance.Id });
+            return RedirectToAction(nameof(Index));
         }
 
-        // DELETE
+        // GET: Maintenances/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var maintenance = await _context.Maintenances
+                .Include(m => m.Vehicle)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (maintenance == null)
+                return NotFound();
+
+            return View(maintenance);
+        }
+
+        // POST: Maintenances/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -186,12 +224,15 @@ namespace TallerCaldera2.Controllers
 
             if (maintenance != null)
             {
+                // Borrar archivos físicos de fotos
                 foreach (var photo in maintenance.Photos)
                 {
-                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", photo.ImageUrl.TrimStart('/'));
-
-                    if (System.IO.File.Exists(path))
-                        System.IO.File.Delete(path);
+                    if (!string.IsNullOrWhiteSpace(photo.ImageUrl))
+                    {
+                        var physical = Path.Combine(_env.WebRootPath, photo.ImageUrl.TrimStart('/').Replace('/', Path.DirectorySeparatorChar));
+                        if (System.IO.File.Exists(physical))
+                            System.IO.File.Delete(physical);
+                    }
                 }
 
                 _context.Maintenances.Remove(maintenance);
@@ -199,6 +240,61 @@ namespace TallerCaldera2.Controllers
             }
 
             return RedirectToAction(nameof(Index));
+        }
+
+        private async Task SavePhotosAsync(int maintenanceId, List<IFormFile> photos)
+        {
+            if (photos == null || photos.Count == 0)
+                return;
+
+            var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads", "maintenances", maintenanceId.ToString());
+            if (!Directory.Exists(uploadsFolder))
+                Directory.CreateDirectory(uploadsFolder);
+
+            foreach (var file in photos)
+            {
+                if (file != null && file.Length > 0)
+                {
+                    var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(file.FileName);
+                    var filePath = Path.Combine(uploadsFolder, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
+                    var relativePath = $"/uploads/maintenances/{maintenanceId}/{fileName}";
+
+                    _context.MaintenancePhotos.Add(new MaintenancePhoto
+                    {
+                        MaintenanceId = maintenanceId,
+                        ImageUrl = relativePath
+                    });
+                }
+            }
+        }
+
+        private void SaveSketchMarks(int maintenanceId, string sketchData)
+        {
+            if (string.IsNullOrWhiteSpace(sketchData))
+                return;
+
+            var pairs = sketchData.Split('|', StringSplitOptions.RemoveEmptyEntries);
+            foreach (var p in pairs)
+            {
+                var xy = p.Split(',', StringSplitOptions.RemoveEmptyEntries);
+                if (xy.Length == 2 &&
+                    int.TryParse(xy[0], out var x) &&
+                    int.TryParse(xy[1], out var y))
+                {
+                    _context.SketchMarks.Add(new SketchMark
+                    {
+                        MaintenanceId = maintenanceId,
+                        PosX = x,
+                        PosY = y
+                    });
+                }
+            }
         }
     }
 }

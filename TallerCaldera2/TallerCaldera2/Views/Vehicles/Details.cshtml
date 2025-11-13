@@ -1,7 +1,11 @@
 ﻿@model TallerCaldera.Models.Vehicle
 @{
     ViewData["Title"] = "Detalles del Vehículo";
-    var maintenances = Model.Maintenances?.OrderByDescending(m => m.Date).ToList() ?? new List<TallerCaldera.Models.Maintenance>();
+
+    var maintenances = Model.Maintenances?
+        .OrderByDescending(m => m.Date)
+        .ToList() ?? new List<TallerCaldera.Models.Maintenance>();
+
     var totalCost = maintenances.Sum(m => m.Cost ?? 0);
 }
 
@@ -13,15 +17,14 @@
             <p class="text-muted mb-0">Detalles del vehículo</p>
         </div>
         <div>
-            <a asp-action="Index" class="btn btn-outline-secondary me-2">
-                Volver
-            </a>
+            <a asp-action="Index" class="btn btn-outline-secondary me-2">Volver</a>
             <a asp-controller="Maintenances" asp-action="Create" asp-route-vehiclePlate="@Model.Plate" class="btn btn-primary">
                 Agregar Mantenimiento
             </a>
         </div>
     </div>
 
+    <!-- Información -->
     <div class="row g-4 mb-4">
         <div class="col-lg-6">
             <div class="card shadow-sm border-0 rounded-4">
@@ -45,6 +48,7 @@
             </div>
         </div>
 
+        <!-- Stats -->
         <div class="col-lg-6">
             <div class="row g-3">
                 <div class="col-sm-6">
@@ -67,6 +71,7 @@
         </div>
     </div>
 
+    <!-- Historial -->
     <div class="card shadow-sm border-0 rounded-4">
         <div class="card-body">
             <h5 class="text-primary mb-3">Historial de Mantenimientos</h5>
@@ -85,7 +90,8 @@
                                 <th>Tipo</th>
                                 <th>Kilometraje</th>
                                 <th>Costo</th>
-                                <th>Observaciones</th>
+                                <th>Fotos</th>
+                                <th>Boceto</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -95,9 +101,38 @@
                                 <tr>
                                     <td>@m.Date.ToString("dd/MM/yyyy")</td>
                                     <td>@m.Type</td>
-                                    <td>@(m.Mileage?.ToString("N0") ?? "—") km</td>
+                                    <td>@((m.Mileage?.ToString("N0") ?? "—")) km</td>
                                     <td>₡@(m.Cost?.ToString("N0") ?? "0")</td>
-                                    <td>@(string.IsNullOrWhiteSpace(m.Observations) ? "—" : m.Observations)</td>
+
+                                    <!-- fotos -->
+                                    <td>
+                                        @if (m.Photos != null && m.Photos.Any())
+                                        {
+                                            <div class="d-flex flex-wrap">
+                                                @foreach (var photo in m.Photos.Take(3))
+                                                {
+                                                    <img src="@photo.ImageUrl" style="width:55px;height:auto;margin-right:4px;border-radius:4px;" />
+                                                }
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">Sin fotos.</span>
+                                        }
+                                    </td>
+
+                                    <!-- boceto -->
+                                    <td>
+                                        @if (m.SketchMarks != null && m.SketchMarks.Any())
+                                        {
+                                            <span>Con boceto (@m.SketchMarks.Count X)</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted">Sin boceto</span>
+                                        }
+                                    </td>
+
                                     <td class="text-end">
                                         <a asp-controller="Maintenances" asp-action="Details" asp-route-id="@m.Id" class="btn btn-sm btn-outline-info">Ver</a>
                                         <a asp-controller="Maintenances" asp-action="Edit" asp-route-id="@m.Id" class="btn btn-sm btn-outline-primary">Editar</a>

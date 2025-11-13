@@ -1,45 +1,122 @@
 ﻿@model TallerCaldera.Models.Maintenance
 
 @{
-    ViewData["Title"] = "Detalles del Mantenimiento";
+    ViewData["Title"] = "Detalles del mantenimiento";
+    var sketchData = string.Join("|", Model.SketchMarks?.Select(m => m.PosX + "," + m.PosY) ?? Enumerable.Empty<string>());
 }
 
-<h1>Detalles del Mantenimiento</h1>
-<hr />
+<h1>Detalles del mantenimiento</h1>
 
-<dl class="row">
-    <dt class="col-sm-2">Fecha</dt>
-    <dd class="col-sm-10">@Model.Date.ToString("dd/MM/yyyy")</dd>
+<div class="mb-3">
+    <a asp-action="Index" class="btn btn-secondary">Volver</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Editar</a>
+</div>
 
-    <dt class="col-sm-2">Tipo</dt>
-    <dd class="col-sm-10">@Model.Type</dd>
+<div class="row">
+    <div class="col-md-6">
+        <dl class="row">
+            <dt class="col-sm-4">Fecha</dt>
+            <dd class="col-sm-8">@Model.Date.ToString("dd/MM/yyyy")</dd>
 
-    <dt class="col-sm-2">Costo</dt>
-    <dd class="col-sm-10">₡@(Model.Cost?.ToString("N0") ?? "0")</dd>
+            <dt class="col-sm-4">Vehículo</dt>
+            <dd class="col-sm-8">@Model.VehiclePlate</dd>
 
-    <dt class="col-sm-2">Kilometraje</dt>
-    <dd class="col-sm-10">@Model.Mileage</dd>
+            <dt class="col-sm-4">Tipo</dt>
+            <dd class="col-sm-8">@Model.Type</dd>
 
-    <dt class="col-sm-2">Observaciones</dt>
-    <dd class="col-sm-10">@Model.Observations</dd>
-</dl>
+            <dt class="col-sm-4">Costo</dt>
+            <dd class="col-sm-8">₡@(Model.Cost?.ToString("N0") ?? "0")</dd>
 
-<h4>Fotos</h4>
+            <dt class="col-sm-4">Kilometraje</dt>
+            <dd class="col-sm-8">@((Model.Mileage?.ToString("N0") ?? "—")) km</dd>
 
-@if (Model.Photos.Any())
-{
-    <div class="row">
-        @foreach (var p in Model.Photos)
+            <dt class="col-sm-4">Observaciones</dt>
+            <dd class="col-sm-8">@Model.Observations</dd>
+        </dl>
+
+        <h5>Fotos</h5>
+        @if (Model.Photos != null && Model.Photos.Any())
         {
-            <div class="col-md-3 mb-3">
-                <img src="@p.ImageUrl" class="img-fluid rounded shadow-sm" />
+            <div class="d-flex flex-wrap mb-3">
+                @foreach (var photo in Model.Photos)
+                {
+                    <img src="@photo.ImageUrl" style="width:120px;height:auto;margin-right:6px;margin-bottom:6px;border-radius:4px;" />
+                }
             </div>
         }
+        else
+        {
+            <p class="text-muted">Sin fotos.</p>
+        }
     </div>
-}
-else
-{
-    <p class="text-muted">Sin fotos.</p>
-}
 
-<a asp-action="Index" class="btn btn-secondary mt-3">Volver</a>
+    <div class="col-md-6">
+        <h5>Boceto</h5>
+        @if (Model.SketchMarks != null && Model.SketchMarks.Any())
+        {
+            <p class="text-muted">Boceto solo lectura (no editable aquí).</p>
+        }
+        else
+        {
+            <p class="text-muted">No hay boceto registrado.</p>
+        }
+
+        <div id="sketch-container" class="border rounded sketch-container" style="max-width:600px;" data-initial-marks="@sketchData">
+            <img id="sketch-image" src="~/images/car-sketch.png" alt="Boceto carro" style="width:100%;height:auto;" />
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <style>
+        .sketch-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .sketch-mark {
+            position: absolute;
+            color: red;
+            font-weight: bold;
+            font-size: 22px;
+            transform: translate(-50%, -50%);
+            user-select: none;
+            pointer-events: none;
+        }
+    </style>
+
+    <script>
+        (function () {
+            const container = document.getElementById('sketch-container');
+            let marks = [];
+
+            function renderMarks() {
+                container.querySelectorAll('.sketch-mark').forEach(m => m.remove());
+
+                marks.forEach((m) => {
+                    const el = document.createElement('div');
+                    el.className = 'sketch-mark';
+                    el.textContent = 'X';
+                    el.style.left = m.x + 'px';
+                    el.style.top = m.y + 'px';
+                    container.appendChild(el);
+                });
+            }
+
+            const initial = container.getAttribute('data-initial-marks');
+            if (initial) {
+                initial.split('|').forEach(p => {
+                    const xy = p.split(',');
+                    if (xy.length === 2) {
+                        const x = parseInt(xy[0]);
+                        const y = parseInt(xy[1]);
+                        if (!isNaN(x) && !isNaN(y)) {
+                            marks.push({ x: x, y: y });
+                        }
+                    }
+                });
+                renderMarks();
+            }
+        })();
+    </script>
+}

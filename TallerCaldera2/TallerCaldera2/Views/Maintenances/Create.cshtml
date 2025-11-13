@@ -1,56 +1,136 @@
 ﻿@model TallerCaldera.Models.Maintenance
 
 @{
-    ViewData["Title"] = "Crear Mantenimiento";
+    ViewData["Title"] = "Crear mantenimiento";
 }
 
-<h1>Crear Mantenimiento</h1>
-<hr />
+<h1>Crear mantenimiento</h1>
 
-<form asp-action="Create" enctype="multipart/form-data">
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Id" />
 
-    <div class="mb-3">
-        <label asp-for="Date" class="form-label"></label>
-        <input asp-for="Date" class="form-control" />
-        <span asp-validation-for="Date" class="text-danger"></span>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="Date" class="form-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="VehiclePlate" class="form-label">Placa</label>
+                <select asp-for="VehiclePlate" class="form-control" asp-items="ViewBag.VehiclePlate"></select>
+                <span asp-validation-for="VehiclePlate" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Type" class="form-label"></label>
+                <input asp-for="Type" class="form-control" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Observations" class="form-label"></label>
+                <textarea asp-for="Observations" class="form-control"></textarea>
+                <span asp-validation-for="Observations" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Cost" class="form-label"></label>
+                <input asp-for="Cost" class="form-control" />
+                <span asp-validation-for="Cost" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Mileage" class="form-label"></label>
+                <input asp-for="Mileage" class="form-control" />
+                <span asp-validation-for="Mileage" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Fotos del mantenimiento</label>
+                <input type="file" name="photos" class="form-control" multiple />
+                <small class="text-muted">Puede seleccionar varias imágenes.</small>
+            </div>
+
+            <hr />
+
+            <h5>Boceto del vehículo</h5>
+            <p class="text-muted">Haga clic en cualquier parte del carro para agregar una <strong>X</strong>. Haga clic sobre una <strong>X</strong> para eliminarla.</p>
+
+            <div id="sketch-container" class="border rounded sketch-container" style="max-width:600px;" data-initial-marks="">
+                <img id="sketch-image" src="~/images/car-sketch.png" alt="Boceto carro" style="width:100%;height:auto;" />
+            </div>
+
+            <input type="hidden" id="SketchData" name="SketchData" />
+
+            <div class="mt-4">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Volver</a>
+            </div>
+        </form>
     </div>
+</div>
 
-    <div class="mb-3">
-        <label asp-for="Type" class="form-label"></label>
-        <input asp-for="Type" class="form-control" />
-        <span asp-validation-for="Type" class="text-danger"></span>
-    </div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 
-    <div class="mb-3">
-        <label asp-for="Observations" class="form-label"></label>
-        <input asp-for="Observations" class="form-control" />
-        <span asp-validation-for="Observations" class="text-danger"></span>
-    </div>
+    <style>
+        .sketch-container {
+            position: relative;
+            display: inline-block;
+        }
 
-    <div class="mb-3">
-        <label asp-for="Cost" class="form-label"></label>
-        <input asp-for="Cost" class="form-control" />
-        <span asp-validation-for="Cost" class="text-danger"></span>
-    </div>
+        .sketch-mark {
+            position: absolute;
+            color: red;
+            font-weight: bold;
+            font-size: 22px;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
 
-    <div class="mb-3">
-        <label asp-for="Mileage" class="form-label"></label>
-        <input asp-for="Mileage" class="form-control" />
-        <span asp-validation-for="Mileage" class="text-danger"></span>
-    </div>
+    <script>
+        (function () {
+            const container = document.getElementById('sketch-container');
+            const hidden = document.getElementById('SketchData');
+            let marks = [];
 
-    <div class="mb-3">
-        <label asp-for="VehiclePlate" class="form-label"></label>
-        <select asp-for="VehiclePlate" class="form-control" asp-items="ViewBag.VehiclePlate"></select>
-        <span asp-validation-for="VehiclePlate" class="text-danger"></span>
-    </div>
+            function renderMarks() {
+                container.querySelectorAll('.sketch-mark').forEach(m => m.remove());
 
-    <div class="mb-3">
-        <label class="form-label">Fotos del mantenimiento:</label>
-        <input type="file" name="photos" class="form-control" multiple accept="image/*" />
-    </div>
+                marks.forEach((m, index) => {
+                    const el = document.createElement('div');
+                    el.className = 'sketch-mark';
+                    el.textContent = 'X';
+                    el.style.left = m.x + 'px';
+                    el.style.top = m.y + 'px';
+                    el.dataset.index = index;
 
-    <button type="submit" class="btn btn-primary">Guardar</button>
-    <a asp-action="Index" class="btn btn-secondary">Volver</a>
-</form>
+                    el.addEventListener('click', function (ev) {
+                        ev.stopPropagation();
+                        const idx = parseInt(this.dataset.index);
+                        marks.splice(idx, 1);
+                        renderMarks();
+                    });
+
+                    container.appendChild(el);
+                });
+
+                hidden.value = marks.map(m => m.x + ',' + m.y).join('|');
+            }
+
+            container.addEventListener('click', function (e) {
+                const rect = container.getBoundingClientRect();
+                const x = Math.round(e.clientX - rect.left);
+                const y = Math.round(e.clientY - rect.top);
+                marks.push({ x: x, y: y });
+                renderMarks();
+            });
+        })();
+    </script>
+}

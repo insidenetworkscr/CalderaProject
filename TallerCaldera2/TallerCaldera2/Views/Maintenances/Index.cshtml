@@ -10,44 +10,57 @@
     <a asp-action="Create" class="btn btn-primary">Crear nuevo</a>
 </p>
 
-<table class="table table-striped">
+<table class="table table-striped align-middle">
     <thead>
         <tr>
             <th>Fecha</th>
             <th>Tipo</th>
-            <th>Placa</th>
+            <th>Vehículo</th>
             <th>Costo</th>
             <th>Fotos</th>
+            <th>Boceto</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var m in Model)
+        @foreach (var item in Model)
         {
             <tr>
-                <td>@m.Date.ToString("dd/MM/yyyy")</td>
-                <td>@m.Type</td>
-                <td>@m.VehiclePlate</td>
-                <td>₡@(m.Cost?.ToString("N0") ?? "0")</td>
-
+                <td>@item.Date.ToString("dd/MM/yyyy")</td>
+                <td>@item.Type</td>
+                <td>@item.VehiclePlate</td>
+                <td>₡@(item.Cost?.ToString("N0") ?? "0")</td>
                 <td>
-                    @if (m.Photos != null && m.Photos.Any())
+                    @if (item.Photos != null && item.Photos.Any())
                     {
-                        foreach (var p in m.Photos.Take(3))
+                        foreach (var photo in item.Photos.Take(3))
                         {
-                            <img src="@p.ImageUrl" width="50" class="rounded me-1 shadow-sm" />
+                            <img src="@photo.ImageUrl" style="width:60px;height:auto;margin-right:4px;border-radius:4px;" />
+                        }
+                        if (item.Photos.Count > 3)
+                        {
+                            <span>+@(item.Photos.Count - 3)</span>
                         }
                     }
                     else
                     {
-                        <span class="text-muted">—</span>
+                        <span class="text-muted">Sin fotos</span>
                     }
                 </td>
-
                 <td>
-                    <a asp-action="Details" asp-route-id="@m.Id">Ver</a> |
-                    <a asp-action="Edit" asp-route-id="@m.Id">Editar</a> |
-                    <a asp-action="Delete" asp-route-id="@m.Id">Eliminar</a>
+                    @if (item.SketchMarks != null && item.SketchMarks.Any())
+                    {
+                        <span>Con boceto (@item.SketchMarks.Count X)</span>
+                    }
+                    else
+                    {
+                        <span class="text-muted">Sin boceto</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
                 </td>
             </tr>
         }
