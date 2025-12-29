@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
-namespace TallerCaldera.Models
+namespace TallerCaldera2.Models
 {
     public class MaintenancePhoto
     {

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace TallerCaldera.Models
+namespace TallerCaldera2.Models
 {
     public class SketchMark
     {

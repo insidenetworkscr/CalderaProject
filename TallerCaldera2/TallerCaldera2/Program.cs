@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TallerCaldera.Models;
 using TallerCaldera2.Models;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TallerCaldera.Models;
+using TallerCaldera2.Models;
 
 namespace TallerCaldera2.Models
 {
@@ -15,6 +15,7 @@ namespace TallerCaldera2.Models
         public DbSet<MaintenancePhoto> MaintenancePhotos { get; set; }
         public DbSet<SketchMark> SketchMarks { get; set; }
         public DbSet<Alert> Alerts { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder b)
         {
@@ -52,6 +53,24 @@ namespace TallerCaldera2.Models
                 .HasOne(s => s.Maintenance)
                 .WithMany(m => m.SketchMarks)
                 .HasForeignKey(s => s.MaintenanceId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            b.Entity<Alert>()
+                .HasOne(a => a.Vehicle)
+                .WithMany()
+                .HasForeignKey(a => a.VehiclePlate)
+                .HasPrincipalKey(v => v.Plate)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            b.Entity<Alert>()
+                .Property(a => a.Message)
+                .HasMaxLength(500);
+
+            b.Entity<Alert>()
+                .HasOne(a => a.Vehicle)
+                .WithMany()
+                .HasForeignKey(a => a.VehiclePlate)
+                .HasPrincipalKey(v => v.Plate)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }

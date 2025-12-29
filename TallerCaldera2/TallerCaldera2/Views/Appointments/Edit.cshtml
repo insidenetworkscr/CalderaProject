@@ -1,0 +1,57 @@
+﻿@model TallerCaldera2.Models.Appointment
+
+@{
+    ViewData["Title"] = "Editar cita";
+}
+
+<h1>Editar cita</h1>
+
+<hr />
+
+<form asp-action="Edit" asp-route-id="@Model.Id">
+    <input type="hidden" asp-for="Id" />
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="CustomerName" class="form-label">Nombre del cliente</label>
+        <input asp-for="CustomerName" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="PhoneNumber" class="form-label">Teléfono</label>
+        <input asp-for="PhoneNumber" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="AppointmentDateTime" class="form-label">Fecha y hora</label>
+        <input asp-for="AppointmentDateTime" type="datetime-local" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Status" class="form-label">Estado</label>
+        <select asp-for="Status"
+                class="form-control"
+                asp-items="Html.GetEnumSelectList<AppointmentStatus>()">
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Vehicle" class="form-label">Carro</label>
+        <input asp-for="Vehicle" class="form-control" />
+        <span asp-validation-for="Vehicle" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Plate" class="form-label">Placa</label>
+        <input asp-for="Plate" class="form-control" />
+        <span asp-validation-for="Plate" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

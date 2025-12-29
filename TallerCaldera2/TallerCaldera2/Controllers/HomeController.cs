@@ -1,32 +1,44 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using TallerCaldera2.Models;
+using TallerCaldera2.Models.ViewModels;
 
 namespace TallerCaldera2.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
         {
-            return View();
-        }
+            var hoy = DateTime.Today;
+            var inicioMes = new DateTime(hoy.Year, hoy.Month, 1);
+            var finMes = inicioMes.AddMonths(1);
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+            var model = new DashboardViewModel
+            {
+                // ?? Alertas activas
+                AlertasActivas = _context.Alerts
+                    .Count(a => !a.IsShown),
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+                // ?? Total de vehículos
+                TotalVehiculos = _context.Vehicles.Count(),
+
+                // ?? Mantenimientos del mes actual
+                MantenimientosMes = _context.Maintenances
+                    .Count(m => m.Date >= inicioMes && m.Date < finMes),
+
+                // ?? Citas pendientes
+                CitasPendientes = _context.Appointments
+                    .Count(c => c.Status == AppointmentStatus.Pendiente)
+            };
+
+            return View(model);
         }
     }
 }

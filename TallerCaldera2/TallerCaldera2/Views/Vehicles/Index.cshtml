@@ -1,49 +1,134 @@
-﻿@model IEnumerable<TallerCaldera.Models.Vehicle>
+﻿@model IEnumerable<TallerCaldera2.Models.Vehicle>
 @{
     ViewData["Title"] = "Vehículos";
 }
 
-<section class="page-block">
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="page-title">Vehículos Registrados</h2>
-        <a asp-action="Create" class="btn btn-primary btn-rounded">
-            <i class="bi bi-plus-lg"></i> Nuevo Vehículo
-        </a>
+<style>
+    .search-box {
+        max-width: 420px;
+    }
+
+    .vehicle-card {
+        transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+        .vehicle-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 25px rgba(0,0,0,.08);
+        }
+
+    .no-results {
+        display: none;
+    }
+</style>
+
+<section class="page-block container-fluid px-4">
+
+    <!-- Header -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+        <div>
+            <h2 class="page-title mb-0">Vehículos Registrados</h2>
+            <small class="text-muted">
+                Busca por cliente, teléfono, placa o modelo
+            </small>
+        </div>
+
+        <div class="d-flex gap-2 align-items-center">
+            <!-- Buscador -->
+            <div class="input-group search-box">
+                <span class="input-group-text bg-light">
+                    <i class="bi bi-search"></i>
+                </span>
+                <input type="text"
+                       id="vehicleSearch"
+                       class="form-control"
+                       placeholder="Buscar vehículo..."
+                       onkeyup="filterVehicles()" />
+            </div>
+
+            <a asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-lg"></i> Nuevo Vehículo
+            </a>
+        </div>
     </div>
 
-    <div class="row">
+    <!-- Cards -->
+    <div class="row" id="vehicleList">
         @foreach (var v in Model)
         {
-            <div class="col-md-4 mb-4">
-                <div class="card shadow-soft border-0 rounded-3 h-100">
+            <div class="col-lg-4 col-md-6 mb-4 vehicle-item"
+                 data-search="@($"{v.ClientName} {v.ClientPhone} {v.Plate} {v.Model} {v.Brand}".ToLower())">
+
+                <div class="card vehicle-card border-0 rounded-4 h-100">
                     <div class="card-body">
-                        <h5 class="fw-bold">@v.Brand @v.Model</h5>
-                        <p><strong>Placa:</strong> @v.Plate</p>
-                        <p><strong>Cliente:</strong> @v.ClientName</p>
-                        <p><strong>Teléfono:</strong> @v.ClientPhone</p>
-                        <p><strong>Combustible:</strong> @v.FuelType</p>
-                        <p><strong>Año:</strong> @v.Year</p>
+                        <h5 class="fw-bold mb-2">
+                            @v.Brand @v.Model
+                        </h5>
+
+                        <p class="mb-1"><strong>Placa:</strong> @v.Plate</p>
+                        <p class="mb-1"><strong>Cliente:</strong> @v.ClientName</p>
+                        <p class="mb-1"><strong>Teléfono:</strong> @v.ClientPhone</p>
+                        <p class="mb-1"><strong>Correo:</strong> @v.ClientEmail</p>
+                        <p class="mb-1"><strong>Combustible:</strong> @v.FuelType</p>
+                        <p class="mb-1"><strong>Año:</strong> @v.Year</p>
+
                         @if (v.LastMaintenanceDate != null)
                         {
-                            <p><strong>Últ. Mantenimiento:</strong> @v.LastMaintenanceDate?.ToString("dd/MM/yyyy")</p>
+                            <p class="mb-0">
+                                <strong>Últ. Mantenimiento:</strong>
+                                @v.LastMaintenanceDate?.ToString("dd/MM/yyyy")
+                            </p>
                         }
                     </div>
 
-                    <div class="card-footer bg-transparent text-end">
-                        <a asp-action="Details" asp-route-plate="@v.Plate" class="btn btn-sm btn-outline-info">
-                            <i class="bi bi-eye"></i> Ver
+                    <div class="card-footer bg-transparent text-end border-0">
+                        <a asp-action="Details"
+                           asp-route-plate="@v.Plate"
+                           class="btn btn-sm btn-outline-info">
+                            <i class="bi bi-eye"></i>
                         </a>
-                        <a asp-action="Edit" asp-route-plate="@v.Plate" class="btn btn-sm btn-outline-primary">
-                            <i class="bi bi-pencil"></i> Editar
+
+                        <a asp-action="Edit"
+                           asp-route-plate="@v.Plate"
+                           class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-pencil"></i>
                         </a>
-                        <a asp-action="Delete" asp-route-plate="@v.Plate" class="btn btn-sm btn-outline-danger">
-                            <i class="bi bi-trash"></i> Eliminar
+
+                        <a asp-action="Delete"
+                           asp-route-plate="@v.Plate"
+                           class="btn btn-sm btn-outline-danger">
+                            <i class="bi bi-trash"></i>
                         </a>
                     </div>
                 </div>
             </div>
         }
     </div>
+
+    <!-- Sin resultados -->
+    <div class="text-center text-muted mt-5 no-results" id="noResults">
+        <i class="bi bi-car-front fs-1"></i>
+        <p class="mt-2">No se encontraron vehículos</p>
+    </div>
 </section>
 
+<script>
+    function filterVehicles() {
+        const input = document.getElementById("vehicleSearch").value.toLowerCase();
+        const items = document.querySelectorAll(".vehicle-item");
+        let visibleCount = 0;
 
+        items.forEach(item => {
+            const text = item.dataset.search;
+            if (text.includes(input)) {
+                item.style.display = "";
+                visibleCount++;
+            } else {
+                item.style.display = "none";
+            }
+        });
+
+        document.getElementById("noResults").style.display =
+            visibleCount === 0 ? "block" : "none";
+    }
+</script>

@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TallerCaldera.Models;
 using TallerCaldera2.Models;
 
 namespace TallerCaldera2.Controllers

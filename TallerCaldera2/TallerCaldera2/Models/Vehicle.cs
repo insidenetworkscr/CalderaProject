@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace TallerCaldera.Models
+namespace TallerCaldera2.Models
 {
     public class Vehicle
     {
@@ -19,6 +19,10 @@ namespace TallerCaldera.Models
         public string ClientName { get; set; }
         public string ClientIdNumber { get; set; }
         public string ClientPhone { get; set; }
+        public string ClientAddress { get; set; }
+
+        [EmailAddress]
+        public string ClientEmail { get; set; }
 
         public string FuelType { get; set; }
         public DateTime? LastMaintenanceDate { get; set; }

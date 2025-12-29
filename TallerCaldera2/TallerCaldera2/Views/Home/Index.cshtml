@@ -1,8 +1,237 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model TallerCaldera2.Models.ViewModels.DashboardViewModel
+
+@{
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    :root {
+        --primary-color: #1a6dff;
+        --secondary-color: #0d47a1;
+        --danger-color: #ff4757;
+        --success-color: #2ed573;
+        --warning-color: #ff9f43;
+        --card-shadow: 0 10px 25px rgba(0,0,0,.08);
+    }
+
+    body {
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(135deg, #f8fafc, #e8f4ff);
+    }
+
+    .container-custom {
+        max-width: 1200px;
+        margin: auto;
+        padding: 40px 20px;
+    }
+
+    /* HEADER */
+    .brand-logos {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .brand-logo {
+        height: 90px;
+        filter: grayscale(20%);
+        opacity: .9;
+    }
+
+    .main-logo {
+        max-height: 260px;
+        margin: 20px auto;
+        display: block;
+    }
+
+    .title-container {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+        .title-container h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 3rem;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+    .divider {
+        width: 140px;
+        height: 5px;
+        background: linear-gradient(90deg, var(--primary-color), var(--success-color));
+        margin: 20px auto;
+        border-radius: 5px;
+    }
+
+    /* STATS */
+    .stats-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 25px;
+        margin-bottom: 60px;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 18px;
+        padding: 30px;
+        box-shadow: var(--card-shadow);
+        text-align: center;
+    }
+
+        .stat-card.alert {
+            background: linear-gradient(135deg, var(--danger-color), #ff3838);
+            color: white;
+        }
+
+    .stat-number {
+        font-size: 2.8rem;
+        font-weight: 700;
+    }
+
+    /* ACTIONS */
+    .actions-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 25px;
+        margin-bottom: 60px;
+    }
+
+    .action-card {
+        border-radius: 18px;
+        padding: 35px 25px;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+        box-shadow: var(--card-shadow);
+        transition: .2s;
+    }
+
+        .action-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .action-card.alert {
+            background: linear-gradient(135deg, var(--danger-color), #ff3838);
+        }
+
+        .action-card.vehicle {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        }
+
+        .action-card.maintenance {
+            background: linear-gradient(135deg, var(--success-color), #1dd1a1);
+        }
+
+        .action-card.appointments {
+            background: linear-gradient(135deg, var(--warning-color), #ff9f1a);
+        }
+
+    footer {
+        text-align: center;
+        margin-top: 40px;
+        opacity: .7;
+    }
+
+    @@media (max-width: 768px) {
+        .brand-logos {
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .brand-logo {
+            height: 70px;
+        }
+
+        .main-logo {
+            max-height: 200px;
+        }
+    }
+</style>
+
+<section class="container-custom">
+
+    <!-- HEADER -->
+    <div class="brand-logos">
+        <img src="~/images/honda-logo.png" class="brand-logo" alt="Honda">
+        <img src="~/images/toyota-logo.png" class="brand-logo" alt="Toyota">
+    </div>
+
+    <img src="~/images/logo-taller2.png" class="main-logo" alt="Logo Taller">
+
+    <div class="title-container">
+        <h1>Sistema de Gestión del Taller</h1>
+        <div class="divider"></div>
+        <p class="text-muted">Especialistas en Honda & Toyota</p>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-container">
+
+        <div class="stat-card alert">
+            <i class="fas fa-exclamation-triangle fa-2x mb-2"></i>
+            <div class="stat-number">@Model.AlertasActivas</div>
+            <div>Alertas activas</div>
+        </div>
+
+        <div class="stat-card">
+            <i class="fas fa-car fa-2x text-primary mb-2"></i>
+            <div class="stat-number text-primary">@Model.TotalVehiculos</div>
+            <div>Vehículos registrados</div>
+        </div>
+
+        <div class="stat-card">
+            <i class="fas fa-tools fa-2x text-success mb-2"></i>
+            <div class="stat-number text-success">@Model.MantenimientosMes</div>
+            <div>Mantenimientos del mes</div>
+        </div>
+
+        <div class="stat-card">
+            <i class="fas fa-calendar-check fa-2x text-warning mb-2"></i>
+            <div class="stat-number text-warning">@Model.CitasPendientes</div>
+            <div>Citas pendientes</div>
+        </div>
+
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="actions-container">
+
+        <a asp-controller="Alert" asp-action="Index" class="action-card alert">
+            <i class="fas fa-exclamation-circle fa-3x mb-3"></i>
+            <h5>Alertas</h5>
+            <p>Gestionar mantenimientos críticos</p>
+        </a>
+
+        <a asp-controller="Vehicles" asp-action="Index" class="action-card vehicle">
+            <i class="fas fa-car fa-3x mb-3"></i>
+            <h5>Vehículos</h5>
+            <p>Clientes y vehículos registrados</p>
+        </a>
+
+        <a asp-controller="Maintenances" asp-action="Index" class="action-card maintenance">
+            <i class="fas fa-wrench fa-3x mb-3"></i>
+            <h5>Mantenimientos</h5>
+            <p>Historial y registros</p>
+        </a>
+
+        <a asp-controller="Appointments" asp-action="Index" class="action-card appointments">
+            <i class="fas fa-calendar-alt fa-3x mb-3"></i>
+            <h5>Citas</h5>
+            <p>Agenda del taller</p>
+        </a>
+
+    </div>
+
+    <footer>
+        <img src="~/images/logo-taller2.png" style="height:40px">
+        <p class="mt-2">© @DateTime.Now.Year Taller Especializado Honda & Toyota</p>
+    </footer>
+
+</section>

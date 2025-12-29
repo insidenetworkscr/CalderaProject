@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
-namespace TallerCaldera.Models
+namespace TallerCaldera2.Models
 {
     public class Maintenance
     {
@@ -15,6 +15,8 @@ namespace TallerCaldera.Models
 
         [Required]
         public string Type { get; set; }
+
+        public string Provider { get; set; }
 
         public string Observations { get; set; }
 

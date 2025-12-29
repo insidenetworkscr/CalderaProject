@@ -1,68 +1,209 @@
-﻿@model IEnumerable<TallerCaldera.Models.Maintenance>
+﻿@model IEnumerable<TallerCaldera2.Models.Maintenance>
 
 @{
     ViewData["Title"] = "Mantenimientos";
 }
 
-<h1>Mantenimientos</h1>
+<style>
+    .maintenance-row {
+        transition: background .15s ease;
+    }
 
-<p>
-    <a asp-action="Create" class="btn btn-primary">Crear nuevo</a>
-</p>
-
-<table class="table table-striped align-middle">
-    <thead>
-        <tr>
-            <th>Fecha</th>
-            <th>Tipo</th>
-            <th>Vehículo</th>
-            <th>Costo</th>
-            <th>Fotos</th>
-            <th>Boceto</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.Date.ToString("dd/MM/yyyy")</td>
-                <td>@item.Type</td>
-                <td>@item.VehiclePlate</td>
-                <td>₡@(item.Cost?.ToString("N0") ?? "0")</td>
-                <td>
-                    @if (item.Photos != null && item.Photos.Any())
-                    {
-                        foreach (var photo in item.Photos.Take(3))
-                        {
-                            <img src="@photo.ImageUrl" style="width:60px;height:auto;margin-right:4px;border-radius:4px;" />
-                        }
-                        if (item.Photos.Count > 3)
-                        {
-                            <span>+@(item.Photos.Count - 3)</span>
-                        }
-                    }
-                    else
-                    {
-                        <span class="text-muted">Sin fotos</span>
-                    }
-                </td>
-                <td>
-                    @if (item.SketchMarks != null && item.SketchMarks.Any())
-                    {
-                        <span>Con boceto (@item.SketchMarks.Count X)</span>
-                    }
-                    else
-                    {
-                        <span class="text-muted">Sin boceto</span>
-                    }
-                </td>
-                <td>
-                    <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
-                </td>
-            </tr>
+        .maintenance-row:hover {
+            background-color: #f8f9fa;
         }
-    </tbody>
-</table>
+
+    .no-results {
+        display: none;
+    }
+</style>
+
+<section class="container-fluid px-4">
+
+    <!-- Header -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+        <div>
+            <h2 class="fw-bold mb-0">Mantenimientos</h2>
+            <small class="text-muted">
+                Buscar por tipo, proveedor o placa + filtrar por fechas
+            </small>
+        </div>
+
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> Crear nuevo
+        </a>
+    </div>
+
+    <!-- Filtros -->
+    <div class="card shadow-sm border-0 rounded-4 mb-4">
+        <div class="card-body">
+            <div class="row g-3 align-items-end">
+                <!-- Buscador -->
+                <div class="col-md-4">
+                    <label class="form-label fw-semibold">Buscar</label>
+                    <input type="text"
+                           id="searchInput"
+                           class="form-control"
+                           placeholder="Tipo, proveedor o placa"
+                           onkeyup="filterMaintenances()" />
+                </div>
+
+                <!-- Fecha desde -->
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Desde</label>
+                    <input type="date"
+                           id="dateFrom"
+                           class="form-control"
+                           onchange="filterMaintenances()" />
+                </div>
+
+                <!-- Fecha hasta -->
+                <div class="col-md-3">
+                    <label class="form-label fw-semibold">Hasta</label>
+                    <input type="date"
+                           id="dateTo"
+                           class="form-control"
+                           onchange="filterMaintenances()" />
+                </div>
+
+                <!-- Limpiar -->
+                <div class="col-md-2">
+                    <button class="btn btn-outline-secondary w-100"
+                            onclick="clearFilters()">
+                        Limpiar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabla -->
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="table-responsive">
+            <table class="table table-striped align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Tipo</th>
+                        <th>Proveedor</th>
+                        <th>Vehículo</th>
+                        <th>Costo</th>
+                        <th>Fotos</th>
+                        <th>Boceto</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="maintenanceTable">
+                    @foreach (var item in Model)
+                    {
+                        <tr class="maintenance-row maintenance-item"
+                            data-search="@($"{item.Type} {item.Provider} {item.VehiclePlate}".ToLower())"
+                            data-date="@item.Date.ToString("yyyy-MM-dd")">
+
+                            <td>@item.Date.ToString("dd/MM/yyyy")</td>
+                            <td>@item.Type</td>
+                            <td>@item.Provider</td>
+                            <td>@item.VehiclePlate</td>
+                            <td>₡@(item.Cost?.ToString("N0") ?? "0")</td>
+
+                            <!-- Fotos -->
+                            <td>
+                                @if (item.Photos != null && item.Photos.Any())
+                                {
+                                    foreach (var photo in item.Photos.Take(3))
+                                    {
+                                        <img src="@photo.ImageUrl"
+                                             style="width:55px;height:auto;margin-right:4px;border-radius:4px;" />
+                                    }
+                                    if (item.Photos.Count > 3)
+                                    {
+                                        <span>+@(item.Photos.Count - 3)</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Sin fotos</span>
+                                }
+                            </td>
+
+                            <!-- Boceto -->
+                            <td>
+                                @if (item.SketchMarks != null && item.SketchMarks.Any())
+                                {
+                                    <span>Con boceto (@item.SketchMarks.Count)</span>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Sin boceto</span>
+                                }
+                            </td>
+
+                            <!-- Acciones -->
+                            <td class="text-end">
+                                <a asp-action="Details" asp-route-id="@item.Id"
+                                   class="btn btn-sm btn-outline-info">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a asp-action="Edit" asp-route-id="@item.Id"
+                                   class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.Id"
+                                   class="btn btn-sm btn-outline-danger">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Sin resultados -->
+    <div id="noResults" class="text-center text-muted mt-5 no-results">
+        <i class="bi bi-tools fs-1"></i>
+        <p class="mt-2">No se encontraron mantenimientos</p>
+    </div>
+
+</section>
+
+<script>
+    function filterMaintenances() {
+        const search = document.getElementById("searchInput").value.toLowerCase();
+        const from = document.getElementById("dateFrom").value;
+        const to = document.getElementById("dateTo").value;
+
+        const rows = document.querySelectorAll(".maintenance-item");
+        let visible = 0;
+
+        rows.forEach(row => {
+            const text = row.dataset.search;
+            const date = row.dataset.date;
+
+            let matchesSearch = text.includes(search);
+            let matchesDate = true;
+
+            if (from && date < from) matchesDate = false;
+            if (to && date > to) matchesDate = false;
+
+            if (matchesSearch && matchesDate) {
+                row.style.display = "";
+                visible++;
+            } else {
+                row.style.display = "none";
+            }
+        });
+
+        document.getElementById("noResults").style.display =
+            visible === 0 ? "block" : "none";
+    }
+
+    function clearFilters() {
+        document.getElementById("searchInput").value = "";
+        document.getElementById("dateFrom").value = "";
+        document.getElementById("dateTo").value = "";
+        filterMaintenances();
+    }
+</script>
+

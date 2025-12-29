@@ -1,7 +1,49 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
+﻿@model IEnumerable<TallerCaldera2.Models.Alert>
+
+<h2>Alertas de Mantenimiento</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-success">
+        No hay alertas pendientes 🎉
+    </div>
 }
-
-<h1>Index</h1>
-
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Placa</th>
+                <th>Cliente</th>
+                <th>Vehículo</th>
+                <th>Fecha mantenimiento</th>
+                <th>Estado</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var alert in Model)
+            {
+                bool vencida = alert.DueDate < DateTime.Today;
+                <tr class="@(vencida ? "table-danger" : "table-warning")">
+                    <td>@alert.VehiclePlate</td>
+                    <td>@alert.Vehicle.ClientName</td>
+                    <td>@alert.Vehicle.Brand @alert.Vehicle.Model</td>
+                    <td>@alert.DueDate.ToShortDateString()</td>
+                    <td>@(vencida ? "Vencido" : "Próximo")</td>
+                    <td>
+                        <form asp-action="MarkAsShown" method="post" style="display:inline">
+                            <input type="hidden" name="id" value="@alert.Id" />
+                            <button class="btn btn-sm btn-success">
+                                Marcar atendida
+                            </button>
+                        </form>
+                        <a href="tel:@alert.Vehicle.ClientPhone" class="btn btn-sm btn-primary">
+                            Contactar
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

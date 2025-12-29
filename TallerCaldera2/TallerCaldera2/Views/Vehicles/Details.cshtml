@@ -1,13 +1,25 @@
-﻿@model TallerCaldera.Models.Vehicle
+﻿@model TallerCaldera2.Models.Vehicle
 @{
     ViewData["Title"] = "Detalles del Vehículo";
 
     var maintenances = Model.Maintenances?
         .OrderByDescending(m => m.Date)
-        .ToList() ?? new List<TallerCaldera.Models.Maintenance>();
+        .ToList() ?? new List<TallerCaldera2.Models.Maintenance>();
 
     var totalCost = maintenances.Sum(m => m.Cost ?? 0);
 }
+
+<style>
+    .money-hidden {
+        filter: blur(8px);
+        user-select: none;
+        transition: filter 0.25s ease;
+    }
+
+    .money-visible {
+        filter: none;
+    }
+</style>
 
 <div class="container-fluid py-4 px-5">
     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -18,7 +30,10 @@
         </div>
         <div>
             <a asp-action="Index" class="btn btn-outline-secondary me-2">Volver</a>
-            <a asp-controller="Maintenances" asp-action="Create" asp-route-vehiclePlate="@Model.Plate" class="btn btn-primary">
+            <a asp-controller="Maintenances"
+               asp-action="Create"
+               asp-route-vehiclePlate="@Model.Plate"
+               class="btn btn-primary">
                 Agregar Mantenimiento
             </a>
         </div>
@@ -35,13 +50,21 @@
                             <p><strong>Cliente:</strong> @Model.ClientName</p>
                             <p><strong>Cédula:</strong> @Model.ClientIdNumber</p>
                             <p><strong>Teléfono:</strong> @Model.ClientPhone</p>
+                            <p><strong>Dirección:</strong> @Model.ClientAddress</p>
+                            <p><strong>Correo:</strong> @Model.ClientEmail</p>
                             <p><strong>Combustible:</strong> @Model.FuelType</p>
                         </div>
                         <div class="col-sm-6">
                             <p><strong>Año:</strong> @Model.Year</p>
                             <p><strong>Aceite:</strong> @Model.OilType</p>
-                            <p><strong>Último Mantenimiento:</strong> @(Model.LastMaintenanceDate?.ToString("dd/MM/yyyy") ?? "—")</p>
-                            <p><strong>Registrado:</strong> @Model.CreatedDate.ToString("dd/MM/yyyy")</p>
+                            <p>
+                                <strong>Último Mantenimiento:</strong>
+                                @(Model.LastMaintenanceDate?.ToString("dd/MM/yyyy") ?? "—")
+                            </p>
+                            <p>
+                                <strong>Registrado:</strong>
+                                @Model.CreatedDate.ToString("dd/MM/yyyy")
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -59,14 +82,28 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-sm-6">
                     <div class="card shadow-sm border-0 rounded-4 h-100 text-center">
                         <div class="card-body">
-                            <h6 class="text-muted">Total Gastado</h6>
-                            <h3 class="fw-bold text-success">₡@totalCost.ToString("N0")</h3>
+                            <div class="d-flex justify-content-center align-items-center gap-2">
+                                <h6 class="text-muted mb-0">Total Gastado</h6>
+
+                                <button class="btn btn-sm btn-outline-secondary"
+                                        type="button"
+                                        onclick="toggleMoney()"
+                                        title="Mostrar / ocultar montos">
+                                    👁️
+                                </button>
+                            </div>
+
+                            <h3 class="fw-bold text-success money money-hidden">
+                                ₡@totalCost.ToString("N0")
+                            </h3>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -102,16 +139,19 @@
                                     <td>@m.Date.ToString("dd/MM/yyyy")</td>
                                     <td>@m.Type</td>
                                     <td>@((m.Mileage?.ToString("N0") ?? "—")) km</td>
-                                    <td>₡@(m.Cost?.ToString("N0") ?? "0")</td>
 
-                                    <!-- fotos -->
+                                    <td class="money money-hidden">
+                                        ₡@(m.Cost?.ToString("N0") ?? "0")
+                                    </td>
+
                                     <td>
                                         @if (m.Photos != null && m.Photos.Any())
                                         {
                                             <div class="d-flex flex-wrap">
                                                 @foreach (var photo in m.Photos.Take(3))
                                                 {
-                                                    <img src="@photo.ImageUrl" style="width:55px;height:auto;margin-right:4px;border-radius:4px;" />
+                                                    <img src="@photo.ImageUrl"
+                                                         style="width:55px;height:auto;margin-right:4px;border-radius:4px;" />
                                                 }
                                             </div>
                                         }
@@ -121,7 +161,6 @@
                                         }
                                     </td>
 
-                                    <!-- boceto -->
                                     <td>
                                         @if (m.SketchMarks != null && m.SketchMarks.Any())
                                         {
@@ -134,9 +173,20 @@
                                     </td>
 
                                     <td class="text-end">
-                                        <a asp-controller="Maintenances" asp-action="Details" asp-route-id="@m.Id" class="btn btn-sm btn-outline-info">Ver</a>
-                                        <a asp-controller="Maintenances" asp-action="Edit" asp-route-id="@m.Id" class="btn btn-sm btn-outline-primary">Editar</a>
-                                        <a asp-controller="Maintenances" asp-action="Delete" asp-route-id="@m.Id" class="btn btn-sm btn-outline-danger">Eliminar</a>
+                                        <a asp-controller="Maintenances"
+                                           asp-action="Details"
+                                           asp-route-id="@m.Id"
+                                           class="btn btn-sm btn-outline-info">Ver</a>
+
+                                        <a asp-controller="Maintenances"
+                                           asp-action="Edit"
+                                           asp-route-id="@m.Id"
+                                           class="btn btn-sm btn-outline-primary">Editar</a>
+
+                                        <a asp-controller="Maintenances"
+                                           asp-action="Delete"
+                                           asp-route-id="@m.Id"
+                                           class="btn btn-sm btn-outline-danger">Eliminar</a>
                                     </td>
                                 </tr>
                             }
@@ -147,3 +197,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    function toggleMoney() {
+        document.querySelectorAll('.money').forEach(el => {
+            el.classList.toggle('money-hidden');
+            el.classList.toggle('money-visible');
+        });
+    }
+</script>

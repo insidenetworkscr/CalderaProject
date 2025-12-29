@@ -1,0 +1,97 @@
+﻿@model IEnumerable<TallerCaldera2.Models.Appointment>
+
+@{
+    ViewData["Title"] = "Agenda de Citas";
+    var selectedDay = ViewData["SelectedDay"] as string;
+}
+
+<h2 class="mb-3">Agenda de Citas</h2>
+
+<div class="row mb-3">
+    <div class="col-md-4">
+        <form method="get">
+            <label class="form-label">Filtrar por día</label>
+            <div class="input-group">
+                <input type="date" name="day" class="form-control" value="@selectedDay" />
+                <button type="submit" class="btn btn-primary">Filtrar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-8 text-end align-self-end">
+        <a asp-action="Create" class="btn btn-success">
+            ➕ Agregar cita
+        </a>
+    </div>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Hora</th>
+            <th>Cliente</th>
+            <th>Teléfono</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+            <th style="width: 260px;">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (!Model.Any())
+        {
+            <tr>
+                <td colspan="6" class="text-center text-muted">
+                    No hay citas registradas para este día
+                </td>
+            </tr>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.AppointmentDateTime.ToString("HH:mm")</td>
+                    <td>@item.CustomerName</td>
+                    <td>@item.PhoneNumber</td>
+                    <td>@item.AppointmentDateTime.ToString("dd/MM/yyyy")</td>
+                    <td>
+                        @if (item.Status == AppointmentStatus.Confirmada)
+                        {
+                            <span class="badge bg-success">Confirmada</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-warning text-dark">Pendiente</span>
+                        }
+                    </td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+
+                            @if (item.Status == AppointmentStatus.Pendiente)
+                            {
+                                <form asp-action="Confirm" method="post">
+                                    <input type="hidden" name="id" value="@item.Id" />
+                                    <button class="btn btn-success">Confirmar</button>
+                                </form>
+                            }
+
+                            <form asp-action="Cancel" method="post">
+                                <input type="hidden" name="id" value="@item.Id" />
+                                <button class="btn btn-warning">Cancelar</button>
+                            </form>
+
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">
+                                Editar
+                            </a>
+
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">
+                                Eliminar
+                            </a>
+
+                        </div>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

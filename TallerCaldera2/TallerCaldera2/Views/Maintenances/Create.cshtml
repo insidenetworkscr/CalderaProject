@@ -1,4 +1,4 @@
-﻿@model TallerCaldera.Models.Maintenance
+﻿@model TallerCaldera2.Models.Maintenance
 
 @{
     ViewData["Title"] = "Crear mantenimiento";
@@ -29,6 +29,12 @@
                 <label asp-for="Type" class="form-label"></label>
                 <input asp-for="Type" class="form-control" />
                 <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-4">
+                <label asp-for="Provider" class="form-label">Proveedor</label>
+                <input asp-for="Provider" class="form-control" />
+                <span asp-validation-for="Provider" class="text-danger"></span>
             </div>
 
             <div class="mb-3">

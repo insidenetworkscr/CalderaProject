@@ -1,4 +1,4 @@
-﻿@model TallerCaldera.Models.Maintenance
+﻿@model TallerCaldera2.Models.Maintenance
 
 @{
     ViewData["Title"] = "Detalles del mantenimiento";
@@ -23,6 +23,10 @@
 
             <dt class="col-sm-4">Tipo</dt>
             <dd class="col-sm-8">@Model.Type</dd>
+
+            <dt class="col-sm-4">Provider</dt>
+            <dd class="col-sm-8">@Model.Provider</dd>
+
 
             <dt class="col-sm-4">Costo</dt>
             <dd class="col-sm-8">₡@(Model.Cost?.ToString("N0") ?? "0")</dd>

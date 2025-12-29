@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using TallerCaldera.Models;
 using TallerCaldera2.Models;
 
 namespace TallerCaldera2.Controllers
@@ -91,6 +90,24 @@ namespace TallerCaldera2.Controllers
                 vehicle.LastMaintenanceDate = maintenance.Date;
             }
 
+            // CREAR ALERTA DE MANTENIMIENTO
+            var dueDate = maintenance.Date.AddMonths(6);
+
+            bool exists = await _context.Alerts.AnyAsync(a =>
+                a.VehiclePlate == maintenance.VehiclePlate &&
+                a.DueDate == dueDate);
+
+            if (!exists)
+            {
+                _context.Alerts.Add(new Alert
+                {
+                    VehiclePlate = maintenance.VehiclePlate,
+                    DueDate = dueDate,
+                    Message = "Mantenimiento próximo",
+                    IsShown = false
+                });
+            }
+
             // Guardar fotos
             await SavePhotosAsync(maintenance.Id, photos);
 
@@ -151,6 +168,7 @@ namespace TallerCaldera2.Controllers
             // Actualizar campos básicos
             existing.Date = maintenance.Date;
             existing.Type = maintenance.Type;
+            existing.Provider = maintenance.Provider;
             existing.Observations = maintenance.Observations;
             existing.Cost = maintenance.Cost;
             existing.Mileage = maintenance.Mileage;
