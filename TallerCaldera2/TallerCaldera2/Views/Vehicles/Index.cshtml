@@ -1,104 +1,569 @@
 ﻿@model IEnumerable<TallerCaldera2.Models.Vehicle>
 @{
     ViewData["Title"] = "Vehículos";
+    ViewData["Breadcrumb"] = "Vehículos Registrados";
 }
 
 <style>
-    .search-box {
-        max-width: 420px;
+    :root {
+        --card-hover-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+        --transition-speed: 0.3s;
     }
 
-    .vehicle-card {
-        transition: transform .2s ease, box-shadow .2s ease;
+    /* Estilos específicos para la página de vehículos */
+    .vehicles-page {
+        padding: 1rem 0;
     }
 
-        .vehicle-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 25px rgba(0,0,0,.08);
+    /* Header de página mejorado */
+    .page-header-vehicles {
+        background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
+        border-radius: var(--border-radius);
+        padding: 2rem;
+        margin-bottom: 2rem;
+        border: 1px solid #fee2e2;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .page-header-vehicles::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
         }
 
-    .no-results {
+    .page-title-vehicles {
+        color: #1e293b;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+        .page-title-vehicles i {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+        }
+
+    .page-subtitle-vehicles {
+        color: #64748b;
+        font-size: 1.1rem;
+        max-width: 600px;
+    }
+
+    /* Barra de herramientas */
+    .tools-bar {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+        padding: 1.5rem;
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+    }
+
+    .search-container-vehicles {
+        flex: 1;
+        max-width: 500px;
+        position: relative;
+    }
+
+    .search-input-vehicles {
+        width: 100%;
+        padding: 0.85rem 1rem 0.85rem 3rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        transition: all var(--transition-speed);
+        background: #f8fafc;
+    }
+
+        .search-input-vehicles:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+            background: white;
+        }
+
+    .search-icon-vehicles {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #94a3b8;
+        font-size: 1.1rem;
+    }
+
+    .stats-badge {
+        background: var(--primary-light);
+        color: var(--primary-color);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        border: 1px solid rgba(220, 38, 38, 0.2);
+    }
+
+    /* Tarjetas de vehículos mejoradas */
+    .vehicle-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .vehicle-card-enhanced {
+        background: white;
+        border-radius: var(--border-radius);
+        overflow: hidden;
+        box-shadow: var(--box-shadow);
+        transition: all var(--transition-speed);
+        border: none;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+        .vehicle-card-enhanced:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--card-hover-shadow);
+        }
+
+    .vehicle-header {
+        padding: 1.5rem 1.5rem 1rem;
+        border-bottom: 1px solid #f1f5f9;
+        position: relative;
+    }
+
+    .vehicle-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: var(--primary-color);
+        color: white;
+        font-size: 0.7rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-weight: 600;
+    }
+
+    .vehicle-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 0.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+        .vehicle-title i {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+    .vehicle-plate {
+        font-size: 0.9rem;
+        color: #64748b;
+        background: #f1f5f9;
+        padding: 0.25rem 0.75rem;
+        border-radius: 4px;
+        display: inline-block;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    .vehicle-body {
+        padding: 1rem 1.5rem;
+        flex: 1;
+    }
+
+    .vehicle-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .info-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #f8fafc;
+    }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+    .info-label {
+        color: #64748b;
+        font-size: 0.85rem;
+        font-weight: 500;
+    }
+
+    .info-value {
+        color: #334155;
+        font-weight: 500;
+        font-size: 0.9rem;
+        text-align: right;
+        max-width: 60%;
+        word-break: break-word;
+    }
+
+    .client-info {
+        background: #f8fafc;
+        padding: 0.75rem;
+        border-radius: 8px;
+        margin-top: 1rem;
+    }
+
+    .client-name {
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 0.25rem;
+    }
+
+    .client-contact {
+        font-size: 0.85rem;
+        color: #64748b;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .vehicle-footer {
+        padding: 1rem 1.5rem;
+        border-top: 1px solid #f1f5f9;
+        background: #f8fafc;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .maintenance-info {
+        font-size: 0.85rem;
+        color: #64748b;
+    }
+
+        .maintenance-info .date {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+    .vehicle-actions {
+        display: flex;
+        gap: 0.5rem;
+    }
+
+    .action-btn {
+        width: 36px;
+        height: 36px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background: white;
+        color: #64748b;
+        transition: all var(--transition-speed);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-btn.view {
+            color: var(--primary-color);
+        }
+
+            .action-btn.view:hover {
+                background: var(--primary-light);
+            }
+
+        .action-btn.edit {
+            color: #3b82f6;
+        }
+
+            .action-btn.edit:hover {
+                background: #eff6ff;
+            }
+
+        .action-btn.delete {
+            color: var(--danger-color);
+        }
+
+            .action-btn.delete:hover {
+                background: #fef2f2;
+            }
+
+    /* Sin resultados */
+    .no-results-enhanced {
+        text-align: center;
+        padding: 4rem 2rem;
+        background: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
         display: none;
+    }
+
+        .no-results-enhanced i {
+            font-size: 4rem;
+            color: #e2e8f0;
+            margin-bottom: 1rem;
+        }
+
+        .no-results-enhanced h4 {
+            color: #64748b;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .no-results-enhanced p {
+            color: #94a3b8;
+            max-width: 400px;
+            margin: 0 auto 1.5rem;
+        }
+
+    /* Filtros rápidos */
+    .quick-filters {
+        display: flex;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    .filter-btn {
+        padding: 0.5rem 1rem;
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 20px;
+        color: #64748b;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: all var(--transition-speed);
+        cursor: pointer;
+    }
+
+        .filter-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            background: var(--primary-light);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .vehicle-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .tools-bar {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .search-container-vehicles {
+            max-width: 100%;
+        }
+
+        .page-header-vehicles {
+            padding: 1.5rem;
+        }
+
+        .page-title-vehicles {
+            font-size: 1.6rem;
+        }
+    }
+
+    @@media (max-width: 480px) {
+        .vehicle-actions {
+            flex-direction: column;
+        }
+
+        .action-btn {
+            width: 100%;
+        }
+
+        .info-row {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.25rem;
+        }
+
+        .info-value {
+            max-width: 100%;
+            text-align: left;
+        }
+    }
+
+    /* Animaciones */
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .vehicle-card-enhanced {
+        animation: fadeIn 0.5s ease forwards;
     }
 </style>
 
-<section class="page-block container-fluid px-4">
+<div class="vehicles-page">
+    <!-- Header de página -->
+    <div class="page-header-vehicles">
+        <h1 class="page-title-vehicles">
+            <i class="bi bi-car-front"></i>
+            Vehículos Registrados
+        </h1>
+        <p class="page-subtitle-vehicles">
+            Gestiona todos los vehículos del taller. Busca por cliente, teléfono, placa o modelo.
+        </p>
+    </div>
 
-    <!-- Header -->
-    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
-        <div>
-            <h2 class="page-title mb-0">Vehículos Registrados</h2>
-            <small class="text-muted">
-                Busca por cliente, teléfono, placa o modelo
-            </small>
+    <!-- Barra de herramientas -->
+    <div class="tools-bar">
+        <div class="search-container-vehicles">
+            <i class="bi bi-search search-icon-vehicles"></i>
+            <input type="text"
+                   id="vehicleSearch"
+                   class="search-input-vehicles"
+                   placeholder="Buscar vehículos por cliente, placa, modelo..."
+                   onkeyup="filterVehicles()" />
         </div>
 
-        <div class="d-flex gap-2 align-items-center">
-            <!-- Buscador -->
-            <div class="input-group search-box">
-                <span class="input-group-text bg-light">
-                    <i class="bi bi-search"></i>
-                </span>
-                <input type="text"
-                       id="vehicleSearch"
-                       class="form-control"
-                       placeholder="Buscar vehículo..."
-                       onkeyup="filterVehicles()" />
+        <div class="d-flex align-items-center gap-3">
+            <div class="stats-badge">
+                <i class="bi bi-car-front me-1"></i>
+                <span id="vehicleCount">@Model.Count()</span> vehículos
             </div>
 
-            <a asp-action="Create" class="btn btn-primary">
-                <i class="bi bi-plus-lg"></i> Nuevo Vehículo
+            <a asp-action="Create" class="btn btn-primary btn-lg">
+                <i class="bi bi-plus-lg me-2"></i> Nuevo Vehículo
             </a>
         </div>
     </div>
 
-    <!-- Cards -->
-    <div class="row" id="vehicleList">
+    <!-- Filtros rápidos -->
+    <div class="quick-filters">
+        <button class="filter-btn active" onclick="filterByType('all')">
+            Todos los vehículos
+        </button>
+        <button class="filter-btn" onclick="filterByType('recent')">
+            <i class="bi bi-clock me-1"></i> Recientes
+        </button>
+        
+    </div>
+
+    <!-- Grid de vehículos -->
+    <div class="vehicle-grid" id="vehicleList">
         @foreach (var v in Model)
         {
-            <div class="col-lg-4 col-md-6 mb-4 vehicle-item"
-                 data-search="@($"{v.ClientName} {v.ClientPhone} {v.Plate} {v.Model} {v.Brand}".ToLower())">
+            <div class="vehicle-item"
+                 data-search="@($"{v.ClientName} {v.ClientPhone} {v.Plate} {v.Model} {v.Brand}".ToLower())"
+                 data-maintenance="@(v.LastMaintenanceDate != null ? "yes" : "no")"
+                 data-date="@v.LastMaintenanceDate?.ToString("yyyyMMdd")">
 
-                <div class="card vehicle-card border-0 rounded-4 h-100">
-                    <div class="card-body">
-                        <h5 class="fw-bold mb-2">
+                <div class="vehicle-card-enhanced">
+                    <!-- Header de la tarjeta -->
+                    <div class="vehicle-header">
+                        <span class="vehicle-badge">@v.FuelType</span>
+                        <div class="vehicle-title">
+                            <i class="bi bi-car-front-fill"></i>
                             @v.Brand @v.Model
-                        </h5>
-
-                        <p class="mb-1"><strong>Placa:</strong> @v.Plate</p>
-                        <p class="mb-1"><strong>Cliente:</strong> @v.ClientName</p>
-                        <p class="mb-1"><strong>Teléfono:</strong> @v.ClientPhone</p>
-                        <p class="mb-1"><strong>Correo:</strong> @v.ClientEmail</p>
-                        <p class="mb-1"><strong>Combustible:</strong> @v.FuelType</p>
-                        <p class="mb-1"><strong>Año:</strong> @v.Year</p>
-
-                        @if (v.LastMaintenanceDate != null)
-                        {
-                            <p class="mb-0">
-                                <strong>Últ. Mantenimiento:</strong>
-                                @v.LastMaintenanceDate?.ToString("dd/MM/yyyy")
-                            </p>
-                        }
+                        </div>
+                        <div class="vehicle-plate mt-2">@v.Plate</div>
                     </div>
 
-                    <div class="card-footer bg-transparent text-end border-0">
-                        <a asp-action="Details"
-                           asp-route-plate="@v.Plate"
-                           class="btn btn-sm btn-outline-info">
-                            <i class="bi bi-eye"></i>
-                        </a>
+                    <!-- Cuerpo de la tarjeta -->
+                    <div class="vehicle-body">
+                        <div class="vehicle-info">
+                            <div class="info-row">
+                                <span class="info-label">Año</span>
+                                <span class="info-value">@v.Year</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Combustible</span>
+                                <span class="info-value">@v.FuelType</span>
+                            </div>
+                        </div>
 
-                        <a asp-action="Edit"
-                           asp-route-plate="@v.Plate"
-                           class="btn btn-sm btn-outline-primary">
-                            <i class="bi bi-pencil"></i>
-                        </a>
+                        <!-- Información del cliente -->
+                        <div class="client-info">
+                            <div class="client-name">@v.ClientName</div>
+                            <div class="client-contact">
+                                @if (!string.IsNullOrEmpty(v.ClientPhone))
+                                {
+                                    <span><i class="bi bi-telephone me-1"></i> @v.ClientPhone</span>
+                                }
+                                @if (!string.IsNullOrEmpty(v.ClientEmail))
+                                {
+                                    <span><i class="bi bi-envelope me-1"></i> @v.ClientEmail</span>
+                                }
+                            </div>
+                        </div>
+                    </div>
 
-                        <a asp-action="Delete"
-                           asp-route-plate="@v.Plate"
-                           class="btn btn-sm btn-outline-danger">
-                            <i class="bi bi-trash"></i>
-                        </a>
+                    <!-- Footer de la tarjeta -->
+                    <div class="vehicle-footer">
+                        @if (v.LastMaintenanceDate != null)
+                        {
+                            <div class="maintenance-info">
+                                <i class="bi bi-calendar-check me-1"></i>
+                                Últ. mantenimiento:
+                                <span class="date">@v.LastMaintenanceDate?.ToString("dd/MM/yyyy")</span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="maintenance-info">
+                                <i class="bi bi-exclamation-triangle me-1"></i>
+                                Sin mantenimientos
+                            </div>
+                        }
+
+                        <div class="vehicle-actions">
+                            <a asp-action="Details" asp-route-plate="@v.Plate"
+                               class="action-btn view"
+                               title="Ver detalles">
+                                <i class="bi bi-eye"></i>
+                            </a>
+
+                            <a asp-action="Edit" asp-route-plate="@v.Plate"
+                               class="action-btn edit"
+                               title="Editar">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+
+                            <a asp-action="Delete" asp-route-plate="@v.Plate"
+                               class="action-btn delete"
+                               title="Eliminar"
+                               onclick="return confirm('¿Está seguro de eliminar el vehículo @v.Plate?')">
+                                <i class="bi bi-trash"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -106,13 +571,21 @@
     </div>
 
     <!-- Sin resultados -->
-    <div class="text-center text-muted mt-5 no-results" id="noResults">
-        <i class="bi bi-car-front fs-1"></i>
-        <p class="mt-2">No se encontraron vehículos</p>
+    <div class="no-results-enhanced" id="noResults">
+        <i class="bi bi-car-front"></i>
+        <h4>No se encontraron vehículos</h4>
+        <p>No hay vehículos que coincidan con tu búsqueda o filtro.</p>
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="bi bi-plus-lg me-2"></i> Agregar primer vehículo
+        </a>
     </div>
-</section>
+</div>
 
 <script>
+    // Variables globales
+    let currentFilter = 'all';
+
+    // Función para filtrar vehículos por búsqueda
     function filterVehicles() {
         const input = document.getElementById("vehicleSearch").value.toLowerCase();
         const items = document.querySelectorAll(".vehicle-item");
@@ -120,15 +593,99 @@
 
         items.forEach(item => {
             const text = item.dataset.search;
-            if (text.includes(input)) {
-                item.style.display = "";
+            const matchesSearch = text.includes(input);
+            const matchesFilter = checkFilter(item);
+
+            if (matchesSearch && matchesFilter) {
+                item.style.display = "block";
                 visibleCount++;
             } else {
                 item.style.display = "none";
             }
         });
 
+        // Mostrar/ocultar mensaje de no resultados
         document.getElementById("noResults").style.display =
             visibleCount === 0 ? "block" : "none";
+
+        // Actualizar contador
+        document.getElementById("vehicleCount").textContent = visibleCount;
     }
+
+    // Función para verificar filtro actual
+    function checkFilter(item) {
+        switch (currentFilter) {
+            case 'all':
+                return true;
+            case 'recent':
+                // Mostrar vehículos con mantenimiento en los últimos 30 días
+                const dateStr = item.dataset.date;
+                if (!dateStr) return false;
+
+                const lastMaintenance = new Date(
+                    parseInt(dateStr.substring(0, 4)),
+                    parseInt(dateStr.substring(4, 6)) - 1,
+                    parseInt(dateStr.substring(6, 8))
+                );
+
+                const thirtyDaysAgo = new Date();
+                thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+                return lastMaintenance >= thirtyDaysAgo;
+            case 'maintenance':
+                return item.dataset.maintenance === 'yes';
+            case 'nomaintenance':
+                return item.dataset.maintenance === 'no';
+            default:
+                return true;
+        }
+    }
+
+    // Función para filtrar por tipo
+    function filterByType(type) {
+        currentFilter = type;
+
+        // Actualizar botones activos
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        event.target.classList.add('active');
+
+        // Aplicar filtro
+        filterVehicles();
+    }
+
+    // Función para ordenar vehículos
+    function sortVehicles(criteria) {
+        const container = document.getElementById('vehicleList');
+        const items = Array.from(container.querySelectorAll('.vehicle-item'));
+
+        items.sort((a, b) => {
+            switch (criteria) {
+                case 'plate':
+                    return a.dataset.search.localeCompare(b.dataset.search);
+                case 'recent':
+                    return new Date(b.dataset.date || 0) - new Date(a.dataset.date || 0);
+                case 'brand':
+                    return a.dataset.search.localeCompare(b.dataset.search);
+                default:
+                    return 0;
+            }
+        });
+
+        // Reorganizar elementos
+        items.forEach(item => container.appendChild(item));
+    }
+
+    // Inicializar contador
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById("vehicleCount").textContent =
+            document.querySelectorAll(".vehicle-item").length;
+
+        // Animar tarjetas con retraso escalonado
+        const cards = document.querySelectorAll('.vehicle-card-enhanced');
+        cards.forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+    });
 </script>
