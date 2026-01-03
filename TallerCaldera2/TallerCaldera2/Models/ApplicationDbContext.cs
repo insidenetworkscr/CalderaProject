@@ -16,6 +16,8 @@ namespace TallerCaldera2.Models
         public DbSet<SketchMark> SketchMarks { get; set; }
         public DbSet<Alert> Alerts { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<User> Users { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder b)
         {

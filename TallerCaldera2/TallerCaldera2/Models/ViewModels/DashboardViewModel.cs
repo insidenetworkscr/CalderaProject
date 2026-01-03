@@ -6,5 +6,14 @@
         public int TotalVehiculos { get; set; }
         public int MantenimientosMes { get; set; }
         public int CitasPendientes { get; set; }
+
+        public List<string> MesesMantenimientos { get; set; } = new();
+        public List<int> CantidadMantenimientos { get; set; } = new();
+
+        public List<string> EstadosCitas { get; set; } = new();
+        public List<int> CantidadCitas { get; set; } = new();
+
+        public List<string> MarcasVehiculos { get; set; } = new();
+        public List<int> CantidadVehiculos { get; set; } = new();
     }
 }

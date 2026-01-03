@@ -1,4 +1,7 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
     var current = Context.Request.Path.Value?.ToLower() ?? "";
     string Active(string path) => current.Contains(path.ToLower()) ? "active fw-bold" : "";
 }
@@ -35,7 +38,6 @@
             flex-direction: column;
         }
 
-        /* ===== HEADER ===== */
         .main-header {
             background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
             height: var(--header-height);
@@ -87,6 +89,7 @@
         .main-nav {
             display: flex;
             gap: .5rem;
+            align-items: center;
         }
 
         .nav-link-custom {
@@ -106,89 +109,76 @@
                 color: white;
             }
 
-        .nav-badge {
-            background: #f59e0b;
-            font-size: .7rem;
-            padding: .15rem .5rem;
-            border-radius: 10px;
-            font-weight: 600;
-        }
-
-        /* ===== MAIN ===== */
         .main-content {
             flex: 1;
             padding: 2rem;
-            min-height: calc(100vh - var(--header-height) - 80px);
-        }
-
-        /* ===== FOOTER (CORREGIDO Y ROJO) ===== */
-        .main-footer {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary-color));
-            padding: 1.5rem 2rem;
-            color: rgba(255,255,255,.9);
-            box-shadow: 0 -4px 12px rgba(0,0,0,.08);
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-            .footer-links a {
-                color: rgba(255,255,255,.85);
-                text-decoration: none;
-                font-size: .9rem;
-            }
-
-                .footer-links a:hover {
-                    color: white;
-                    text-decoration: underline;
-                }
-
-        .copyright {
-            font-size: .85rem;
-            opacity: .9;
-        }
-
-        @@media (max-width: 768px) {
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
+            min-height: calc(100vh - var(--header-height));
         }
     </style>
 </head>
 
 <body>
 
-    <header class="main-header">
-        <div class="header-container">
-            <a asp-controller="Home" asp-action="Index" class="logo-section">
-                <div class="logo-icon"><i class="bi bi-gear-fill"></i></div>
-                <div class="logo-text">
-                    Caldera Performance
-                    <div class="logo-subtitle">Sistema de Gestión del Taller</div>
-                </div>
-            </a>
+  
+    @if (HttpContextAccessor.HttpContext.Session.GetString("UserName") != null)
+    {
+        <header class="main-header">
+            <div class="header-container">
 
-            <nav class="main-nav d-none d-lg-flex">
-                <a class="nav-link-custom @Active("/home")" asp-controller="Home" asp-action="Index"><i class="bi bi-speedometer2"></i> Dashboard</a>
-                <a class="nav-link-custom @Active("/vehicles")" asp-controller="Vehicles" asp-action="Index"><i class="bi bi-car-front"></i> Vehículos</a>
-                <a class="nav-link-custom @Active("/maintenances")" asp-controller="Maintenances" asp-action="Index"><i class="bi bi-tools"></i> Mantenimientos</a>
-                <a class="nav-link-custom @Active("/alert")" asp-controller="Alert" asp-action="Index"><i class="bi bi-exclamation-octagon"></i> Alertas</a>
-                <a class="nav-link-custom @Active("/appointments")" asp-controller="Appointments" asp-action="Index"><i class="bi bi-calendar-event"></i> Citas</a>
-            </nav>
-        </div>
-    </header>
+                <a asp-controller="Home" asp-action="Index" class="logo-section">
+                    <div class="logo-icon">
+                        <i class="bi bi-gear-fill"></i>
+                    </div>
+                    <div class="logo-text">
+                        Caldera Performance
+                        <div class="logo-subtitle">Sistema de Gestión del Taller</div>
+                    </div>
+                </a>
+
+                <nav class="main-nav d-none d-lg-flex">
+
+                    <a class="nav-link-custom @Active("/home")"
+                       asp-controller="Home" asp-action="Index">
+                        <i class="bi bi-speedometer2"></i> Dashboard
+                    </a>
+
+                    <a class="nav-link-custom @Active("/vehicles")"
+                       asp-controller="Vehicles" asp-action="Index">
+                        <i class="bi bi-car-front"></i> Vehículos
+                    </a>
+
+                    <a class="nav-link-custom @Active("/maintenances")"
+                       asp-controller="Maintenances" asp-action="Index">
+                        <i class="bi bi-tools"></i> Mantenimientos
+                    </a>
+
+                    <a class="nav-link-custom @Active("/alert")"
+                       asp-controller="Alert" asp-action="Index">
+                        <i class="bi bi-exclamation-octagon"></i> Alertas
+                    </a>
+
+                    <a class="nav-link-custom @Active("/appointments")"
+                       asp-controller="Appointments" asp-action="Index">
+                        <i class="bi bi-calendar-event"></i> Citas
+                    </a>
+
+                    <span class="text-white ms-3">
+                        <i class="bi bi-person-circle"></i>
+                        @HttpContextAccessor.HttpContext.Session.GetString("UserName")
+                    </span>
+
+                    <a asp-controller="Auth"
+                       asp-action="Logout"
+                       class="btn btn-sm btn-outline-light ms-3">
+                        <i class="bi bi-box-arrow-right"></i>
+                        Cerrar sesión
+                    </a>
+
+                </nav>
+
+            </div>
+        </header>
+    }
 
     <main class="main-content">
         @RenderBody()
@@ -200,16 +190,3 @@
 
 </body>
 </html>
-
-@functions {
-    private string GetPageIcon()
-    {
-        var current = Context.Request.Path.Value?.ToLower() ?? "";
-        if (current.Contains("/vehicles")) return "bi-car-front";
-        if (current.Contains("/maintenances")) return "bi-tools";
-        if (current.Contains("/alert")) return "bi-exclamation-octagon";
-        if (current.Contains("/appointments")) return "bi-calendar-event";
-        if (current.Contains("/home")) return "bi-speedometer2";
-        return "bi-house";
-    }
-}

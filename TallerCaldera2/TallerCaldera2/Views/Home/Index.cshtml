@@ -28,7 +28,6 @@
         padding: 40px 20px;
     }
 
-    /* HEADER */
     .brand-logos {
         display: flex;
         justify-content: space-between;
@@ -69,7 +68,6 @@
         border-radius: 5px;
     }
 
-    /* STATS */
     .stats-container {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -95,7 +93,6 @@
         font-weight: 700;
     }
 
-    /* ACTIONS */
     .actions-container {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -138,26 +135,10 @@
         margin-top: 40px;
         opacity: .7;
     }
-
-    @@media (max-width: 768px) {
-        .brand-logos {
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .brand-logo {
-            height: 70px;
-        }
-
-        .main-logo {
-            max-height: 200px;
-        }
-    }
 </style>
 
 <section class="container-custom">
 
-    <!-- HEADER -->
     <div class="brand-logos">
         <img src="~/images/honda-logo.png" class="brand-logo" alt="Honda">
         <img src="~/images/toyota-logo.png" class="brand-logo" alt="Toyota">
@@ -171,9 +152,7 @@
         <p class="text-muted">Especialistas en Honda & Toyota</p>
     </div>
 
-    <!-- STATS -->
     <div class="stats-container">
-
         <div class="stat-card alert">
             <i class="fas fa-exclamation-triangle fa-2x mb-2"></i>
             <div class="stat-number">@Model.AlertasActivas</div>
@@ -197,12 +176,9 @@
             <div class="stat-number text-warning">@Model.CitasPendientes</div>
             <div>Citas pendientes</div>
         </div>
-
     </div>
 
-    <!-- ACTIONS -->
     <div class="actions-container">
-
         <a asp-controller="Alert" asp-action="Index" class="action-card alert">
             <i class="fas fa-exclamation-circle fa-3x mb-3"></i>
             <h5>Alertas</h5>
@@ -226,8 +202,34 @@
             <h5>Citas</h5>
             <p>Agenda del taller</p>
         </a>
-
     </div>
+
+
+
+
+<!-- GRÁFICOS -->
+<div class="row">
+    <div class="col-md-6 mb-4">
+        <div class="stat-card">
+            <h5>Mantenimientos por mes</h5>
+            <canvas id="mantenimientosChart"></canvas>
+        </div>
+    </div>
+
+    <div class="col-md-6 mb-4">
+        <div class="stat-card">
+            <h5>Citas por estado</h5>
+            <canvas id="citasChart"></canvas>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <div class="stat-card">
+            <h5>Vehículos por marca</h5>
+            <canvas id="vehiculosChart"></canvas>
+        </div>
+    </div>
+</div>
 
     <footer>
         <img src="~/images/logo-taller2.png" style="height:40px">
@@ -235,3 +237,41 @@
     </footer>
 
 </section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    new Chart(document.getElementById('mantenimientosChart'), {
+        type: 'line',
+        data: {
+            labels: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.MesesMantenimientos)),
+            datasets: [{
+                label: 'Mantenimientos',
+                data: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.CantidadMantenimientos)),
+                borderWidth: 3,
+                tension: 0.4
+            }]
+        }
+    });
+
+    new Chart(document.getElementById('citasChart'), {
+        type: 'doughnut',
+        data: {
+            labels: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.EstadosCitas)),
+            datasets: [{
+                data: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.CantidadCitas))
+            }]
+        }
+    });
+
+    new Chart(document.getElementById('vehiculosChart'), {
+        type: 'bar',
+        data: {
+            labels: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.MarcasVehiculos)),
+            datasets: [{
+                label: 'Vehículos',
+                data: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.CantidadVehiculos))
+            }]
+        }
+    });
+</script>
