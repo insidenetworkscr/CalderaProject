@@ -1,0 +1,110 @@
+﻿@model IEnumerable<TallerCaldera2.Models.Proforma>
+
+@{
+    ViewData["Title"] = "Proformas";
+}
+
+<style>
+    .proforma-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .proforma-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0,0,0,.08);
+        padding: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        transition: .3s;
+    }
+
+        .proforma-card:hover {
+            transform: translateY(-6px);
+        }
+
+    .proforma-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 1rem;
+    }
+
+    .code {
+        font-weight: 700;
+        color: #1d4ed8;
+    }
+
+    .date {
+        font-size: .85rem;
+        color: #64748b;
+    }
+
+    .row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: .4rem;
+    }
+
+    .total {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #16a34a;
+        text-align: right;
+        margin-top: .5rem;
+    }
+
+    .actions {
+        text-align: right;
+        margin-top: 1rem;
+    }
+
+    .btn-pdf {
+        background: #dc2626;
+        color: white;
+        padding: .5rem 1rem;
+        border-radius: 8px;
+        text-decoration: none;
+    }
+</style>
+
+<h1 class="mb-4">📄 Proformas</h1>
+
+<a asp-action="Create" class="btn btn-primary mb-4">
+    ➕ Nueva Proforma
+</a>
+
+<div class="proforma-grid">
+    @foreach (var p in Model)
+    {
+        <div class="proforma-card">
+            <div class="proforma-header">
+                <span class="code">@p.Codigo</span>
+                <span class="date">@p.FechaEmision.ToString("dd/MM/yyyy")</span>
+            </div>
+
+            <div class="row">
+                <span>Cliente</span>
+                <strong>@p.ClienteNombre</strong>
+            </div>
+
+            <div class="row">
+                <span>Válida hasta</span>
+                <strong>@p.FechaValidez.ToString("dd/MM/yyyy")</strong>
+            </div>
+
+            <div class="total">
+                ₡@p.Total
+            </div>
+
+            <div class="actions">
+                <a asp-action="DescargarPdf"
+                   asp-route-id="@p.Id"
+                   class="btn-pdf">
+                    Descargar PDF
+                </a>
+            </div>
+        </div>
+    }
+</div>

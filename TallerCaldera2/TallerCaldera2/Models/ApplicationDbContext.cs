@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using TallerCaldera2.Models;
 
 namespace TallerCaldera2.Models
 {
@@ -18,20 +17,23 @@ namespace TallerCaldera2.Models
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<User> Users { get; set; }
 
+        // 🔹 PROFORMAS
+        public DbSet<Proforma> Proformas { get; set; }
+        public DbSet<ProformaItem> ProformaItems { get; set; }
 
         protected override void OnModelCreating(ModelBuilder b)
         {
             base.OnModelCreating(b);
 
-            // VEHICLE
+            // ===================== VEHICLE =====================
             b.Entity<Vehicle>()
                 .HasKey(v => v.Plate);
 
             b.Entity<Vehicle>()
                 .HasIndex(v => v.Plate)
-                .IsUnique(true);
+                .IsUnique();
 
-            // MAINTENANCE
+            // ===================== MAINTENANCE =====================
             b.Entity<Maintenance>()
                 .HasOne(m => m.Vehicle)
                 .WithMany(v => v.Maintenances)
@@ -43,20 +45,21 @@ namespace TallerCaldera2.Models
                 .Property(m => m.Cost)
                 .HasColumnType("decimal(18,2)");
 
-            // PHOTOS
+            // ===================== PHOTOS =====================
             b.Entity<MaintenancePhoto>()
                 .HasOne(p => p.Maintenance)
                 .WithMany(m => m.Photos)
                 .HasForeignKey(p => p.MaintenanceId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // SKETCH MARKS
+            // ===================== SKETCH MARKS =====================
             b.Entity<SketchMark>()
                 .HasOne(s => s.Maintenance)
                 .WithMany(m => m.SketchMarks)
                 .HasForeignKey(s => s.MaintenanceId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            // ===================== ALERTS =====================
             b.Entity<Alert>()
                 .HasOne(a => a.Vehicle)
                 .WithMany()
@@ -68,12 +71,17 @@ namespace TallerCaldera2.Models
                 .Property(a => a.Message)
                 .HasMaxLength(500);
 
-            b.Entity<Alert>()
-                .HasOne(a => a.Vehicle)
-                .WithMany()
-                .HasForeignKey(a => a.VehiclePlate)
-                .HasPrincipalKey(v => v.Plate)
+            // ===================== PROFORMAS =====================
+            b.Entity<Proforma>()
+                .HasMany(p => p.Items)
+                .WithOne(i => i.Proforma)
+                .HasForeignKey(i => i.ProformaId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            b.Entity<ProformaItem>()
+                .Property(i => i.PrecioUnitario)
+                .HasColumnType("decimal(18,2)");
+
         }
     }
 }

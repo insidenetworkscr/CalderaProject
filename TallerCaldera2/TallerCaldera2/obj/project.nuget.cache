@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Nes7RYXWahM=",
+  "dgSpecHash": "k7bs3QFZGtU=",
   "success": true,
   "projectFilePath": "C:\\Users\\kevin\\OneDrive\\Escritorio\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\TallerCaldera2.csproj",
   "expectedPackageFiles": [
@@ -124,6 +124,8 @@
     "C:\\Users\\kevin\\.nuget\\packages\\nuget.projectmodel\\6.11.0\\nuget.projectmodel.6.11.0.nupkg.sha512",
     "C:\\Users\\kevin\\.nuget\\packages\\nuget.protocol\\6.11.0\\nuget.protocol.6.11.0.nupkg.sha512",
     "C:\\Users\\kevin\\.nuget\\packages\\nuget.versioning\\6.11.0\\nuget.versioning.6.11.0.nupkg.sha512",
+    "C:\\Users\\kevin\\.nuget\\packages\\questpdf\\2025.12.1\\questpdf.2025.12.1.nupkg.sha512",
+    "C:\\Users\\kevin\\.nuget\\packages\\rotativa.aspnetcore\\1.4.0\\rotativa.aspnetcore.1.4.0.nupkg.sha512",
     "C:\\Users\\kevin\\.nuget\\packages\\system.clientmodel\\1.0.0\\system.clientmodel.1.0.0.nupkg.sha512",
     "C:\\Users\\kevin\\.nuget\\packages\\system.codedom\\5.0.0\\system.codedom.5.0.0.nupkg.sha512",
     "C:\\Users\\kevin\\.nuget\\packages\\system.collections.immutable\\7.0.0\\system.collections.immutable.7.0.0.nupkg.sha512",

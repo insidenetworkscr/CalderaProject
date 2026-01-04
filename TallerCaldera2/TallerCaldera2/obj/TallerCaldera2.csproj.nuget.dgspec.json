@@ -69,6 +69,14 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[8.0.7, )"
+            },
+            "QuestPDF": {
+              "target": "Package",
+              "version": "[2025.12.1, )"
+            },
+            "Rotativa.AspNetCore": {
+              "target": "Package",
+              "version": "[1.4.0, )"
             }
           },
           "imports": [

@@ -22,6 +22,34 @@ namespace TallerCaldera2.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ProformaItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("PrecioUnitario")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int>("ProformaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProformaId");
+
+                    b.ToTable("ProformaItems");
+                });
+
             modelBuilder.Entity("TallerCaldera2.Models.Alert", b =>
                 {
                     b.Property<int>("Id")
@@ -149,6 +177,41 @@ namespace TallerCaldera2.Migrations
                     b.ToTable("MaintenancePhotos");
                 });
 
+            modelBuilder.Entity("TallerCaldera2.Models.Proforma", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClienteEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClienteNombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClienteTelefono")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Codigo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FechaEmision")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaValidez")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Proformas");
+                });
+
             modelBuilder.Entity("TallerCaldera2.Models.SketchMark", b =>
                 {
                     b.Property<int>("Id")
@@ -256,6 +319,17 @@ namespace TallerCaldera2.Migrations
                     b.ToTable("Vehicles");
                 });
 
+            modelBuilder.Entity("ProformaItem", b =>
+                {
+                    b.HasOne("TallerCaldera2.Models.Proforma", "Proforma")
+                        .WithMany("Items")
+                        .HasForeignKey("ProformaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Proforma");
+                });
+
             modelBuilder.Entity("TallerCaldera2.Models.Alert", b =>
                 {
                     b.HasOne("TallerCaldera2.Models.Vehicle", "Vehicle")
@@ -305,6 +379,11 @@ namespace TallerCaldera2.Migrations
                     b.Navigation("Photos");
 
                     b.Navigation("SketchMarks");
+                });
+
+            modelBuilder.Entity("TallerCaldera2.Models.Proforma", b =>
+                {
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("TallerCaldera2.Models.Vehicle", b =>

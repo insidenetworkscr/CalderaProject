@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TallerCaldera2.Models;
+using QuestPDF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +25,9 @@ builder.Services.AddSession(options =>
 });
 
 var app = builder.Build();
+
+// 🔥 CONFIGURACIÓN ROTATIVA (PDF)
+QuestPDF.Settings.License = LicenseType.Community;
 
 if (!app.Environment.IsDevelopment())
 {
