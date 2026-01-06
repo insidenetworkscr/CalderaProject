@@ -21,10 +21,7 @@ namespace TallerCaldera2.Models
         public DateTime FechaValidez { get; set; }
 
         // ✅ NO MAPEADAS A BD
-        [NotMapped]
         public string Marca { get; set; } = string.Empty;
-
-        [NotMapped]
         public string Modelo { get; set; } = string.Empty;
 
         public List<ProformaItem> Items { get; set; } = new();
