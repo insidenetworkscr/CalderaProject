@@ -20,6 +20,7 @@ namespace TallerCaldera2.Models
         // 🔹 PROFORMAS
         public DbSet<Proforma> Proformas { get; set; }
         public DbSet<ProformaItem> ProformaItems { get; set; }
+        public DbSet<ProformaImage> ProformaImages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder b)
         {

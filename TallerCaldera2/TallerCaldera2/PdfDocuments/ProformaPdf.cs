@@ -8,10 +8,12 @@ namespace TallerCaldera2.PdfDocuments
     public class ProformaPdf : IDocument
     {
         private readonly Proforma _proforma;
+        private readonly IWebHostEnvironment _env;
 
-        public ProformaPdf(Proforma proforma)
+        public ProformaPdf(Proforma proforma, IWebHostEnvironment env)
         {
             _proforma = proforma;
+            _env = env;
         }
 
         public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
@@ -21,44 +23,137 @@ namespace TallerCaldera2.PdfDocuments
             container.Page(page =>
             {
                 page.Margin(40);
+                page.DefaultTextStyle(x => x.FontSize(11));
 
                 page.Content().Column(col =>
                 {
-                    col.Item().Text($"PROFORMA {_proforma.Codigo}")
-                        .FontSize(20).Bold();
+                    // ===============================
+                    // HEADER
+                    // ===============================
+                    col.Item().Background("#f1f5f9").Padding(15).Row(row =>
+                    {
+                        row.RelativeItem().Column(c =>
+                        {
+                            c.Item().Text("PROFORMA")
+                                .FontSize(20)
+                                .Bold()
+                                .FontColor("#1e3a8a");
 
-                    col.Item().Text($"Cliente: {_proforma.ClienteNombre}");
-                    col.Item().Text($"Email: {_proforma.ClienteEmail}");
+                            c.Item().Text(_proforma.Codigo)
+                                .FontSize(12)
+                                .Bold();
+                        });
 
+                        row.ConstantItem(200).Column(c =>
+                        {
+                            c.Item().AlignRight().Text($"Fecha: {_proforma.FechaEmision:dd/MM/yyyy}");
+                            c.Item().AlignRight().Text($"Válida hasta: {_proforma.FechaValidez:dd/MM/yyyy}");
+                        });
+                    });
+
+                    col.Item().PaddingVertical(10);
+
+                    // ===============================
+                    // INFO CLIENTE / VEHÍCULO
+                    // ===============================
+                    col.Item().Row(row =>
+                    {
+                        row.RelativeItem().Column(c =>
+                        {
+                            c.Item().Text("Cliente").Bold();
+                            c.Item().Text(_proforma.ClienteNombre);
+                            c.Item().Text(_proforma.ClienteEmail);
+                        });
+
+                        row.RelativeItem().Column(c =>
+                        {
+                            c.Item().Text("Vehículo").Bold();
+                            c.Item().Text($"{_proforma.Marca} {_proforma.Modelo}");
+                        });
+                    });
+
+                    col.Item().PaddingVertical(15).LineHorizontal(1);
+
+                    // ===============================
+                    // TABLA ITEMS
+                    // ===============================
                     col.Item().Table(table =>
                     {
                         table.ColumnsDefinition(c =>
                         {
                             c.RelativeColumn();
+                            c.ConstantColumn(60);
                             c.ConstantColumn(80);
-                            c.ConstantColumn(100);
-                            c.ConstantColumn(100);
+                            c.ConstantColumn(80);
                         });
 
                         table.Header(h =>
                         {
-                            h.Cell().Text("Descripción").Bold();
-                            h.Cell().Text("Cant").Bold();
-                            h.Cell().Text("Precio").Bold();
-                            h.Cell().Text("Subtotal").Bold();
+                            h.Cell().Background("#e5e7eb").Padding(5).Text("Descripción").Bold();
+                            h.Cell().Background("#e5e7eb").Padding(5).AlignCenter().Text("Cant").Bold();
+                            h.Cell().Background("#e5e7eb").Padding(5).AlignRight().Text("Precio").Bold();
+                            h.Cell().Background("#e5e7eb").Padding(5).AlignRight().Text("Subtotal").Bold();
                         });
 
                         foreach (var i in _proforma.Items)
                         {
-                            table.Cell().Text(i.Descripcion);
-                            table.Cell().Text(i.Cantidad.ToString());
-                            table.Cell().Text(i.PrecioUnitario.ToString("C"));
-                            table.Cell().Text(i.Subtotal.ToString("C"));
+                            table.Cell().Padding(5).Text(i.Descripcion);
+                            table.Cell().Padding(5).AlignCenter().Text(i.Cantidad.ToString());
+                            table.Cell().Padding(5).AlignRight().Text(i.PrecioUnitario.ToString("C"));
+                            table.Cell().Padding(5).AlignRight().Text(i.Subtotal.ToString("C"));
                         }
                     });
 
-                    col.Item().AlignRight().Text($"TOTAL: {_proforma.Total:C}")
-                        .FontSize(16).Bold();
+                    col.Item().PaddingVertical(15);
+
+                    // ===============================
+                    // TOTALES
+                    // ===============================
+                    col.Item().AlignRight().Column(c =>
+                    {
+                        c.Item().Text($"Subtotal: {_proforma.Subtotal:C}");
+                        c.Item().Text($"IVA (13%): {_proforma.Iva:C}");
+                        c.Item()
+                            .Background("#dcfce7")
+                            .Padding(10)
+                            .Text($"TOTAL: {_proforma.TotalConIva:C}")
+                            .FontSize(15)
+                            .Bold();
+                    });
+
+                    // ===============================
+                    // IMÁGENES
+                    // ===============================
+                    if (_proforma.Images != null && _proforma.Images.Any())
+                    {
+                        col.Item().PaddingTop(20);
+
+                        col.Item().Text("Evidencia fotográfica")
+                            .FontSize(14)
+                            .Bold();
+
+                        col.Item().PaddingVertical(10);
+
+                        col.Item().Row(row =>
+                        {
+                            foreach (var img in _proforma.Images)
+                            {
+                                var imagePath = Path.Combine(
+                                    _env.WebRootPath,
+                                    img.ImageUrl.TrimStart('/')
+                                );
+
+                                if (File.Exists(imagePath))
+                                {
+                                    row.RelativeItem()
+                                       .Padding(5)
+                                       .Height(130)
+                                       .Background("#f8fafc")
+                                       .Image(imagePath, ImageScaling.FitArea);
+                                }
+                            }
+                        });
+                    }
                 });
             });
         }

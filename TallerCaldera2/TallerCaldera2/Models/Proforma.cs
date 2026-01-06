@@ -9,10 +9,9 @@ namespace TallerCaldera2.Models
 
         public string Codigo { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "El nombre del cliente es obligatorio")]
+        [Required]
         public string ClienteNombre { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "El teléfono es obligatorio")]
         public string ClienteTelefono { get; set; } = string.Empty;
 
         [Required, EmailAddress]
@@ -21,9 +20,27 @@ namespace TallerCaldera2.Models
         public DateTime FechaEmision { get; set; }
         public DateTime FechaValidez { get; set; }
 
-        public List<ProformaItem> Items { get; set; } = new();
+        // ✅ NO MAPEADAS A BD
+        [NotMapped]
+        public string Marca { get; set; } = string.Empty;
 
         [NotMapped]
-        public decimal Total => Items.Sum(i => i.Subtotal);
+        public string Modelo { get; set; } = string.Empty;
+
+        public List<ProformaItem> Items { get; set; } = new();
+
+        // CÁLCULOS
+        [NotMapped]
+        public decimal Subtotal => Items.Sum(i => i.Subtotal);
+
+        [NotMapped]
+        public decimal Iva => Subtotal * 0.13m;
+
+        [NotMapped]
+        public decimal TotalConIva => Subtotal + Iva;
+
+        public string? ImagenUrl { get; set; }
+
+        public List<ProformaImage> Images { get; set; } = new();
     }
 }

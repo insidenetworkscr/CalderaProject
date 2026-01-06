@@ -1,54 +1,127 @@
 ﻿@model TallerCaldera2.Models.Proforma
 
-<h2>Nueva Proforma</h2>
+<h2>🧾 Nueva Proforma</h2>
 
-@if (TempData["Error"] != null)
+@if (!ViewData.ModelState.IsValid)
 {
-    <div class="alert alert-danger">@TempData["Error"]</div>
-}
-@if (TempData["Debug"] != null)
-{
-    <div class="alert alert-warning">@TempData["Debug"]</div>
+    <div class="alert alert-danger">
+        Revise los datos ingresados
+    </div>
 }
 
-<form asp-action="Create" method="post">
+<form asp-action="Create"
+      method="post"
+      enctype="multipart/form-data">
+
+    <!-- VEHÍCULO -->
+    <div class="row mb-3">
+        <div class="col">
+            <input asp-for="Marca" class="form-control" placeholder="Marca del vehículo" />
+        </div>
+        <div class="col">
+            <input asp-for="Modelo" class="form-control" placeholder="Modelo del vehículo" />
+        </div>
+    </div>
+
+    <!-- CLIENTE -->
     <input asp-for="ClienteNombre" class="form-control mb-2" placeholder="Cliente" />
     <input asp-for="ClienteTelefono" class="form-control mb-2" placeholder="Teléfono" />
     <input asp-for="ClienteEmail" class="form-control mb-2" placeholder="Email" />
 
+    <!-- FECHAS -->
+    <div class="row mb-3">
+        <div class="col">
+            <label>Fecha emisión</label>
+            <input asp-for="FechaEmision" type="date" class="form-control" />
+        </div>
+        <div class="col">
+            <label>Válida hasta</label>
+            <input asp-for="FechaValidez" type="date" class="form-control" />
+        </div>
+    </div>
+
+    <!-- 📷 IMÁGENES -->
+    <div class="mb-3">
+        <label class="form-label">Imágenes del vehículo</label>
+        <input type="file"
+               name="Imagenes"
+               multiple
+               class="form-control"
+               accept="image/*"
+               onchange="previewImages(event)" />
+
+        <div id="previewContainer"
+             class="d-flex flex-wrap gap-2 mt-2"></div>
+    </div>
+
+    <!-- ITEMS -->
     <table class="table" id="itemsTable">
+        <thead>
+            <tr>
+                <th>Descripción</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th></th>
+            </tr>
+        </thead>
         <tbody>
             @for (int i = 0; i < Model.Items.Count; i++)
             {
                 <tr>
-                    <td><input asp-for="Items[@i].Descripcion" class="form-control" /></td>
-                    <td><input asp-for="Items[@i].Cantidad" type="number" class="form-control" /></td>
-                    <td><input asp-for="Items[@i].PrecioUnitario" type="number" step="0.01" class="form-control" /></td>
-                    <td><button type="button" onclick="removeRow(this)">X</button></td>
+                    <td>
+                        <input asp-for="Items[@i].Descripcion" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="Items[@i].Cantidad" type="number" class="form-control" />
+                    </td>
+                    <td>
+                        <input asp-for="Items[@i].PrecioUnitario" type="number" step="0.01" class="form-control" />
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger" onclick="removeRow(this)">X</button>
+                    </td>
                 </tr>
             }
         </tbody>
     </table>
 
-    <button type="button" onclick="addRow()">➕ Item</button>
-    <br /><br />
-    <button class="btn btn-success">Guardar</button>
+    <button type="button" class="btn btn-secondary mb-3" onclick="addRow()">➕ Item</button>
+
+    <br />
+
+    <button class="btn btn-success">💾 Guardar Proforma</button>
 </form>
 
 @section Scripts {
     <script>
         function addRow() {
-            let i = document.querySelectorAll("#itemsTable tr").length;
+            let i = document.querySelectorAll("#itemsTable tbody tr").length;
             document.querySelector("#itemsTable tbody").insertAdjacentHTML("beforeend",
-            `<tr>
-                <td><input name="Items[${i}].Descripcion" class="form-control"/></td>
-                <td><input name="Items[${i}].Cantidad" type="number" class="form-control"/></td>
-                <td><input name="Items[${i}].PrecioUnitario" type="number" step="0.01" class="form-control"/></td>
-                <td><button type="button" onclick="removeRow(this)">X</button></td>
-            </tr>`);
+                `<tr>
+                    <td><input name="Items[${i}].Descripcion" class="form-control"/></td>
+                    <td><input name="Items[${i}].Cantidad" type="number" class="form-control"/></td>
+                    <td><input name="Items[${i}].PrecioUnitario" type="number" step="0.01" class="form-control"/></td>
+                    <td><button type="button" class="btn btn-danger" onclick="removeRow(this)">X</button></td>
+                </tr>`);
         }
+
         function removeRow(btn) {
             btn.closest("tr").remove();
+        }
+
+        function previewImages(event) {
+            const container = document.getElementById("previewContainer");
+            container.innerHTML = "";
+
+            Array.from(event.target.files).forEach(file => {
+                const img = document.createElement("img");
+                img.src = URL.createObjectURL(file);
+                img.style.maxWidth = "150px";
+                img.style.borderRadius = "8px";
+                img.style.border = "1px solid #ccc";
+                img.onload = () => URL.revokeObjectURL(img.src);
+                container.appendChild(img);
+            });
         }
     </script>
 }

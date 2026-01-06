@@ -12,13 +12,14 @@
     }
 
     .proforma-card {
-        background: white;
+        background: #ffffff;
         border-radius: 16px;
         box-shadow: 0 10px 25px rgba(0,0,0,.08);
         padding: 1.5rem;
         display: flex;
         flex-direction: column;
-        transition: .3s;
+        transition: .3s ease;
+        position: relative;
     }
 
         .proforma-card:hover {
@@ -34,6 +35,7 @@
     .code {
         font-weight: 700;
         color: #1d4ed8;
+        font-size: 1.05rem;
     }
 
     .date {
@@ -45,7 +47,12 @@
         display: flex;
         justify-content: space-between;
         margin-bottom: .4rem;
+        font-size: .95rem;
     }
+
+        .row span {
+            color: #64748b;
+        }
 
     .total {
         font-size: 1.4rem;
@@ -56,55 +63,129 @@
     }
 
     .actions {
-        text-align: right;
+        display: flex;
+        justify-content: flex-end;
+        gap: .5rem;
         margin-top: 1rem;
     }
 
     .btn-pdf {
         background: #dc2626;
         color: white;
-        padding: .5rem 1rem;
+        padding: .45rem .9rem;
         border-radius: 8px;
         text-decoration: none;
+        font-size: .85rem;
+        transition: .2s;
+    }
+
+        .btn-pdf:hover {
+            background: #b91c1c;
+        }
+
+    .btn-delete {
+        background: #ef4444;
+        color: white;
+        border: none;
+        padding: .45rem .7rem;
+        border-radius: 8px;
+        font-size: .85rem;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+        .btn-delete:hover {
+            background: #b91c1c;
+        }
+
+    .search-box {
+        max-width: 420px;
     }
 </style>
 
 <h1 class="mb-4">📄 Proformas</h1>
 
-<a asp-action="Create" class="btn btn-primary mb-4">
-    ➕ Nueva Proforma
-</a>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <a asp-action="Create" class="btn btn-primary">
+        ➕ Nueva Proforma
+    </a>
 
-<div class="proforma-grid">
-    @foreach (var p in Model)
-    {
-        <div class="proforma-card">
-            <div class="proforma-header">
-                <span class="code">@p.Codigo</span>
-                <span class="date">@p.FechaEmision.ToString("dd/MM/yyyy")</span>
-            </div>
-
-            <div class="row">
-                <span>Cliente</span>
-                <strong>@p.ClienteNombre</strong>
-            </div>
-
-            <div class="row">
-                <span>Válida hasta</span>
-                <strong>@p.FechaValidez.ToString("dd/MM/yyyy")</strong>
-            </div>
-
-            <div class="total">
-                ₡@p.Total
-            </div>
-
-            <div class="actions">
-                <a asp-action="DescargarPdf"
-                   asp-route-id="@p.Id"
-                   class="btn-pdf">
-                    Descargar PDF
-                </a>
-            </div>
-        </div>
-    }
+    <!-- 🔍 BUSCADOR -->
+    <form method="get" class="search-box d-flex">
+        <input type="text"
+               name="search"
+               value="@ViewBag.Search"
+               class="form-control me-2"
+               placeholder="Buscar cliente, código, marca o modelo..." />
+        <button class="btn btn-outline-primary">Buscar</button>
+    </form>
 </div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        No hay proformas registradas.
+    </div>
+}
+else
+{
+    <div class="proforma-grid">
+        @foreach (var p in Model)
+        {
+            <div class="proforma-card">
+
+                <div class="proforma-header">
+                    <span class="code">@p.Codigo</span>
+                    <span class="date">@p.FechaEmision.ToString("dd/MM/yyyy")</span>
+                </div>
+
+                <div class="row">
+                    <span>Cliente</span>
+                    <strong>@p.ClienteNombre</strong>
+                </div>
+
+                <div class="row">
+                    <span>Vehículo</span>
+                    <strong>@p.Marca @p.Modelo</strong>
+                </div>
+
+                <div class="row">
+                    <span>Válida hasta</span>
+                    <strong>@p.FechaValidez.ToString("dd/MM/yyyy")</strong>
+                </div>
+
+                <div class="row">
+                    <span>Subtotal</span>
+                    <strong>₡@p.Subtotal.ToString("N2")</strong>
+                </div>
+
+                <div class="row">
+                    <span>IVA (13%)</span>
+                    <strong>₡@p.Iva.ToString("N2")</strong>
+                </div>
+
+                <div class="total">
+                    ₡@p.TotalConIva.ToString("N2")
+                </div>
+
+                <div class="actions">
+                    <a asp-action="DescargarPdf"
+                       asp-route-id="@p.Id"
+                       class="btn-pdf">
+                        PDF
+                    </a>
+
+                    <form asp-action="Delete"
+                          asp-route-id="@p.Id"
+                          method="post"
+                          onsubmit="return confirm('¿Seguro que desea eliminar esta proforma?');">
+                        <button type="submit" class="btn-delete">
+                            🗑
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        }
+    </div>
+}

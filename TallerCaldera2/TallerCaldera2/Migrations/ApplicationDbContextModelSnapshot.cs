@@ -207,9 +207,34 @@ namespace TallerCaldera2.Migrations
                     b.Property<DateTime>("FechaValidez")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("ImagenUrl")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Proformas");
+                });
+
+            modelBuilder.Entity("TallerCaldera2.Models.ProformaImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ProformaId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProformaId");
+
+                    b.ToTable("ProformaImages");
                 });
 
             modelBuilder.Entity("TallerCaldera2.Models.SketchMark", b =>
@@ -363,6 +388,17 @@ namespace TallerCaldera2.Migrations
                     b.Navigation("Maintenance");
                 });
 
+            modelBuilder.Entity("TallerCaldera2.Models.ProformaImage", b =>
+                {
+                    b.HasOne("TallerCaldera2.Models.Proforma", "Proforma")
+                        .WithMany("Images")
+                        .HasForeignKey("ProformaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Proforma");
+                });
+
             modelBuilder.Entity("TallerCaldera2.Models.SketchMark", b =>
                 {
                     b.HasOne("TallerCaldera2.Models.Maintenance", "Maintenance")
@@ -383,6 +419,8 @@ namespace TallerCaldera2.Migrations
 
             modelBuilder.Entity("TallerCaldera2.Models.Proforma", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("Items");
                 });
 
