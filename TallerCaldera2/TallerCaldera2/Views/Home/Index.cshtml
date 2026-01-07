@@ -1,277 +1,386 @@
 ﻿@model TallerCaldera2.Models.ViewModels.DashboardViewModel
-
 @{
     ViewData["Title"] = "Inicio";
 }
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
     :root {
-        --primary-color: #1a6dff;
-        --secondary-color: #0d47a1;
-        --danger-color: #ff4757;
-        --success-color: #2ed573;
-        --warning-color: #ff9f43;
-        --card-shadow: 0 10px 25px rgba(0,0,0,.08);
+        --blue: #2563eb;
+        --green: #16a34a;
+        --orange: #f97316;
+        --red: #dc2626;
+        --gray: #6b7280;
+        --bg: #f8fafc;
+        --card-shadow: 0 8px 24px rgba(0,0,0,.05);
     }
 
     body {
-        font-family: 'Roboto', sans-serif;
-        background: linear-gradient(135deg, #f8fafc, #e8f4ff);
+        font-family: 'Inter', sans-serif;
+        background: var(--bg);
     }
 
-    .container-custom {
-        max-width: 1200px;
+    .dashboard {
+        max-width: 1350px;
         margin: auto;
-        padding: 40px 20px;
+        padding: 30px 20px;
     }
 
-    .brand-logos {
+    /* HEADER */
+    .header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 30px;
+        margin-bottom: 35px;
     }
 
-    .brand-logo {
-        height: 90px;
-        filter: grayscale(20%);
-        opacity: .9;
+        .header h2 {
+            font-weight: 700;
+            margin: 0;
+        }
+
+    .brands img {
+        height: 52px;
+        margin-left: 12px;
+    }
+
+    .header-left {
+        display: flex;
+        align-items: center;
+        gap: 30px;
     }
 
     .main-logo {
-        max-height: 260px;
-        margin: 20px auto;
-        display: block;
+        height: 200px;
+        width: auto;
     }
 
-    .title-container {
-        text-align: center;
-        margin-bottom: 50px;
-    }
-
-        .title-container h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 3rem;
-            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-            -webkit-background-clip: text;
-            color: transparent;
-        }
-
-    .divider {
-        width: 140px;
-        height: 5px;
-        background: linear-gradient(90deg, var(--primary-color), var(--success-color));
-        margin: 20px auto;
-        border-radius: 5px;
-    }
-
-    .stats-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 25px;
-        margin-bottom: 60px;
-    }
-
-    .stat-card {
-        background: white;
-        border-radius: 18px;
-        padding: 30px;
-        box-shadow: var(--card-shadow);
-        text-align: center;
-    }
-
-        .stat-card.alert {
-            background: linear-gradient(135deg, var(--danger-color), #ff3838);
-            color: white;
-        }
-
-    .stat-number {
-        font-size: 2.8rem;
+    .header-text h2 {
+        margin: 0;
         font-weight: 700;
     }
 
-    .actions-container {
+    .header-text small {
+        color: var(--gray);
+    }
+
+
+    /* SUMMARY */
+    .summary {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-        gap: 25px;
-        margin-bottom: 60px;
+        gap: 20px;
+        margin-bottom: 45px;
     }
 
-    .action-card {
-        border-radius: 18px;
-        padding: 35px 25px;
-        color: white;
-        text-align: center;
-        text-decoration: none;
+    .summary-card {
+        background: white;
+        border-radius: 14px;
+        padding: 22px 26px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         box-shadow: var(--card-shadow);
-        transition: .2s;
+        border-left: 6px solid;
     }
 
-        .action-card:hover {
-            transform: translateY(-6px);
+        .summary-card h3 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
         }
 
-        .action-card.alert {
-            background: linear-gradient(135deg, var(--danger-color), #ff3838);
+        .summary-card span {
+            color: var(--gray);
+            font-size: 14px;
         }
 
-        .action-card.vehicle {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    .icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 20px;
+    }
+
+    .blue {
+        border-color: var(--blue);
+    }
+
+    .green {
+        border-color: var(--green);
+    }
+
+    .orange {
+        border-color: var(--orange);
+    }
+
+    .red {
+        border-color: var(--red);
+    }
+
+    .bg-blue {
+        background: var(--blue);
+    }
+
+    .bg-green {
+        background: var(--green);
+    }
+
+    .bg-orange {
+        background: var(--orange);
+    }
+
+    .bg-red {
+        background: var(--red);
+    }
+
+    /* QUICK ACCESS */
+    .section-title {
+        font-weight: 700;
+        margin-bottom: 20px;
+    }
+
+    .quick {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+        margin-bottom: 45px;
+    }
+
+    .quick-card {
+        background: white;
+        border-radius: 14px;
+        padding: 26px;
+        box-shadow: var(--card-shadow);
+        text-decoration: none;
+        color: black;
+        transition: .2s;
+        border: 2px solid transparent;
+    }
+
+        .quick-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--blue);
         }
 
-        .action-card.maintenance {
-            background: linear-gradient(135deg, var(--success-color), #1dd1a1);
+        .quick-card i {
+            font-size: 28px;
+            margin-bottom: 10px;
+            color: var(--blue);
         }
 
-        .action-card.appointments {
-            background: linear-gradient(135deg, var(--warning-color), #ff9f1a);
+        .quick-card p {
+            color: var(--gray);
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+
+    /* CHARTS */
+    .charts {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+
+    .chart-card {
+        background: white;
+        border-radius: 14px;
+        padding: 22px;
+        box-shadow: var(--card-shadow);
+        text-align: center;
+    }
+
+        .chart-card h6 {
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .chart-card canvas {
+            max-height: 180px !important;
         }
 
     footer {
         text-align: center;
-        margin-top: 40px;
-        opacity: .7;
+        color: var(--gray);
+        font-size: 14px;
+        margin-top: 30px;
     }
 </style>
 
-<section class="container-custom">
+<div class="dashboard">
 
-    <div class="brand-logos">
-        <img src="~/images/honda-logo.png" class="brand-logo" alt="Honda">
-        <img src="~/images/toyota-logo.png" class="brand-logo" alt="Toyota">
-    </div>
-
-    <img src="~/images/logo-taller2.png" class="main-logo" alt="Logo Taller">
-
-    <div class="title-container">
-        <h1>Sistema de Gestión del Taller</h1>
-        <div class="divider"></div>
-        <p class="text-muted">Especialistas en Honda & Toyota</p>
-    </div>
-
-    <div class="stats-container">
-        <div class="stat-card alert">
-            <i class="fas fa-exclamation-triangle fa-2x mb-2"></i>
-            <div class="stat-number">@Model.AlertasActivas</div>
-            <div>Alertas activas</div>
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-left">
+            <img src="~/images/logo-taller2.png" alt="Caldera Performance" class="main-logo">
+            <div class="header-text">
+                <h2>Caldera Performance</h2>
+                <small class="text-muted">Especialistas en Honda & Toyota</small>
+            </div>
         </div>
 
-        <div class="stat-card">
-            <i class="fas fa-car fa-2x text-primary mb-2"></i>
-            <div class="stat-number text-primary">@Model.TotalVehiculos</div>
-            <div>Vehículos registrados</div>
-        </div>
-
-        <div class="stat-card">
-            <i class="fas fa-tools fa-2x text-success mb-2"></i>
-            <div class="stat-number text-success">@Model.MantenimientosMes</div>
-            <div>Mantenimientos del mes</div>
-        </div>
-
-        <div class="stat-card">
-            <i class="fas fa-calendar-check fa-2x text-warning mb-2"></i>
-            <div class="stat-number text-warning">@Model.CitasPendientes</div>
-            <div>Citas pendientes</div>
+        <div class="brands">
+            <img src="~/images/honda-logo.png" alt="Honda">
+            <img src="~/images/toyota-logo.png" alt="Toyota">
         </div>
     </div>
 
-    <div class="actions-container">
-        <a asp-controller="Alert" asp-action="Index" class="action-card alert">
-            <i class="fas fa-exclamation-circle fa-3x mb-3"></i>
-            <h5>Alertas</h5>
-            <p>Gestionar mantenimientos críticos</p>
+
+    <!-- SUMMARY -->
+    <div class="summary">
+        <div class="summary-card red">
+            <div>
+                <h3>@Model.AlertasActivas</h3>
+                <span>Alertas activas</span>
+            </div>
+            <div class="icon bg-red"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        </div>
+
+        <div class="summary-card blue">
+            <div>
+                <h3>@Model.TotalVehiculos</h3>
+                <span>Vehículos registrados</span>
+            </div>
+            <div class="icon bg-blue"><i class="fa-solid fa-car"></i></div>
+        </div>
+
+        <div class="summary-card green">
+            <div>
+                <h3>@Model.MantenimientosMes</h3>
+                <span>Mantenimientos del mes</span>
+            </div>
+            <div class="icon bg-green"><i class="fa-solid fa-wrench"></i></div>
+        </div>
+
+        <div class="summary-card orange">
+            <div>
+                <h3>@Model.CitasPendientes</h3>
+                <span>Citas pendientes</span>
+            </div>
+            <div class="icon bg-orange"><i class="fa-solid fa-calendar-days"></i></div>
+        </div>
+    </div>
+
+    <!-- QUICK ACCESS -->
+    <h5 class="section-title">Acceso rápido</h5>
+    <div class="quick">
+        <a asp-controller="Vehicles" asp-action="Index" class="quick-card">
+            <i class="fa-solid fa-car"></i>
+            <h6>Vehículos</h6>
+            <p>Inventario y clientes</p>
         </a>
 
-        <a asp-controller="Vehicles" asp-action="Index" class="action-card vehicle">
-            <i class="fas fa-car fa-3x mb-3"></i>
-            <h5>Vehículos</h5>
-            <p>Clientes y vehículos registrados</p>
+        <a asp-controller="Maintenances" asp-action="Index" class="quick-card">
+            <i class="fa-solid fa-screwdriver-wrench"></i>
+            <h6>Mantenimientos</h6>
+            <p>Historial y servicios</p>
         </a>
 
-        <a asp-controller="Maintenances" asp-action="Index" class="action-card maintenance">
-            <i class="fas fa-wrench fa-3x mb-3"></i>
-            <h5>Mantenimientos</h5>
-            <p>Historial y registros</p>
+        <a asp-controller="Alert" asp-action="Index" class="quick-card">
+            <i class="fa-solid fa-bell"></i>
+            <h6>Alertas</h6>
+            <p>Notificaciones importantes</p>
         </a>
 
-        <a asp-controller="Appointments" asp-action="Index" class="action-card appointments">
-            <i class="fas fa-calendar-alt fa-3x mb-3"></i>
-            <h5>Citas</h5>
+        <a asp-controller="Appointments" asp-action="Index" class="quick-card">
+            <i class="fa-solid fa-calendar-check"></i>
+            <h6>Citas</h6>
             <p>Agenda del taller</p>
         </a>
     </div>
 
-
-
-
-<!-- GRÁFICOS -->
-<div class="row">
-    <div class="col-md-6 mb-4">
-        <div class="stat-card">
-            <h5>Mantenimientos por mes</h5>
+    <!-- CHARTS -->
+    <h5 class="section-title">Estadísticas</h5>
+    <div class="charts">
+        <div class="chart-card">
+            <h6>Mantenimientos por mes</h6>
             <canvas id="mantenimientosChart"></canvas>
         </div>
-    </div>
 
-    <div class="col-md-6 mb-4">
-        <div class="stat-card">
-            <h5>Citas por estado</h5>
+        <div class="chart-card">
+            <h6>Citas por estado</h6>
             <canvas id="citasChart"></canvas>
         </div>
-    </div>
 
-    <div class="col-md-12">
-        <div class="stat-card">
-            <h5>Vehículos por marca</h5>
+        <div class="chart-card">
+            <h6>Vehículos por marca</h6>
             <canvas id="vehiculosChart"></canvas>
         </div>
     </div>
-</div>
 
     <footer>
-        <img src="~/images/logo-taller2.png" style="height:40px">
-        <p class="mt-2">© @DateTime.Now.Year Taller Especializado Honda & Toyota</p>
+        © @DateTime.Now.Year Caldera Performance
     </footer>
 
-</section>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    new Chart(document.getElementById('mantenimientosChart'), {
-        type: 'line',
+    const commonOptions = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    boxWidth: 12,
+                    padding: 15
+                }
+            }
+        }
+    };
+
+    new Chart(mantenimientosChart, {
+        type: 'bar',
         data: {
             labels: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.MesesMantenimientos)),
             datasets: [{
-                label: 'Mantenimientos',
                 data: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.CantidadMantenimientos)),
-                borderWidth: 3,
-                tension: 0.4
+                backgroundColor: '#2563eb',
+                borderRadius: 10,
+                barThickness: 20
             }]
+        },
+        options: {
+            ...commonOptions,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { display: false },
+                x: { grid: { display: false } }
+            }
         }
     });
 
-    new Chart(document.getElementById('citasChart'), {
+    new Chart(citasChart, {
         type: 'doughnut',
         data: {
             labels: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.EstadosCitas)),
             datasets: [{
-                data: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.CantidadCitas))
+                data: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.CantidadCitas)),
+                backgroundColor: ['#16a34a', '#f97316', '#dc2626'],
+                cutout: '72%'
             }]
-        }
+        },
+        options: commonOptions
     });
 
-    new Chart(document.getElementById('vehiculosChart'), {
-        type: 'bar',
+    new Chart(vehiculosChart, {
+        type: 'doughnut',
         data: {
             labels: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.MarcasVehiculos)),
             datasets: [{
-                label: 'Vehículos',
-                data: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.CantidadVehiculos))
+                data: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.CantidadVehiculos)),
+                backgroundColor: ['#dc2626', '#2563eb'],
+                cutout: '72%'
             }]
-        }
+        },
+        options: commonOptions
     });
 </script>

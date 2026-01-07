@@ -389,4 +389,10 @@ input, select, textarea {
     .app-footer {
         left: 0;
     }
+    @media (max-width: 768px) {
+        .brands img {
+            height: 34px;
+        }
+    }
+
 }
