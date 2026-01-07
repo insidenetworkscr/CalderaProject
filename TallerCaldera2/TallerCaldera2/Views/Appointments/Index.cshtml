@@ -5,93 +5,258 @@
     var selectedDay = ViewData["SelectedDay"] as string;
 }
 
-<h2 class="mb-3">Agenda de Citas</h2>
+<style>
+    /* ===== HEADER ROJO (MISMO ESTILO ALERTAS) ===== */
+    .page-header {
+        background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        border: 1px solid #fee2e2;
+        position: relative;
+        overflow: hidden;
+    }
 
-<div class="row mb-3">
-    <div class="col-md-4">
-        <form method="get">
-            <label class="form-label">Filtrar por día</label>
-            <div class="input-group">
-                <input type="date" name="day" class="form-control" value="@selectedDay" />
-                <button type="submit" class="btn btn-primary">Filtrar</button>
-            </div>
-        </form>
+        .page-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #dc2626, #f97316);
+        }
+
+    .page-title {
+        color: #1e293b;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: .5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+        .page-title i {
+            color: #dc2626;
+            font-size: 2.2rem;
+        }
+
+    .page-subtitle {
+        color: #64748b;
+        font-size: 1.05rem;
+        max-width: 600px;
+    }
+
+    @@media (max-width: 768px) {
+        .page-header {
+            padding: 1.5rem;
+        }
+
+        .page-title {
+            font-size: 1.6rem;
+        }
+    }
+
+    /* ===== TABLA ELEGANTE ===== */
+
+    .table-appointments thead th {
+        background-color: #fafafa;
+        font-weight: 600;
+        color: #374151;
+        border-bottom: 2px solid #e5e7eb;
+    }
+
+    .table-appointments tbody tr {
+        transition: background .15s ease;
+    }
+
+        .table-appointments tbody tr:hover {
+            background-color: #f9fafb;
+        }
+
+    .time-badge {
+        background: #1f2937;
+        color: #fff;
+        padding: 4px 8px;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: .85rem;
+    }
+
+    .status-confirmed {
+        color: #16a34a;
+        font-weight: 600;
+    }
+
+    .status-pending {
+        color: #ca8a04;
+        font-weight: 600;
+    }
+
+    /* ===== BOTONES MINIMALISTAS ===== */
+
+    .btn-outline-red {
+        border: 1px solid #dc2626;
+        color: #dc2626;
+        background: transparent;
+    }
+
+        .btn-outline-red:hover {
+            background: #dc2626;
+            color: #fff;
+        }
+
+    .btn-outline-gray {
+        border: 1px solid #d1d5db;
+        color: #374151;
+        background: transparent;
+    }
+
+        .btn-outline-gray:hover {
+            background: #f3f4f6;
+        }
+</style>
+
+<section class="container-fluid px-4">
+
+    <!-- ===== HEADER ===== -->
+    <div class="page-header">
+        <h1 class="page-title">
+            <i class="bi bi-calendar-event-fill"></i>
+            Agenda de citas
+        </h1>
+        <p class="page-subtitle">
+            Control y seguimiento de citas programadas con clientes.
+        </p>
     </div>
 
-    <div class="col-md-8 text-end align-self-end">
-        <a asp-action="Create" class="btn btn-success">
-            ➕ Agregar cita
-        </a>
+    <!-- ===== FILTRO / ACCIÓN ===== -->
+    <div class="row mb-4 align-items-end">
+        <div class="col-md-4">
+            <form method="get">
+                <label class="form-label fw-semibold">Filtrar por día</label>
+                <div class="input-group">
+                    <input type="date"
+                           name="day"
+                           class="form-control"
+                           value="@selectedDay" />
+                    <button type="submit" class="btn btn-outline-red">
+                        Filtrar
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-8 text-end">
+            <a asp-action="Create" class="btn btn-outline-red">
+                <i class="bi bi-plus-circle"></i>
+                Agregar cita
+            </a>
+        </div>
     </div>
-</div>
 
-<table class="table table-bordered table-hover">
-    <thead class="table-dark">
-        <tr>
-            <th>Hora</th>
-            <th>Cliente</th>
-            <th>Teléfono</th>
-            <th>Fecha</th>
-            <th>Estado</th>
-            <th style="width: 260px;">Acciones</th>
-        </tr>
-    </thead>
-    <tbody>
-        @if (!Model.Any())
-        {
-            <tr>
-                <td colspan="6" class="text-center text-muted">
-                    No hay citas registradas para este día
-                </td>
-            </tr>
-        }
-        else
-        {
-            foreach (var item in Model)
-            {
-                <tr>
-                    <td>@item.AppointmentDateTime.ToString("HH:mm")</td>
-                    <td>@item.CustomerName</td>
-                    <td>@item.PhoneNumber</td>
-                    <td>@item.AppointmentDateTime.ToString("dd/MM/yyyy")</td>
-                    <td>
-                        @if (item.Status == AppointmentStatus.Confirmada)
+    <!-- ===== TABLA ===== -->
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="table-responsive">
+            <table class="table table-appointments align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Hora</th>
+                        <th>Cliente</th>
+                        <th>Teléfono</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                        <th class="text-end">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">
+                                No hay citas registradas para este día
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        foreach (var item in Model)
                         {
-                            <span class="badge bg-success">Confirmada</span>
+                            <tr>
+                                <td>
+                                    <span class="time-badge">
+                                        @item.AppointmentDateTime.ToString("HH:mm")
+                                    </span>
+                                </td>
+
+                                <td class="fw-semibold">
+                                    @item.CustomerName
+                                </td>
+
+                                <td>
+                                    @item.PhoneNumber
+                                </td>
+
+                                <td>
+                                    @item.AppointmentDateTime.ToString("dd/MM/yyyy")
+                                </td>
+
+                                <td>
+                                    @if (item.Status == AppointmentStatus.Confirmada)
+                                    {
+                                        <span class="status-confirmed">
+                                            Confirmada
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="status-pending">
+                                            Pendiente
+                                        </span>
+                                    }
+                                </td>
+
+                                <td class="text-end">
+                                    <div class="btn-group btn-group-sm">
+
+                                        @if (item.Status == AppointmentStatus.Pendiente)
+                                        {
+                                            <form asp-action="Confirm" method="post">
+                                                <input type="hidden" name="id" value="@item.Id" />
+                                                <button class="btn btn-outline-gray">
+                                                    Confirmar
+                                                </button>
+                                            </form>
+                                        }
+
+                                        <form asp-action="Cancel" method="post">
+                                            <input type="hidden" name="id" value="@item.Id" />
+                                            <button class="btn btn-outline-gray">
+                                                Cancelar
+                                            </button>
+                                        </form>
+
+                                        <a asp-action="Edit"
+                                           asp-route-id="@item.Id"
+                                           class="btn btn-outline-gray">
+                                            Editar
+                                        </a>
+
+                                        <a asp-action="Delete"
+                                           asp-route-id="@item.Id"
+                                           class="btn btn-outline-red">
+                                            Eliminar
+                                        </a>
+
+                                    </div>
+                                </td>
+                            </tr>
                         }
-                        else
-                        {
-                            <span class="badge bg-warning text-dark">Pendiente</span>
-                        }
-                    </td>
-                    <td>
-                        <div class="btn-group btn-group-sm">
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
 
-                            @if (item.Status == AppointmentStatus.Pendiente)
-                            {
-                                <form asp-action="Confirm" method="post">
-                                    <input type="hidden" name="id" value="@item.Id" />
-                                    <button class="btn btn-success">Confirmar</button>
-                                </form>
-                            }
-
-                            <form asp-action="Cancel" method="post">
-                                <input type="hidden" name="id" value="@item.Id" />
-                                <button class="btn btn-warning">Cancelar</button>
-                            </form>
-
-                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary">
-                                Editar
-                            </a>
-
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">
-                                Eliminar
-                            </a>
-
-                        </div>
-                    </td>
-                </tr>
-            }
-        }
-    </tbody>
-</table>
+</section>

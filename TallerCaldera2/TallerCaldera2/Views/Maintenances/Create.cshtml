@@ -1,83 +1,135 @@
 ﻿@model TallerCaldera2.Models.Maintenance
 
 @{
-    ViewData["Title"] = "Crear mantenimiento";
+    ViewData["Title"] = "Nuevo mantenimiento";
 }
 
-<h1>Crear mantenimiento</h1>
+<div class="container py-4">
 
-<div class="row">
-    <div class="col-md-6">
-        <form asp-action="Create" enctype="multipart/form-data">
-            <input type="hidden" asp-for="Id" />
+    <!-- ================= HEADER ================= -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">
+            <i class="bi bi-wrench-adjustable me-2"></i> Registrar mantenimiento
+        </h2>
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Volver
+        </a>
+    </div>
 
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <form asp-action="Create" enctype="multipart/form-data">
 
-            <div class="mb-3">
-                <label asp-for="Date" class="form-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <!-- ================= DATOS GENERALES ================= -->
+        <div class="card shadow-sm border-0 rounded-4 mb-4">
+            <div class="card-header bg-light fw-semibold">
+                <i class="bi bi-info-circle me-2"></i> Datos del mantenimiento
             </div>
 
-            <div class="mb-3">
-                <label asp-for="VehiclePlate" class="form-label">Placa</label>
-                <select asp-for="VehiclePlate" class="form-control" asp-items="ViewBag.VehiclePlate"></select>
-                <span asp-validation-for="VehiclePlate" class="text-danger"></span>
+            <div class="card-body row g-3">
+                <div class="col-md-3">
+                    <label asp-for="Date" class="form-label">Fecha</label>
+                    <input asp-for="Date" type="date" class="form-control" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-3">
+                    <label asp-for="VehiclePlate" class="form-label">Vehículo</label>
+                    <select asp-for="VehiclePlate"
+                            class="form-select"
+                            asp-items="ViewBag.VehiclePlate">
+                    </select>
+                    <span asp-validation-for="VehiclePlate" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-3">
+                    <label asp-for="Type" class="form-label">Tipo de mantenimiento</label>
+                    <input asp-for="Type" class="form-control" placeholder="Preventivo, correctivo…" />
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-3">
+                    <label asp-for="Provider" class="form-label">Proveedor</label>
+                    <input asp-for="Provider" class="form-control" placeholder="Repuestos XYZ" />
+                    <span asp-validation-for="Provider" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="Mileage" class="form-label">Kilometraje</label>
+                    <input asp-for="Mileage" class="form-control" placeholder="120 000" />
+                    <span asp-validation-for="Mileage" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="Cost" class="form-label">Costo</label>
+                    <input asp-for="Cost" class="form-control" placeholder="₡" />
+                    <span asp-validation-for="Cost" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-12">
+                    <label asp-for="Observations" class="form-label">Observaciones</label>
+                    <textarea asp-for="Observations"
+                              class="form-control"
+                              rows="3"
+                              placeholder="Detalle del trabajo realizado…">
+                    </textarea>
+                    <span asp-validation-for="Observations" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= FOTOS ================= -->
+        <div class="card shadow-sm border-0 rounded-4 mb-4">
+            <div class="card-header bg-light fw-semibold">
+                <i class="bi bi-camera me-2"></i> Evidencia fotográfica
             </div>
 
-            <div class="mb-3">
-                <label asp-for="Type" class="form-label"></label>
-                <input asp-for="Type" class="form-control" />
-                <span asp-validation-for="Type" class="text-danger"></span>
-            </div>
-
-            <div class="col-md-4">
-                <label asp-for="Provider" class="form-label">Proveedor</label>
-                <input asp-for="Provider" class="form-control" />
-                <span asp-validation-for="Provider" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="Observations" class="form-label"></label>
-                <textarea asp-for="Observations" class="form-control"></textarea>
-                <span asp-validation-for="Observations" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="Cost" class="form-label"></label>
-                <input asp-for="Cost" class="form-control" />
-                <span asp-validation-for="Cost" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
-                <label asp-for="Mileage" class="form-label"></label>
-                <input asp-for="Mileage" class="form-control" />
-                <span asp-validation-for="Mileage" class="text-danger"></span>
-            </div>
-
-            <div class="mb-3">
+            <div class="card-body">
                 <label class="form-label">Fotos del mantenimiento</label>
                 <input type="file" name="photos" class="form-control" multiple />
-                <small class="text-muted">Puede seleccionar varias imágenes.</small>
+                <small class="text-muted">
+                    Puede seleccionar varias imágenes del trabajo realizado.
+                </small>
+            </div>
+        </div>
+
+        <!-- ================= BOCETO ================= -->
+        <div class="card shadow-sm border-0 rounded-4 mb-4">
+            <div class="card-header bg-light fw-semibold">
+                <i class="bi bi-pencil-square me-2"></i> Boceto del vehículo
             </div>
 
-            <hr />
+            <div class="card-body">
+                <p class="text-muted mb-2">
+                    Haga clic sobre el vehículo para marcar daños o revisiones (<strong>X</strong>).
+                    Haga clic sobre una marca para eliminarla.
+                </p>
 
-            <h5>Boceto del vehículo</h5>
-            <p class="text-muted">Haga clic en cualquier parte del carro para agregar una <strong>X</strong>. Haga clic sobre una <strong>X</strong> para eliminarla.</p>
+                <div id="sketch-container"
+                     class="sketch-container border rounded p-2"
+                     style="max-width:600px;">
+                    <img id="sketch-image"
+                         src="~/images/car-sketch.png"
+                         class="img-fluid"
+                         alt="Boceto del vehículo" />
+                </div>
 
-            <div id="sketch-container" class="border rounded sketch-container" style="max-width:600px;" data-initial-marks="">
-                <img id="sketch-image" src="~/images/car-sketch.png" alt="Boceto carro" style="width:100%;height:auto;" />
+                <input type="hidden" id="SketchData" name="SketchData" />
             </div>
+        </div>
 
-            <input type="hidden" id="SketchData" name="SketchData" />
+        <!-- ================= ACCIONES ================= -->
+        <div class="d-flex justify-content-end gap-2">
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                Cancelar
+            </a>
+            <button type="submit" class="btn btn-primary px-4">
+                <i class="bi bi-save me-1"></i> Guardar mantenimiento
+            </button>
+        </div>
 
-            <div class="mt-4">
-                <input type="submit" value="Guardar" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary">Volver</a>
-            </div>
-        </form>
-    </div>
+    </form>
 </div>
 
 @section Scripts {
@@ -119,8 +171,7 @@
 
                     el.addEventListener('click', function (ev) {
                         ev.stopPropagation();
-                        const idx = parseInt(this.dataset.index);
-                        marks.splice(idx, 1);
+                        marks.splice(parseInt(this.dataset.index), 1);
                         renderMarks();
                     });
 
@@ -132,9 +183,10 @@
 
             container.addEventListener('click', function (e) {
                 const rect = container.getBoundingClientRect();
-                const x = Math.round(e.clientX - rect.left);
-                const y = Math.round(e.clientY - rect.top);
-                marks.push({ x: x, y: y });
+                marks.push({
+                    x: Math.round(e.clientX - rect.left),
+                    y: Math.round(e.clientY - rect.top)
+                });
                 renderMarks();
             });
         })();

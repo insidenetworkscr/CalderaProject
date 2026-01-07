@@ -6,24 +6,64 @@
 
 <style>
     .maintenance-row {
-        transition: background .15s ease;
+        border-bottom: 1px solid #e9ecef;
     }
 
         .maintenance-row:hover {
             background-color: #f8f9fa;
         }
 
+    .maintenance-main {
+        min-width: 260px;
+    }
+
+    .vehicle-box {
+        font-weight: 600;
+        background: #212529;
+        color: #fff;
+        padding: 6px 10px;
+        border-radius: 6px;
+        display: inline-block;
+    }
+
+    .cost-box {
+        font-weight: 700;
+        color: #198754;
+        font-size: 1rem;
+        white-space: nowrap;
+    }
+
+    .icon-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: .85rem;
+        padding: 4px 8px;
+        border-radius: 6px;
+        background: #f1f3f5;
+    }
+
+    .photo-thumb {
+        width: 36px;
+        height: 28px;
+        object-fit: cover;
+        border-radius: 4px;
+        margin-right: 3px;
+        border: 1px solid #ddd;
+    }
+
     .no-results {
         display: none;
     }
 </style>
+
 
 <section class="container-fluid px-4">
 
     <!-- Header -->
     <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
         <div>
-            <h2 class="fw-bold mb-0">Mantenimientos</h2>
+            <h2 class="fw-bold mb-0">🔧 Mantenimientos</h2>
             <small class="text-muted">
                 Buscar por tipo, proveedor o placa + filtrar por fechas
             </small>
@@ -38,7 +78,7 @@
     <div class="card shadow-sm border-0 rounded-4 mb-4">
         <div class="card-body">
             <div class="row g-3 align-items-end">
-                <!-- Buscador -->
+
                 <div class="col-md-4">
                     <label class="form-label fw-semibold">Buscar</label>
                     <input type="text"
@@ -48,7 +88,6 @@
                            onkeyup="filterMaintenances()" />
                 </div>
 
-                <!-- Fecha desde -->
                 <div class="col-md-3">
                     <label class="form-label fw-semibold">Desde</label>
                     <input type="date"
@@ -57,7 +96,6 @@
                            onchange="filterMaintenances()" />
                 </div>
 
-                <!-- Fecha hasta -->
                 <div class="col-md-3">
                     <label class="form-label fw-semibold">Hasta</label>
                     <input type="date"
@@ -66,13 +104,13 @@
                            onchange="filterMaintenances()" />
                 </div>
 
-                <!-- Limpiar -->
                 <div class="col-md-2">
                     <button class="btn btn-outline-secondary w-100"
                             onclick="clearFilters()">
                         Limpiar
                     </button>
                 </div>
+
             </div>
         </div>
     </div>
@@ -80,19 +118,18 @@
     <!-- Tabla -->
     <div class="card shadow-sm border-0 rounded-4">
         <div class="table-responsive">
-            <table class="table table-striped align-middle mb-0">
+            <table class="table align-middle mb-0">
+
                 <thead class="table-light">
                     <tr>
-                        <th>Fecha</th>
-                        <th>Tipo</th>
-                        <th>Proveedor</th>
+                        <th>Mantenimiento</th>
                         <th>Vehículo</th>
-                        <th>Costo</th>
-                        <th>Fotos</th>
-                        <th>Boceto</th>
-                        <th></th>
+                        <th>Estado</th>
+                        <th class="text-end">Costo</th>
+                        <th class="text-end">Acciones</th>
                     </tr>
                 </thead>
+
                 <tbody id="maintenanceTable">
                     @foreach (var item in Model)
                     {
@@ -100,59 +137,90 @@
                             data-search="@($"{item.Type} {item.Provider} {item.VehiclePlate}".ToLower())"
                             data-date="@item.Date.ToString("yyyy-MM-dd")">
 
-                            <td>@item.Date.ToString("dd/MM/yyyy")</td>
-                            <td>@item.Type</td>
-                            <td>@item.Provider</td>
-                            <td>@item.VehiclePlate</td>
-                            <td>₡@(item.Cost?.ToString("N0") ?? "0")</td>
+                            <!-- INFO PRINCIPAL -->
+                            <td class="maintenance-main">
+                                <div class="fw-semibold">@item.Type</div>
 
-                            <!-- Fotos -->
-                            <td>
-                                @if (item.Photos != null && item.Photos.Any())
-                                {
-                                    foreach (var photo in item.Photos.Take(3))
-                                    {
-                                        <img src="@photo.ImageUrl"
-                                             style="width:55px;height:auto;margin-right:4px;border-radius:4px;" />
-                                    }
-                                    if (item.Photos.Count > 3)
-                                    {
-                                        <span>+@(item.Photos.Count - 3)</span>
-                                    }
-                                }
-                                else
-                                {
-                                    <span class="text-muted">Sin fotos</span>
-                                }
+                                <small class="text-muted">
+                                    <i class="bi bi-calendar"></i>
+                                    @item.Date.ToString("dd/MM/yyyy")
+                                </small><br />
+
+                                <small class="text-muted">
+                                    <i class="bi bi-shop"></i>
+                                    @item.Provider
+                                </small>
                             </td>
 
-                            <!-- Boceto -->
+                            <!-- VEHÍCULO -->
                             <td>
-                                @if (item.SketchMarks != null && item.SketchMarks.Any())
-                                {
-                                    <span>Con boceto (@item.SketchMarks.Count)</span>
-                                }
-                                else
-                                {
-                                    <span class="text-muted">Sin boceto</span>
-                                }
+                                <span class="vehicle-box">
+                                    @item.VehiclePlate
+                                </span>
                             </td>
 
-                            <!-- Acciones -->
+                            <!-- ESTADO -->
+                            <td>
+                                <div class="d-flex gap-2 flex-wrap">
+
+                                    <!-- Fotos -->
+                                    @if (item.Photos != null && item.Photos.Any())
+                                    {
+                                        <span class="icon-badge">
+                                            <i class="bi bi-image"></i>
+                                            @item.Photos.Count
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="icon-badge text-muted">
+                                            <i class="bi bi-image"></i> 0
+                                        </span>
+                                    }
+
+                                    <!-- Boceto -->
+                                    @if (item.SketchMarks != null && item.SketchMarks.Any())
+                                    {
+                                        <span class="icon-badge">
+                                            <i class="bi bi-pencil"></i>
+                                            @item.SketchMarks.Count
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="icon-badge text-muted">
+                                            <i class="bi bi-pencil"></i> 0
+                                        </span>
+                                    }
+
+                                </div>
+                            </td>
+
+                            <!-- COSTO -->
+                            <td class="text-end">
+                                <span class="cost-box">
+                                    ₡@(item.Cost?.ToString("N0") ?? "0")
+                                </span>
+                            </td>
+
+                            <!-- ACCIONES -->
                             <td class="text-end">
                                 <a asp-action="Details" asp-route-id="@item.Id"
                                    class="btn btn-sm btn-outline-info">
                                     <i class="bi bi-eye"></i>
                                 </a>
+
                                 <a asp-action="Edit" asp-route-id="@item.Id"
                                    class="btn btn-sm btn-outline-primary">
                                     <i class="bi bi-pencil"></i>
                                 </a>
+
                                 <a asp-action="Delete" asp-route-id="@item.Id"
                                    class="btn btn-sm btn-outline-danger">
                                     <i class="bi bi-trash"></i>
                                 </a>
                             </td>
+
                         </tr>
                     }
                 </tbody>
@@ -206,4 +274,3 @@
         filterMaintenances();
     }
 </script>
-

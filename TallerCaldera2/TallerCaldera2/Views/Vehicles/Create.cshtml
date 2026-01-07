@@ -3,71 +3,106 @@
     ViewData["Title"] = "Registrar Vehículo";
 }
 
-<section class="page-block">
-    <h2 class="page-title mb-4">Registrar Nuevo Vehículo</h2>
+<section class="page-block container mt-4">
 
-    <div class="card shadow-soft p-4">
-        <form asp-action="Create" method="post" class="row g-3">
-            <div class="col-md-4">
-                <label asp-for="Plate" class="form-label">Placa *</label>
-                <input asp-for="Plate" class="form-control" required />
-            </div>
-            <div class="col-md-4">
-                <label asp-for="Brand" class="form-label">Marca *</label>
-                <input asp-for="Brand" class="form-control" required />
-            </div>
-            <div class="col-md-4">
-                <label asp-for="Model" class="form-label">Modelo *</label>
-                <input asp-for="Model" class="form-control" required />
-            </div>
-
-            <div class="col-md-3">
-                <label asp-for="Year" class="form-label">Año</label>
-                <input asp-for="Year" type="number" class="form-control" />
-            </div>
-            <div class="col-md-3">
-                <label asp-for="FuelType" class="form-label">Combustible</label>
-                <input asp-for="FuelType" class="form-control" />
-            </div>
-            <div class="col-md-3">
-                <label asp-for="OilType" class="form-label">Aceite</label>
-                <input asp-for="OilType" class="form-control" />
-            </div>
-            <div class="col-md-3">
-                <label asp-for="LastMaintenanceDate" class="form-label">Último mantenimiento</label>
-                <input asp-for="LastMaintenanceDate" type="date" class="form-control" />
-            </div>
-
-            <div class="col-md-6">
-                <label asp-for="ClientName" class="form-label">Cliente *</label>
-                <input asp-for="ClientName" class="form-control" required />
-            </div>
-            <div class="col-md-3">
-                <label asp-for="ClientIdNumber" class="form-label">Cédula</label>
-                <input asp-for="ClientIdNumber" class="form-control" />
-            </div>
-            <div class="col-md-3">
-                <label asp-for="ClientPhone" class="form-label">Teléfono</label>
-                <input asp-for="ClientPhone" class="form-control" />
-            </div>
-            <div class="col-md-6">
-                <label asp-for="ClientAddress" class="form-label">Dirección</label>
-                <input asp-for="ClientAddress" class="form-control" />
-                <span asp-validation-for="ClientAddress" class="text-danger"></span>
-            </div>
-
-            <div class="col-md-6">
-                <label asp-for="ClientEmail" class="form-label">Correo electrónico</label>
-                <input asp-for="ClientEmail" type="email" class="form-control" />
-                <span asp-validation-for="ClientEmail" class="text-danger"></span>
-            </div>
-
-
-            <div class="col-12 text-end mt-4">
-                <a asp-action="Index" class="btn btn-outline-secondary me-2">Cancelar</a>
-                <button type="submit" class="btn btn-primary px-4">Guardar</button>
-            </div>
-        </form>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="page-title">
+            <i class="bi bi-car-front-fill me-2"></i> Registrar Nuevo Vehículo
+        </h2>
     </div>
+
+    <form asp-action="Create" method="post">
+
+        <!-- ================= DATOS DEL VEHÍCULO ================= -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-light fw-semibold">
+                <i class="bi bi-speedometer2 me-2"></i> Datos del vehículo
+            </div>
+
+            <div class="card-body row g-3">
+                <div class="col-md-4">
+                    <label asp-for="Plate" class="form-label">Placa <span class="text-danger">*</span></label>
+                    <input asp-for="Plate" class="form-control" placeholder="ABC-123" required />
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="Brand" class="form-label">Marca <span class="text-danger">*</span></label>
+                    <input asp-for="Brand" class="form-control" placeholder="Toyota, Honda…" required />
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="Model" class="form-label">Modelo <span class="text-danger">*</span></label>
+                    <input asp-for="Model" class="form-control" placeholder="Corolla, Civic…" required />
+                </div>
+
+                <div class="col-md-3">
+                    <label asp-for="Year" class="form-label">Año</label>
+                    <input asp-for="Year" type="number" class="form-control" placeholder="2020" />
+                </div>
+
+                <div class="col-md-3">
+                    <label asp-for="FuelType" class="form-label">Combustible</label>
+                    <input asp-for="FuelType" class="form-control" placeholder="Gasolina / Diésel" />
+                </div>
+
+                <div class="col-md-3">
+                    <label asp-for="OilType" class="form-label">Tipo de aceite</label>
+                    <input asp-for="OilType" class="form-control" placeholder="5W-30" />
+                </div>
+
+                <div class="col-md-3">
+                    <label asp-for="LastMaintenanceDate" class="form-label">Último mantenimiento</label>
+                    <input asp-for="LastMaintenanceDate" type="date" class="form-control" />
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= DATOS DEL CLIENTE ================= -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-light fw-semibold">
+                <i class="bi bi-person-fill me-2"></i> Datos del cliente
+            </div>
+
+            <div class="card-body row g-3">
+                <div class="col-md-6">
+                    <label asp-for="ClientName" class="form-label">Nombre del cliente <span class="text-danger">*</span></label>
+                    <input asp-for="ClientName" class="form-control" placeholder="Nombre completo" required />
+                </div>
+
+                <div class="col-md-3">
+                    <label asp-for="ClientIdNumber" class="form-label">Cédula</label>
+                    <input asp-for="ClientIdNumber" class="form-control" placeholder="0-0000-0000" />
+                </div>
+
+                <div class="col-md-3">
+                    <label asp-for="ClientPhone" class="form-label">Teléfono</label>
+                    <input asp-for="ClientPhone" class="form-control" placeholder="8888-8888" />
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="ClientEmail" class="form-label">Correo electrónico</label>
+                    <input asp-for="ClientEmail" type="email" class="form-control" placeholder="correo@ejemplo.com" />
+                    <span asp-validation-for="ClientEmail" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6">
+                    <label asp-for="ClientAddress" class="form-label">Dirección</label>
+                    <input asp-for="ClientAddress" class="form-control" placeholder="Dirección exacta" />
+                    <span asp-validation-for="ClientAddress" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= ACCIONES ================= -->
+        <div class="d-flex justify-content-end gap-2">
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-x-circle me-1"></i> Cancelar
+            </a>
+            <button type="submit" class="btn btn-primary px-4">
+                <i class="bi bi-save me-1"></i> Guardar vehículo
+            </button>
+        </div>
+
+    </form>
 </section>
 

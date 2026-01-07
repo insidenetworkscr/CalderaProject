@@ -11,92 +11,112 @@
 
 <style>
     .money-hidden {
-        filter: blur(8px);
+        filter: blur(7px);
         user-select: none;
-        transition: filter 0.25s ease;
+        transition: filter .2s ease;
     }
 
     .money-visible {
         filter: none;
     }
+
+    .info-item {
+        margin-bottom: .4rem;
+        font-size: .95rem;
+    }
 </style>
 
-<div class="container-fluid py-4 px-5">
+<div class="container-fluid px-4 py-4">
+
+    <!-- ================= HEADER ================= -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
-            <span class="badge bg-light text-dark px-3 py-2 fs-6 me-2">@Model.Plate</span>
-            <h2 class="fw-bold d-inline">@Model.Brand @Model.Model</h2>
-            <p class="text-muted mb-0">Detalles del vehículo</p>
+            <span class="badge bg-secondary fs-6 mb-2">@Model.Plate</span>
+            <h2 class="fw-bold mb-0">
+                <i class="bi bi-car-front-fill me-2"></i>
+                @Model.Brand @Model.Model
+            </h2>
+            <small class="text-muted">Detalle completo del vehículo</small>
         </div>
-        <div>
-            <a asp-action="Index" class="btn btn-outline-secondary me-2">Volver</a>
+
+        <div class="d-flex gap-2">
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Volver
+            </a>
+
             <a asp-controller="Maintenances"
                asp-action="Create"
                asp-route-vehiclePlate="@Model.Plate"
                class="btn btn-primary">
-                Agregar Mantenimiento
+                <i class="bi bi-plus-circle"></i> Nuevo mantenimiento
             </a>
         </div>
     </div>
 
-    <!-- Información -->
     <div class="row g-4 mb-4">
+
+        <!-- ================= INFO VEHÍCULO ================= -->
         <div class="col-lg-6">
-            <div class="card shadow-sm border-0 rounded-4">
+            <div class="card shadow-sm border-0 rounded-4 h-100">
                 <div class="card-body">
-                    <h5 class="text-primary mb-3">Información del Vehículo</h5>
+                    <h5 class="fw-semibold text-primary mb-3">
+                        <i class="bi bi-info-circle me-2"></i> Información general
+                    </h5>
+
                     <div class="row">
                         <div class="col-sm-6">
-                            <p><strong>Cliente:</strong> @Model.ClientName</p>
-                            <p><strong>Cédula:</strong> @Model.ClientIdNumber</p>
-                            <p><strong>Teléfono:</strong> @Model.ClientPhone</p>
-                            <p><strong>Dirección:</strong> @Model.ClientAddress</p>
-                            <p><strong>Correo:</strong> @Model.ClientEmail</p>
-                            <p><strong>Combustible:</strong> @Model.FuelType</p>
+                            <div class="info-item"><strong>Cliente:</strong> @Model.ClientName</div>
+                            <div class="info-item"><strong>Cédula:</strong> @Model.ClientIdNumber</div>
+                            <div class="info-item"><strong>Teléfono:</strong> @Model.ClientPhone</div>
+                            <div class="info-item"><strong>Correo:</strong> @Model.ClientEmail</div>
+                            <div class="info-item"><strong>Dirección:</strong> @Model.ClientAddress</div>
                         </div>
+
                         <div class="col-sm-6">
-                            <p><strong>Año:</strong> @Model.Year</p>
-                            <p><strong>Aceite:</strong> @Model.OilType</p>
-                            <p>
-                                <strong>Último Mantenimiento:</strong>
+                            <div class="info-item"><strong>Año:</strong> @Model.Year</div>
+                            <div class="info-item"><strong>Combustible:</strong> @Model.FuelType</div>
+                            <div class="info-item"><strong>Aceite:</strong> @Model.OilType</div>
+                            <div class="info-item">
+                                <strong>Último mantenimiento:</strong>
                                 @(Model.LastMaintenanceDate?.ToString("dd/MM/yyyy") ?? "—")
-                            </p>
-                            <p>
+                            </div>
+                            <div class="info-item">
                                 <strong>Registrado:</strong>
                                 @Model.CreatedDate.ToString("dd/MM/yyyy")
-                            </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Stats -->
+        <!-- ================= ESTADÍSTICAS ================= -->
         <div class="col-lg-6">
             <div class="row g-3">
-                <div class="col-sm-6">
-                    <div class="card shadow-sm border-0 rounded-4 h-100 text-center">
+
+                <div class="col-md-6">
+                    <div class="card shadow-sm border-0 rounded-4 text-center h-100">
                         <div class="card-body">
-                            <h6 class="text-muted">Mantenimientos</h6>
-                            <h3 class="fw-bold text-primary">@maintenances.Count</h3>
+                            <i class="bi bi-wrench-adjustable fs-2 text-primary"></i>
+                            <h6 class="text-muted mt-2">Mantenimientos</h6>
+                            <h3 class="fw-bold">@maintenances.Count</h3>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-sm-6">
-                    <div class="card shadow-sm border-0 rounded-4 h-100 text-center">
+                <div class="col-md-6">
+                    <div class="card shadow-sm border-0 rounded-4 text-center h-100">
                         <div class="card-body">
                             <div class="d-flex justify-content-center align-items-center gap-2">
-                                <h6 class="text-muted mb-0">Total Gastado</h6>
-
+                                <i class="bi bi-cash-coin fs-2 text-success"></i>
                                 <button class="btn btn-sm btn-outline-secondary"
-                                        type="button"
                                         onclick="toggleMoney()"
                                         title="Mostrar / ocultar montos">
-                                    👁️
+                                    <i class="bi bi-eye"></i>
                                 </button>
                             </div>
 
+                            <h6 class="text-muted mt-2">Total invertido</h6>
                             <h3 class="fw-bold text-success money money-hidden">
                                 ₡@totalCost.ToString("N0")
                             </h3>
@@ -108,10 +128,12 @@
         </div>
     </div>
 
-    <!-- Historial -->
+    <!-- ================= HISTORIAL ================= -->
     <div class="card shadow-sm border-0 rounded-4">
         <div class="card-body">
-            <h5 class="text-primary mb-3">Historial de Mantenimientos</h5>
+            <h5 class="fw-semibold text-primary mb-3">
+                <i class="bi bi-clock-history me-2"></i> Historial de mantenimientos
+            </h5>
 
             @if (!maintenances.Any())
             {
@@ -120,15 +142,14 @@
             else
             {
                 <div class="table-responsive">
-                    <table class="table align-middle">
+                    <table class="table table-hover align-middle">
                         <thead class="table-light">
                             <tr>
                                 <th>Fecha</th>
                                 <th>Tipo</th>
                                 <th>Kilometraje</th>
                                 <th>Costo</th>
-                                <th>Fotos</th>
-                                <th>Boceto</th>
+                                <th>Multimedia</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -138,37 +159,29 @@
                                 <tr>
                                     <td>@m.Date.ToString("dd/MM/yyyy")</td>
                                     <td>@m.Type</td>
-                                    <td>@((m.Mileage?.ToString("N0") ?? "—")) km</td>
+                                    <td>@(m.Mileage?.ToString("N0") ?? "—") km</td>
 
                                     <td class="money money-hidden">
                                         ₡@(m.Cost?.ToString("N0") ?? "0")
                                     </td>
 
                                     <td>
-                                        @if (m.Photos != null && m.Photos.Any())
+                                        @if (m.Photos?.Any() == true)
                                         {
-                                            <div class="d-flex flex-wrap">
-                                                @foreach (var photo in m.Photos.Take(3))
-                                                {
-                                                    <img src="@photo.ImageUrl"
-                                                         style="width:55px;height:auto;margin-right:4px;border-radius:4px;" />
-                                                }
-                                            </div>
+                                            <span class="badge bg-info">
+                                                <i class="bi bi-image"></i> @m.Photos.Count
+                                            </span>
                                         }
                                         else
                                         {
-                                            <span class="text-muted">Sin fotos.</span>
+                                            <span class="text-muted">—</span>
                                         }
-                                    </td>
 
-                                    <td>
-                                        @if (m.SketchMarks != null && m.SketchMarks.Any())
+                                        @if (m.SketchMarks?.Any() == true)
                                         {
-                                            <span>Con boceto (@m.SketchMarks.Count X)</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="text-muted">Sin boceto</span>
+                                            <span class="badge bg-warning ms-1">
+                                                <i class="bi bi-pencil"></i>
+                                            </span>
                                         }
                                     </td>
 
@@ -176,17 +189,16 @@
                                         <a asp-controller="Maintenances"
                                            asp-action="Details"
                                            asp-route-id="@m.Id"
-                                           class="btn btn-sm btn-outline-info">Ver</a>
+                                           class="btn btn-sm btn-outline-info">
+                                            Ver
+                                        </a>
 
                                         <a asp-controller="Maintenances"
                                            asp-action="Edit"
                                            asp-route-id="@m.Id"
-                                           class="btn btn-sm btn-outline-primary">Editar</a>
-
-                                        <a asp-controller="Maintenances"
-                                           asp-action="Delete"
-                                           asp-route-id="@m.Id"
-                                           class="btn btn-sm btn-outline-danger">Eliminar</a>
+                                           class="btn btn-sm btn-outline-primary">
+                                            Editar
+                                        </a>
                                     </td>
                                 </tr>
                             }
@@ -196,6 +208,7 @@
             }
         </div>
     </div>
+
 </div>
 
 <script>

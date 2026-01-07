@@ -1,49 +1,206 @@
 ﻿@model IEnumerable<TallerCaldera2.Models.Alert>
 
-<h2>Alertas de Mantenimiento</h2>
+@{
+    ViewData["Title"] = "Alertas de Mantenimiento";
+}
 
-@if (!Model.Any())
-{
-    <div class="alert alert-success">
-        No hay alertas pendientes 🎉
+<style>
+    /* ===== HEADER MODERNO (IGUAL ESTILO VEHÍCULOS) ===== */
+    .page-header-alerts {
+        background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+        border: 1px solid #fee2e2;
+        position: relative;
+        overflow: hidden;
+    }
+
+        .page-header-alerts::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #dc2626, #f97316);
+        }
+
+    .page-title-alerts {
+        color: #1e293b;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+        .page-title-alerts i {
+            color: #dc2626;
+            font-size: 2.2rem;
+        }
+
+    .page-subtitle-alerts {
+        color: #64748b;
+        font-size: 1.05rem;
+        max-width: 600px;
+    }
+
+    @@media (max-width: 768px) {
+        .page-header-alerts {
+            padding: 1.5rem;
+        }
+
+        .page-title-alerts {
+            font-size: 1.6rem;
+        }
+    }
+
+    /* ===== DISEÑO ORIGINAL DE ALERTAS (NO TOCADO) ===== */
+
+    .alert-row {
+        transition: background .15s ease, box-shadow .15s ease;
+    }
+
+        .alert-row:hover {
+            background-color: #f8f9fa;
+        }
+
+    .alert-card {
+        background: #fff;
+        border-radius: 10px;
+        padding: 14px;
+        box-shadow: 0 2px 8px rgba(0,0,0,.05);
+        border-left: 6px solid;
+    }
+
+    .alert-expired {
+        border-left-color: #dc3545;
+    }
+
+    .alert-soon {
+        border-left-color: #ffc107;
+    }
+
+    .plate-badge {
+        background: #212529;
+        color: #fff;
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-weight: 600;
+        display: inline-block;
+    }
+
+    .status-expired {
+        color: #dc3545;
+        font-weight: 600;
+    }
+
+    .status-soon {
+        color: #856404;
+        font-weight: 600;
+    }
+
+    .action-group .btn {
+        margin-right: 6px;
+    }
+</style>
+
+<section class="container-fluid px-4">
+
+    <!-- ===== HEADER NUEVO ===== -->
+    <div class="page-header-alerts">
+        <h1 class="page-title-alerts">
+            <i class="bi bi-bell-fill"></i>
+            Alertas de mantenimiento
+        </h1>
+        <p class="page-subtitle-alerts">
+            Mantenimientos vencidos o próximos a vencer que requieren atención inmediata.
+        </p>
     </div>
-}
-else
-{
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Placa</th>
-                <th>Cliente</th>
-                <th>Vehículo</th>
-                <th>Fecha mantenimiento</th>
-                <th>Estado</th>
-                <th>Acción</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var alert in Model)
-            {
-                bool vencida = alert.DueDate < DateTime.Today;
-                <tr class="@(vencida ? "table-danger" : "table-warning")">
-                    <td>@alert.VehiclePlate</td>
-                    <td>@alert.Vehicle.ClientName</td>
-                    <td>@alert.Vehicle.Brand @alert.Vehicle.Model</td>
-                    <td>@alert.DueDate.ToShortDateString()</td>
-                    <td>@(vencida ? "Vencido" : "Próximo")</td>
-                    <td>
-                        <form asp-action="MarkAsShown" method="post" style="display:inline">
-                            <input type="hidden" name="id" value="@alert.Id" />
-                            <button class="btn btn-sm btn-success">
-                                Marcar atendida
-                            </button>
-                        </form>
-                        <a href="tel:@alert.Vehicle.ClientPhone" class="btn btn-sm btn-primary">
-                            Contactar
-                        </a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+
+    <!-- ===== CONTENIDO ===== -->
+    @if (!Model.Any())
+    {
+        <div class="alert alert-success shadow-sm">
+            🎉 No hay alertas pendientes
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table border-0">
+                <tbody>
+
+                    @foreach (var alert in Model)
+                    {
+                        bool vencida = alert.DueDate < DateTime.Today;
+
+                        <tr class="alert-row">
+                            <td class="border-0">
+
+                                <div class="alert-card @(vencida ? "alert-expired" : "alert-soon")">
+
+                                    <div class="row align-items-center gy-3">
+
+                                        <!-- INFO PRINCIPAL -->
+                                        <div class="col-md-4">
+                                            <span class="plate-badge">
+                                                @alert.VehiclePlate
+                                            </span>
+
+                                            <div class="fw-semibold mt-2">
+                                                @alert.Vehicle.Brand @alert.Vehicle.Model
+                                            </div>
+
+                                            <small class="text-muted d-block">
+                                                Cliente: @alert.Vehicle.ClientName
+                                            </small>
+
+                                            <small class="text-muted">
+                                                📞 Teléfono: @alert.Vehicle.ClientPhone
+                                            </small>
+                                        </div>
+
+                                        <!-- FECHA / ESTADO -->
+                                        <div class="col-md-3">
+                                            <div class="fw-semibold">
+                                                Fecha mantenimiento
+                                            </div>
+                                            <div>
+                                                @alert.DueDate.ToShortDateString()
+                                            </div>
+
+                                            <div class="mt-1 @(vencida ? "status-expired" : "status-soon")">
+                                                <i class="bi bi-exclamation-circle"></i>
+                                                @(vencida ? "Vencido" : "Próximo")
+                                            </div>
+                                        </div>
+
+                                        <!-- ACCIÓN (ÚNICA) -->
+                                        <div class="col-md-5 text-md-end action-group">
+                                            <form asp-action="MarkAsShown"
+                                                  method="post"
+                                                  class="d-inline">
+                                                <input type="hidden" name="id" value="@alert.Id" />
+                                                <button class="btn btn-sm btn-success">
+                                                    <i class="bi bi-check-circle"></i>
+                                                    Marcar atendida
+                                                </button>
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    }
+
+</section>

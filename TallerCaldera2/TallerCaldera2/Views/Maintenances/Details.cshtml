@@ -1,73 +1,143 @@
 ﻿@model TallerCaldera2.Models.Maintenance
 
 @{
-    ViewData["Title"] = "Detalles del mantenimiento";
-    var sketchData = string.Join("|", Model.SketchMarks?.Select(m => m.PosX + "," + m.PosY) ?? Enumerable.Empty<string>());
+    ViewData["Title"] = "Detalle del mantenimiento";
+    var sketchData = string.Join("|",
+        Model.SketchMarks?.Select(m => m.PosX + "," + m.PosY)
+        ?? Enumerable.Empty<string>());
 }
 
-<h1>Detalles del mantenimiento</h1>
+<div class="container py-4">
 
-<div class="mb-3">
-    <a asp-action="Index" class="btn btn-secondary">Volver</a>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Editar</a>
-</div>
+    <!-- ================= HEADER ================= -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="fw-bold mb-0">
+                <i class="bi bi-wrench-adjustable me-2"></i>
+                Detalle del mantenimiento
+            </h2>
+            <small class="text-muted">Información completa del servicio realizado</small>
+        </div>
 
-<div class="row">
-    <div class="col-md-6">
-        <dl class="row">
-            <dt class="col-sm-4">Fecha</dt>
-            <dd class="col-sm-8">@Model.Date.ToString("dd/MM/yyyy")</dd>
+        <div class="d-flex gap-2">
+            <a asp-action="Index" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left"></i> Volver
+            </a>
 
-            <dt class="col-sm-4">Vehículo</dt>
-            <dd class="col-sm-8">@Model.VehiclePlate</dd>
-
-            <dt class="col-sm-4">Tipo</dt>
-            <dd class="col-sm-8">@Model.Type</dd>
-
-            <dt class="col-sm-4">Provider</dt>
-            <dd class="col-sm-8">@Model.Provider</dd>
-
-
-            <dt class="col-sm-4">Costo</dt>
-            <dd class="col-sm-8">₡@(Model.Cost?.ToString("N0") ?? "0")</dd>
-
-            <dt class="col-sm-4">Kilometraje</dt>
-            <dd class="col-sm-8">@((Model.Mileage?.ToString("N0") ?? "—")) km</dd>
-
-            <dt class="col-sm-4">Observaciones</dt>
-            <dd class="col-sm-8">@Model.Observations</dd>
-        </dl>
-
-        <h5>Fotos</h5>
-        @if (Model.Photos != null && Model.Photos.Any())
-        {
-            <div class="d-flex flex-wrap mb-3">
-                @foreach (var photo in Model.Photos)
-                {
-                    <img src="@photo.ImageUrl" style="width:120px;height:auto;margin-right:6px;margin-bottom:6px;border-radius:4px;" />
-                }
-            </div>
-        }
-        else
-        {
-            <p class="text-muted">Sin fotos.</p>
-        }
+            <a asp-action="Edit"
+               asp-route-id="@Model.Id"
+               class="btn btn-primary">
+                <i class="bi bi-pencil"></i> Editar
+            </a>
+        </div>
     </div>
 
-    <div class="col-md-6">
-        <h5>Boceto</h5>
-        @if (Model.SketchMarks != null && Model.SketchMarks.Any())
-        {
-            <p class="text-muted">Boceto solo lectura (no editable aquí).</p>
-        }
-        else
-        {
-            <p class="text-muted">No hay boceto registrado.</p>
-        }
+    <div class="row g-4">
 
-        <div id="sketch-container" class="border rounded sketch-container" style="max-width:600px;" data-initial-marks="@sketchData">
-            <img id="sketch-image" src="~/images/car-sketch.png" alt="Boceto carro" style="width:100%;height:auto;" />
+        <!-- ================= DATOS ================= -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-0 rounded-4 mb-4">
+                <div class="card-header bg-light fw-semibold">
+                    <i class="bi bi-info-circle me-2"></i> Datos del mantenimiento
+                </div>
+
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4">Fecha</dt>
+                        <dd class="col-sm-8">@Model.Date.ToString("dd/MM/yyyy")</dd>
+
+                        <dt class="col-sm-4">Vehículo</dt>
+                        <dd class="col-sm-8">
+                            <span class="badge bg-secondary">@Model.VehiclePlate</span>
+                        </dd>
+
+                        <dt class="col-sm-4">Tipo</dt>
+                        <dd class="col-sm-8">@Model.Type</dd>
+
+                        <dt class="col-sm-4">Proveedor</dt>
+                        <dd class="col-sm-8">@Model.Provider</dd>
+
+                        <dt class="col-sm-4">Kilometraje</dt>
+                        <dd class="col-sm-8">
+                            @(Model.Mileage?.ToString("N0") ?? "—") km
+                        </dd>
+
+                        <dt class="col-sm-4">Costo</dt>
+                        <dd class="col-sm-8 fw-semibold text-success">
+                            ₡@(Model.Cost?.ToString("N0") ?? "0")
+                        </dd>
+
+                        <dt class="col-sm-4">Observaciones</dt>
+                        <dd class="col-sm-8">
+                            @(!string.IsNullOrWhiteSpace(Model.Observations)
+                                ? Model.Observations
+                                : "—")
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+
+            <!-- ================= FOTOS ================= -->
+            <div class="card shadow-sm border-0 rounded-4">
+                <div class="card-header bg-light fw-semibold">
+                    <i class="bi bi-camera me-2"></i> Evidencia fotográfica
+                </div>
+
+                <div class="card-body">
+                    @if (Model.Photos?.Any() == true)
+                    {
+                        <div class="d-flex flex-wrap gap-2">
+                            @foreach (var photo in Model.Photos)
+                            {
+                                <img src="@photo.ImageUrl"
+                                     class="rounded shadow-sm"
+                                     style="width:120px;height:auto;" />
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted mb-0">No se registraron fotos.</p>
+                    }
+                </div>
+            </div>
         </div>
+
+        <!-- ================= BOCETO ================= -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm border-0 rounded-4 h-100">
+                <div class="card-header bg-light fw-semibold">
+                    <i class="bi bi-pencil-square me-2"></i> Boceto del vehículo
+                </div>
+
+                <div class="card-body">
+                    @if (Model.SketchMarks?.Any() == true)
+                    {
+                        <p class="text-muted">
+                            Boceto en modo solo lectura.
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="text-muted">
+                            No hay boceto registrado.
+                        </p>
+                    }
+
+                    <div id="sketch-container"
+                         class="sketch-container border rounded p-2"
+                         style="max-width:600px;"
+                         data-initial-marks="@sketchData">
+
+                        <img id="sketch-image"
+                             src="~/images/car-sketch.png"
+                             class="img-fluid"
+                             alt="Boceto del vehículo" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -84,8 +154,8 @@
             font-weight: bold;
             font-size: 22px;
             transform: translate(-50%, -50%);
-            user-select: none;
             pointer-events: none;
+            user-select: none;
         }
     </style>
 
@@ -97,7 +167,7 @@
             function renderMarks() {
                 container.querySelectorAll('.sketch-mark').forEach(m => m.remove());
 
-                marks.forEach((m) => {
+                marks.forEach(m => {
                     const el = document.createElement('div');
                     el.className = 'sketch-mark';
                     el.textContent = 'X';
@@ -110,13 +180,9 @@
             const initial = container.getAttribute('data-initial-marks');
             if (initial) {
                 initial.split('|').forEach(p => {
-                    const xy = p.split(',');
-                    if (xy.length === 2) {
-                        const x = parseInt(xy[0]);
-                        const y = parseInt(xy[1]);
-                        if (!isNaN(x) && !isNaN(y)) {
-                            marks.push({ x: x, y: y });
-                        }
+                    const [x, y] = p.split(',');
+                    if (!isNaN(x) && !isNaN(y)) {
+                        marks.push({ x: parseInt(x), y: parseInt(y) });
                     }
                 });
                 renderMarks();

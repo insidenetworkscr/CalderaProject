@@ -5,68 +5,86 @@
     var initialSketch = string.Join("|", Model.SketchMarks?.Select(m => m.PosX + "," + m.PosY) ?? Enumerable.Empty<string>());
 }
 
-<h1>Editar mantenimiento</h1>
+<h2 class="mb-4">✏️ Editar mantenimiento</h2>
 
-<div class="row">
-    <div class="col-md-6">
+<div class="card shadow-sm">
+    <div class="card-body">
+
         <form asp-action="Edit" enctype="multipart/form-data">
-       
 
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-            <div class="mb-3">
-                <label asp-for="Date" class="form-label"></label>
-                <input asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
+            <!-- ================= DATOS GENERALES ================= -->
+            <h6 class="text-muted mb-3">Información general</h6>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Date" class="form-label"></label>
+                    <input asp-for="Date" class="form-control" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="VehiclePlate" class="form-label">Placa</label>
+                    <select asp-for="VehiclePlate" class="form-control" asp-items="ViewBag.VehiclePlate"></select>
+                    <span asp-validation-for="VehiclePlate" class="text-danger"></span>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label asp-for="VehiclePlate" class="form-label">Placa</label>
-                <select asp-for="VehiclePlate" class="form-control" asp-items="ViewBag.VehiclePlate"></select>
-                <span asp-validation-for="VehiclePlate" class="text-danger"></span>
-            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Type" class="form-label"></label>
+                    <input asp-for="Type" class="form-control" />
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
 
-            <div class="mb-3">
-                <label asp-for="Type" class="form-label"></label>
-                <input asp-for="Type" class="form-control" />
-                <span asp-validation-for="Type" class="text-danger"></span>
-            </div>
-
-            <div class="col-md-4">
-                <label asp-for="Provider" class="form-label">Proveedor</label>
-                <input asp-for="Provider" class="form-control" />
-                <span asp-validation-for="Provider" class="text-danger"></span>
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Provider" class="form-label">Proveedor</label>
+                    <input asp-for="Provider" class="form-control" />
+                    <span asp-validation-for="Provider" class="text-danger"></span>
+                </div>
             </div>
 
             <div class="mb-3">
                 <label asp-for="Observations" class="form-label"></label>
-                <textarea asp-for="Observations" class="form-control"></textarea>
+                <textarea asp-for="Observations" class="form-control" rows="3"></textarea>
                 <span asp-validation-for="Observations" class="text-danger"></span>
             </div>
 
-            <div class="mb-3">
-                <label asp-for="Cost" class="form-label"></label>
-                <input asp-for="Cost" class="form-control" />
-                <span asp-validation-for="Cost" class="text-danger"></span>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Cost" class="form-label"></label>
+                    <input asp-for="Cost" class="form-control" />
+                    <span asp-validation-for="Cost" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label asp-for="Mileage" class="form-label"></label>
+                    <input asp-for="Mileage" class="form-control" />
+                    <span asp-validation-for="Mileage" class="text-danger"></span>
+                </div>
             </div>
 
-            <div class="mb-3">
-                <label asp-for="Mileage" class="form-label"></label>
-                <input asp-for="Mileage" class="form-control" />
-                <span asp-validation-for="Mileage" class="text-danger"></span>
-            </div>
+            <hr />
 
-            <h5>Fotos existentes</h5>
+            <!-- ================= FOTOS ================= -->
+            <h6 class="text-muted mb-3">Fotos del mantenimiento</h6>
+
             @if (Model.Photos != null && Model.Photos.Any())
             {
-                <div class="mb-3 d-flex flex-wrap">
+                <div class="d-flex flex-wrap gap-3 mb-3">
                     @foreach (var photo in Model.Photos)
                     {
-                        <div class="me-3 mb-2 text-center">
-                            <img src="@photo.ImageUrl" style="width:80px;height:auto;border-radius:4px;display:block;margin-bottom:4px;" />
+                        <div class="text-center">
+                            <img src="@photo.ImageUrl" class="photo-thumb mb-1" />
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="deletePhotoIds" value="@photo.Id" id="photo_@photo.Id" />
-                                <label class="form-check-label" for="photo_@photo.Id">Eliminar</label>
+                                <input class="form-check-input" type="checkbox"
+                                       name="deletePhotoIds"
+                                       value="@photo.Id"
+                                       id="photo_@photo.Id" />
+                                <label class="form-check-label small" for="photo_@photo.Id">
+                                    Eliminar
+                                </label>
                             </div>
                         </div>
                     }
@@ -84,19 +102,37 @@
 
             <hr />
 
-            <h5>Boceto del vehículo</h5>
-            <p class="text-muted">Haga clic para agregar <strong>X</strong>, y clic sobre una <strong>X</strong> para quitarla.</p>
+            <!-- ================= BOCETO ================= -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h6 class="text-muted mb-1">Boceto del vehículo</h6>
+                    <small class="text-muted d-block mb-3">
+                        Click para agregar una <strong>X</strong>, click sobre la <strong>X</strong> para quitarla
+                    </small>
 
-            <div id="sketch-container" class="border rounded sketch-container" style="max-width:600px;" data-initial-marks="@initialSketch">
-                <img id="sketch-image" src="~/images/car-sketch.png" alt="Boceto carro" style="width:100%;height:auto;" />
+                    <div id="sketch-container"
+                         class="border rounded sketch-container mx-auto"
+                         style="max-width:500px;"
+                         data-initial-marks="@initialSketch">
+                        <img id="sketch-image"
+                             src="~/images/car-sketch.png"
+                             class="img-fluid" />
+                    </div>
+                </div>
             </div>
 
             <input type="hidden" id="SketchData" name="SketchData" />
 
-            <div class="mt-4">
-                <input type="submit" value="Guardar cambios" class="btn btn-primary" />
-                <a asp-action="Index" class="btn btn-secondary">Volver</a>
+            <!-- ================= BOTONES ================= -->
+            <div class="d-flex gap-2 mt-4">
+                <button type="submit" class="btn btn-primary">
+                    💾 Guardar cambios
+                </button>
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    ↩ Volver
+                </a>
             </div>
+
         </form>
     </div>
 </div>
@@ -105,19 +141,27 @@
     <partial name="_ValidationScriptsPartial" />
 
     <style>
+        .photo-thumb {
+            width: 90px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
         .sketch-container {
             position: relative;
             display: inline-block;
+            background: #f8f9fa;
         }
 
         .sketch-mark {
             position: absolute;
-            color: red;
+            color: #dc3545;
             font-weight: bold;
-            font-size: 22px;
+            font-size: 20px;
             transform: translate(-50%, -50%);
             cursor: pointer;
             user-select: none;
+            text-shadow: 0 0 4px rgba(0,0,0,0.2);
         }
     </style>
 
@@ -140,8 +184,7 @@
 
                     el.addEventListener('click', function (ev) {
                         ev.stopPropagation();
-                        const idx = parseInt(this.dataset.index);
-                        marks.splice(idx, 1);
+                        marks.splice(parseInt(this.dataset.index), 1);
                         renderMarks();
                     });
 
@@ -151,7 +194,6 @@
                 hidden.value = marks.map(m => m.x + ',' + m.y).join('|');
             }
 
-            // Cargar marcas iniciales desde data-attribute
             const initial = container.getAttribute('data-initial-marks');
             if (initial) {
                 initial.split('|').forEach(p => {
@@ -160,7 +202,7 @@
                         const x = parseInt(xy[0]);
                         const y = parseInt(xy[1]);
                         if (!isNaN(x) && !isNaN(y)) {
-                            marks.push({ x: x, y: y });
+                            marks.push({ x, y });
                         }
                     }
                 });
@@ -169,11 +211,13 @@
 
             container.addEventListener('click', function (e) {
                 const rect = container.getBoundingClientRect();
-                const x = Math.round(e.clientX - rect.left);
-                const y = Math.round(e.clientY - rect.top);
-                marks.push({ x: x, y: y });
+                marks.push({
+                    x: Math.round(e.clientX - rect.left),
+                    y: Math.round(e.clientY - rect.top)
+                });
                 renderMarks();
             });
         })();
     </script>
 }
+
