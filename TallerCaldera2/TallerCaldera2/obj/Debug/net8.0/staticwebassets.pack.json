@@ -13,6 +13,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\images\\Logo_Caldera.png",
+      "PackagePath": "staticwebassets\\images\\Logo_Caldera.png"
+    },
+    {
       "Id": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\images\\car-sketch.png",
       "PackagePath": "staticwebassets\\images\\car-sketch.png"
     },
@@ -285,12 +289,20 @@
       "PackagePath": "staticwebassets\\uploads\\maintenances\\1\\dc642bd54bed4b52b8a1b028343378bb.png"
     },
     {
+      "Id": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\maintenances\\2\\c0dfd21130b143b3878316f691468821.png",
+      "PackagePath": "staticwebassets\\uploads\\maintenances\\2\\c0dfd21130b143b3878316f691468821.png"
+    },
+    {
       "Id": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\mantenimientos\\b32aa8c9-6922-4a9a-9dcb-9d7f9d550f69.png",
       "PackagePath": "staticwebassets\\uploads\\mantenimientos\\b32aa8c9-6922-4a9a-9dcb-9d7f9d550f69.png"
     },
     {
       "Id": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\proformas\\0bb1c489-78f2-41c9-a739-72ed61186f65.png",
       "PackagePath": "staticwebassets\\uploads\\proformas\\0bb1c489-78f2-41c9-a739-72ed61186f65.png"
+    },
+    {
+      "Id": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\proformas\\1125006e-b359-4d71-91b1-52afc69ec841.png",
+      "PackagePath": "staticwebassets\\uploads\\proformas\\1125006e-b359-4d71-91b1-52afc69ec841.png"
     },
     {
       "Id": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\proformas\\162394e2-d957-4c05-8bfb-c4ce352db98f.png",
@@ -331,6 +343,14 @@
     {
       "Id": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\proformas\\91fe244a-a54d-4c19-8efc-83cb5b461341.png",
       "PackagePath": "staticwebassets\\uploads\\proformas\\91fe244a-a54d-4c19-8efc-83cb5b461341.png"
+    },
+    {
+      "Id": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\proformas\\9884a957-fefe-475f-85a3-4895c3edc2a5.png",
+      "PackagePath": "staticwebassets\\uploads\\proformas\\9884a957-fefe-475f-85a3-4895c3edc2a5.png"
+    },
+    {
+      "Id": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\proformas\\99b3ec3d-518a-4fda-ae6a-a073c3ab2043.png",
+      "PackagePath": "staticwebassets\\uploads\\proformas\\99b3ec3d-518a-4fda-ae6a-a073c3ab2043.png"
     },
     {
       "Id": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\proformas\\9b2c09be-48ca-4096-9990-8f486816ef75.png",

@@ -1,4 +1,5 @@
-﻿using QuestPDF.Fluent;
+﻿using System.Globalization;
+using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using TallerCaldera2.Models;
@@ -9,6 +10,7 @@ namespace TallerCaldera2.PdfDocuments
     {
         private readonly Proforma _proforma;
         private readonly IWebHostEnvironment _env;
+        private readonly CultureInfo _cr = new("es-CR"); // ₡ Colones
 
         public ProformaPdf(Proforma proforma, IWebHostEnvironment env)
         {
@@ -28,7 +30,7 @@ namespace TallerCaldera2.PdfDocuments
                 page.Content().Column(col =>
                 {
                     // ===============================
-                    // HEADER
+                    // HEADER CON LOGO
                     // ===============================
                     col.Item().Background("#f1f5f9").Padding(15).Row(row =>
                     {
@@ -44,10 +46,27 @@ namespace TallerCaldera2.PdfDocuments
                                 .Bold();
                         });
 
-                        row.ConstantItem(200).Column(c =>
+                        row.ConstantItem(180).Column(c =>
                         {
-                            c.Item().AlignRight().Text($"Fecha: {_proforma.FechaEmision:dd/MM/yyyy}");
-                            c.Item().AlignRight().Text($"Válida hasta: {_proforma.FechaValidez:dd/MM/yyyy}");
+                            var logoPath = Path.Combine(
+                                _env.WebRootPath,
+                                "images",
+                                "Logo_Caldera.png"
+                            );
+
+                            if (File.Exists(logoPath))
+                            {
+                                c.Item()
+                                 .AlignRight()
+                                 .Height(60)
+                                 .Image(logoPath, ImageScaling.FitArea);
+                            }
+
+                            c.Item().AlignRight()
+                                .Text($"Fecha: {_proforma.FechaEmision:dd/MM/yyyy}");
+
+                            c.Item().AlignRight()
+                                .Text($"Válida hasta: {_proforma.FechaValidez:dd/MM/yyyy}");
                         });
                     });
 
@@ -84,7 +103,7 @@ namespace TallerCaldera2.PdfDocuments
                             c.RelativeColumn();
                             c.ConstantColumn(60);
                             c.ConstantColumn(80);
-                            c.ConstantColumn(80);
+                            c.ConstantColumn(90);
                         });
 
                         table.Header(h =>
@@ -99,8 +118,10 @@ namespace TallerCaldera2.PdfDocuments
                         {
                             table.Cell().Padding(5).Text(i.Descripcion);
                             table.Cell().Padding(5).AlignCenter().Text(i.Cantidad.ToString());
-                            table.Cell().Padding(5).AlignRight().Text(i.PrecioUnitario.ToString("C"));
-                            table.Cell().Padding(5).AlignRight().Text(i.Subtotal.ToString("C"));
+                            table.Cell().Padding(5).AlignRight()
+                                .Text(i.PrecioUnitario.ToString("C", _cr));
+                            table.Cell().Padding(5).AlignRight()
+                                .Text(i.Subtotal.ToString("C", _cr));
                         }
                     });
 
@@ -111,12 +132,13 @@ namespace TallerCaldera2.PdfDocuments
                     // ===============================
                     col.Item().AlignRight().Column(c =>
                     {
-                        c.Item().Text($"Subtotal: {_proforma.Subtotal:C}");
-                        c.Item().Text($"IVA (13%): {_proforma.Iva:C}");
+                        c.Item().Text($"Subtotal: {_proforma.Subtotal.ToString("C", _cr)}");
+                        c.Item().Text($"IVA (13%): {_proforma.Iva.ToString("C", _cr)}");
+
                         c.Item()
                             .Background("#dcfce7")
                             .Padding(10)
-                            .Text($"TOTAL: {_proforma.TotalConIva:C}")
+                            .Text($"TOTAL: {_proforma.TotalConIva.ToString("C", _cr)}")
                             .FontSize(15)
                             .Bold();
                     });
