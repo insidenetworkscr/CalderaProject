@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -31,10 +32,6 @@ namespace TallerCaldera2.Controllers
             if (plate == null)
                 return NotFound();
 
-            // 📌 ***ESTO ES LO IMPORTANTE***
-            // Aquí se cargan los mantenimientos con:
-            // - Fotos
-            // - Bocetos
             var vehicle = await _context.Vehicles
                 .Include(v => v.Maintenances)
                     .ThenInclude(m => m.Photos)
@@ -49,15 +46,29 @@ namespace TallerCaldera2.Controllers
         }
 
         // GET: Vehicles/Create
-        public IActionResult Create() => View();
+        public IActionResult Create()
+        {
+            return View();
+        }
 
         // POST: Vehicles/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Vehicle vehicle)
         {
+            // 🔎 VALIDAR PLACA REPETIDA
+            bool plateExists = await _context.Vehicles
+                .AnyAsync(v => v.Plate == vehicle.Plate);
+
+            if (plateExists)
+            {
+                ModelState.AddModelError("Plate", "La placa ya está registrada.");
+            }
+
             if (!ModelState.IsValid)
+            {
                 return View(vehicle);
+            }
 
             vehicle.CreatedDate = DateTime.UtcNow;
             _context.Add(vehicle);
@@ -73,6 +84,7 @@ namespace TallerCaldera2.Controllers
                 return NotFound();
 
             var vehicle = await _context.Vehicles.FindAsync(plate);
+
             if (vehicle == null)
                 return NotFound();
 
@@ -87,8 +99,19 @@ namespace TallerCaldera2.Controllers
             if (plate != vehicle.Plate)
                 return NotFound();
 
+            // 🔎 VALIDAR PLACA REPETIDA (por seguridad)
+            bool plateExists = await _context.Vehicles
+                .AnyAsync(v => v.Plate == vehicle.Plate && v.Plate != plate);
+
+            if (plateExists)
+            {
+                ModelState.AddModelError("Plate", "La placa ya está registrada.");
+            }
+
             if (!ModelState.IsValid)
+            {
                 return View(vehicle);
+            }
 
             try
             {
@@ -127,6 +150,7 @@ namespace TallerCaldera2.Controllers
         public async Task<IActionResult> DeleteConfirmed(string plate)
         {
             var vehicle = await _context.Vehicles.FindAsync(plate);
+
             if (vehicle != null)
             {
                 _context.Vehicles.Remove(vehicle);
