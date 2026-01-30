@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using TallerCaldera2.Ayudas;
 using TallerCaldera2.Models;
+using System.Linq;
 
 public class AuthController : Controller
 {
@@ -14,23 +15,23 @@ public class AuthController : Controller
         _config = config;
     }
 
-    // LOGIN
+    // ===================== LOGIN =====================
     public IActionResult Login()
     {
         return View();
     }
 
     [HttpPost]
-    public IActionResult Login(string email, string password)
+    public IActionResult Login(string fullName, string password)
     {
         string hash = EncriptarContra.Hash(password);
 
         var user = _context.Users
-            .FirstOrDefault(u => u.Email == email && u.PasswordHash == hash);
+            .FirstOrDefault(u => u.FullName == fullName && u.PasswordHash == hash);
 
         if (user == null)
         {
-            ViewBag.Error = "Credenciales incorrectas";
+            ViewBag.Error = "❌ Nombre o contraseña incorrectos";
             return View();
         }
 
@@ -40,7 +41,7 @@ public class AuthController : Controller
         return RedirectToAction("Index", "Home");
     }
 
-    // REGISTER
+    // ===================== REGISTER =====================
     public IActionResult Register()
     {
         return View();
@@ -57,14 +58,32 @@ public class AuthController : Controller
             return View();
         }
 
+        // 🔒 Validar correo repetido
+        bool correoExiste = _context.Users.Any(u => u.Email == user.Email);
+        if (correoExiste)
+        {
+            ViewBag.Error = "Ya existe un usuario con ese correo";
+            return View();
+        }
+
+        // 🔒 Validar nombre repetido
+        bool nombreExiste = _context.Users.Any(u => u.FullName == user.FullName);
+        if (nombreExiste)
+        {
+            ViewBag.Error = "Ya existe un usuario con ese nombre";
+            return View();
+        }
+
         user.PasswordHash = EncriptarContra.Hash(user.PasswordHash);
 
         _context.Users.Add(user);
         _context.SaveChanges();
 
+        TempData["Success"] = "Usuario registrado correctamente";
         return RedirectToAction("Login");
     }
 
+    // ===================== LOGOUT =====================
     public IActionResult Logout()
     {
         HttpContext.Session.Clear();

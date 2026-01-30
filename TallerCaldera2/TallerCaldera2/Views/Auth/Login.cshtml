@@ -1,6 +1,6 @@
 ﻿@{
     Layout = null;
-    ViewData["Title"] = "Iniciar Sesión";
+    ViewData["Title"] = "Login";
 }
 
 <!DOCTYPE html>
@@ -16,28 +16,12 @@
         body {
             background: linear-gradient(135deg, #991b1b, #dc2626);
         }
-
-        .login-card {
-            animation: fadeIn .8s ease-in-out;
-        }
-
-        @@keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
     </style>
 </head>
 
 <body class="d-flex justify-content-center align-items-center vh-100">
 
-    <div class="card login-card shadow-lg border-0" style="width:420px;">
+    <div class="card shadow-lg" style="width:420px;">
         <div class="card-body p-4">
 
             <div class="text-center mb-4">
@@ -48,13 +32,22 @@
 
             @if (ViewBag.Error != null)
             {
-                <div class="alert alert-danger text-center">@ViewBag.Error</div>
+                <div class="alert alert-danger text-center fw-semibold">
+                    @ViewBag.Error
+                </div>
+            }
+
+            @if (TempData["Success"] != null)
+            {
+                <div class="alert alert-success text-center fw-semibold">
+                    @TempData["Success"]
+                </div>
             }
 
             <form method="post">
                 <div class="mb-3">
-                    <label class="form-label">Correo</label>
-                    <input name="email" type="email" class="form-control" required />
+                    <label class="form-label">Nombre</label>
+                    <input name="fullName" class="form-control" required />
                 </div>
 
                 <div class="mb-3">
