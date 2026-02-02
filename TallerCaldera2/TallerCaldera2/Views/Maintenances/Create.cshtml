@@ -72,9 +72,28 @@
                     <textarea asp-for="Observations"
                               class="form-control"
                               rows="3"
-                              placeholder="Detalle del trabajo realizado…">
-                    </textarea>
-                    <span asp-validation-for="Observations" class="text-danger"></span>
+                              placeholder="Detalle del mantenimiento…"></textarea>
+                </div>
+
+                <!-- 🔹 NUEVOS CAMPOS -->
+                <div class="col-md-12">
+                    <label asp-for="TrabajosPorRealizar" class="form-label">
+                        Trabajos por realizar
+                    </label>
+                    <textarea asp-for="TrabajosPorRealizar"
+                              class="form-control"
+                              rows="3"
+                              placeholder="Trabajos pendientes o por realizar…"></textarea>
+                </div>
+
+                <div class="col-md-12">
+                    <label asp-for="TrabajosRealizados" class="form-label">
+                        Trabajos realizados
+                    </label>
+                    <textarea asp-for="TrabajosRealizados"
+                              class="form-control"
+                              rows="3"
+                              placeholder="Detalle de los trabajos realizados…"></textarea>
                 </div>
             </div>
         </div>
@@ -86,11 +105,7 @@
             </div>
 
             <div class="card-body">
-                <label class="form-label">Fotos del mantenimiento</label>
                 <input type="file" name="photos" class="form-control" multiple />
-                <small class="text-muted">
-                    Puede seleccionar varias imágenes del trabajo realizado.
-                </small>
             </div>
         </div>
 
@@ -101,29 +116,18 @@
             </div>
 
             <div class="card-body">
-                <p class="text-muted mb-2">
-                    Haga clic sobre el vehículo para marcar daños o revisiones (<strong>X</strong>).
-                    Haga clic sobre una marca para eliminarla.
-                </p>
-
                 <div id="sketch-container"
                      class="sketch-container border rounded p-2"
                      style="max-width:600px;">
-                    <img id="sketch-image"
-                         src="~/images/car-sketch.png"
-                         class="img-fluid"
-                         alt="Boceto del vehículo" />
+                    <img src="~/images/car-sketch.png" class="img-fluid" />
                 </div>
 
                 <input type="hidden" id="SketchData" name="SketchData" />
             </div>
         </div>
 
-        <!-- ================= ACCIONES ================= -->
         <div class="d-flex justify-content-end gap-2">
-            <a asp-action="Index" class="btn btn-outline-secondary">
-                Cancelar
-            </a>
+            <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
             <button type="submit" class="btn btn-primary px-4">
                 <i class="bi bi-save me-1"></i> Guardar mantenimiento
             </button>
@@ -144,50 +148,54 @@
         .sketch-mark {
             position: absolute;
             color: red;
-            font-weight: bold;
             font-size: 22px;
             transform: translate(-50%, -50%);
             cursor: pointer;
-            user-select: none;
         }
     </style>
 
     <script>
         (function () {
             const container = document.getElementById('sketch-container');
+            const img = container.querySelector('img');
             const hidden = document.getElementById('SketchData');
+
             let marks = [];
 
-            function renderMarks() {
-                container.querySelectorAll('.sketch-mark').forEach(m => m.remove());
+            function render() {
+                container.querySelectorAll('.sketch-mark').forEach(x => x.remove());
 
-                marks.forEach((m, index) => {
+                marks.forEach((m, i) => {
                     const el = document.createElement('div');
                     el.className = 'sketch-mark';
                     el.textContent = 'X';
                     el.style.left = m.x + 'px';
                     el.style.top = m.y + 'px';
-                    el.dataset.index = index;
 
-                    el.addEventListener('click', function (ev) {
-                        ev.stopPropagation();
-                        marks.splice(parseInt(this.dataset.index), 1);
-                        renderMarks();
+                    el.addEventListener('click', function (e) {
+                        e.stopPropagation();          // ✅ CLAVE
+                        marks.splice(i, 1);
+                        render();
                     });
 
                     container.appendChild(el);
                 });
 
-                hidden.value = marks.map(m => m.x + ',' + m.y).join('|');
+                hidden.value = marks.map(m => `${m.x},${m.y}`).join('|');
             }
 
-            container.addEventListener('click', function (e) {
-                const rect = container.getBoundingClientRect();
+            img.addEventListener('click', function (e) {
+                const rect = img.getBoundingClientRect();
                 marks.push({
                     x: Math.round(e.clientX - rect.left),
                     y: Math.round(e.clientY - rect.top)
                 });
-                renderMarks();
+                render();
+            });
+
+            // 🔒 GARANTIZA que se envíe antes del submit
+            container.closest('form').addEventListener('submit', function () {
+                hidden.value = marks.map(m => `${m.x},${m.y}`).join('|');
             });
         })();
     </script>

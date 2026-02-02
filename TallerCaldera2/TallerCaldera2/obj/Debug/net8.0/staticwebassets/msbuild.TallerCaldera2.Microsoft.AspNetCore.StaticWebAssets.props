@@ -48,8 +48,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>yf7e9368il</Fingerprint>
-      <Integrity>0u3M44KpHUj2qnN8Fgs7LmalWB2Q2NYcXLXebDtqGcM=</Integrity>
+      <Fingerprint>yg852fwutt</Fingerprint>
+      <Integrity>3ufqJx+89ve2g0ayib9/OmOapNzC51LwtPxo5kfWvEo=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\car-sketch.png'))</OriginalItemSpec>
@@ -66,8 +66,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>1dm4pmxnvt</Fingerprint>
-      <Integrity>Nev5PnfyJS4vHNRUdKusjke+mGND/P6me7husv65LDs=</Integrity>
+      <Fingerprint>d4ldj5tcuq</Fingerprint>
+      <Integrity>LaPLtGDQtnU9N44OegAz6P/PKNoWQ7Qc/5lbzYfrvAw=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\honda-logo.png'))</OriginalItemSpec>
@@ -120,8 +120,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>38yob08qio</Fingerprint>
-      <Integrity>vVF3eZkHwtbe9FVgmcszSANtAERQqjCfDt2pdjAuMME=</Integrity>
+      <Fingerprint>xv4dn8gdx4</Fingerprint>
+      <Integrity>A88oJEcEOyX2nWgnrFrwX56577y/dM2ZdfJYKWs+4ks=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\toyota-logo.png'))</OriginalItemSpec>
@@ -1206,96 +1206,6 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\maintenances\1\dc642bd54bed4b52b8a1b028343378bb.png'))</OriginalItemSpec>
     </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\maintenances\17\6f71be094a1e4c7c8b2f02ce7d84b38c.png'))">
-      <SourceType>Package</SourceType>
-      <SourceId>TallerCaldera2</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/TallerCaldera2</BasePath>
-      <RelativePath>uploads/maintenances/17/6f71be094a1e4c7c8b2f02ce7d84b38c.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>1dm4pmxnvt</Fingerprint>
-      <Integrity>Nev5PnfyJS4vHNRUdKusjke+mGND/P6me7husv65LDs=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\maintenances\17\6f71be094a1e4c7c8b2f02ce7d84b38c.png'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\maintenances\17\cc78f04d543f4bb4811cd5dfe05c8a01.png'))">
-      <SourceType>Package</SourceType>
-      <SourceId>TallerCaldera2</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/TallerCaldera2</BasePath>
-      <RelativePath>uploads/maintenances/17/cc78f04d543f4bb4811cd5dfe05c8a01.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>38yob08qio</Fingerprint>
-      <Integrity>vVF3eZkHwtbe9FVgmcszSANtAERQqjCfDt2pdjAuMME=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\maintenances\17\cc78f04d543f4bb4811cd5dfe05c8a01.png'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\maintenances\18\215889c128f441c4ac28cf13378ca802.png'))">
-      <SourceType>Package</SourceType>
-      <SourceId>TallerCaldera2</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/TallerCaldera2</BasePath>
-      <RelativePath>uploads/maintenances/18/215889c128f441c4ac28cf13378ca802.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>sgybicwzyl</Fingerprint>
-      <Integrity>xLp/5il32NKmzPZhU9/yS8OxKPFdSooF2qoV5w2C66I=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\maintenances\18\215889c128f441c4ac28cf13378ca802.png'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\maintenances\18\a9d1bd7eba494dc9a8f9d709e47e17a2.png'))">
-      <SourceType>Package</SourceType>
-      <SourceId>TallerCaldera2</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/TallerCaldera2</BasePath>
-      <RelativePath>uploads/maintenances/18/a9d1bd7eba494dc9a8f9d709e47e17a2.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>1dm4pmxnvt</Fingerprint>
-      <Integrity>Nev5PnfyJS4vHNRUdKusjke+mGND/P6me7husv65LDs=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\maintenances\18\a9d1bd7eba494dc9a8f9d709e47e17a2.png'))</OriginalItemSpec>
-    </StaticWebAsset>
-    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\maintenances\18\eeaa408c240248139fd9352202943f4b.png'))">
-      <SourceType>Package</SourceType>
-      <SourceId>TallerCaldera2</SourceId>
-      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
-      <BasePath>_content/TallerCaldera2</BasePath>
-      <RelativePath>uploads/maintenances/18/eeaa408c240248139fd9352202943f4b.png</RelativePath>
-      <AssetKind>All</AssetKind>
-      <AssetMode>All</AssetMode>
-      <AssetRole>Primary</AssetRole>
-      <RelatedAsset></RelatedAsset>
-      <AssetTraitName></AssetTraitName>
-      <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>38yob08qio</Fingerprint>
-      <Integrity>vVF3eZkHwtbe9FVgmcszSANtAERQqjCfDt2pdjAuMME=</Integrity>
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\maintenances\18\eeaa408c240248139fd9352202943f4b.png'))</OriginalItemSpec>
-    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\maintenances\2\c0dfd21130b143b3878316f691468821.png'))">
       <SourceType>Package</SourceType>
       <SourceId>TallerCaldera2</SourceId>
@@ -1313,6 +1223,24 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\maintenances\2\c0dfd21130b143b3878316f691468821.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\maintenances\25\34e9d752ca4d40c7b4973f19917657d0.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>TallerCaldera2</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/TallerCaldera2</BasePath>
+      <RelativePath>uploads/maintenances/25/34e9d752ca4d40c7b4973f19917657d0.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>jbrmupx00k</Fingerprint>
+      <Integrity>zyU8tOAsIRcw58Mc4ya/KtU4zbAG8W3p5PG7WUyj6K0=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\maintenances\25\34e9d752ca4d40c7b4973f19917657d0.png'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\mantenimientos\b32aa8c9-6922-4a9a-9dcb-9d7f9d550f69.png'))">
       <SourceType>Package</SourceType>

@@ -20,6 +20,12 @@ namespace TallerCaldera2.Models
 
         public string Observations { get; set; }
 
+        [ValidateNever]
+        public string TrabajosPorRealizar { get; set; }
+
+        [ValidateNever]
+        public string TrabajosRealizados { get; set; }
+
         [Column(TypeName = "decimal(18,2)")]
         public decimal? Cost { get; set; }
 
@@ -37,5 +43,7 @@ namespace TallerCaldera2.Models
 
         [ValidateNever]
         public ICollection<SketchMark> SketchMarks { get; set; } = new List<SketchMark>();
+
+        public List<MaintenanceItem> Items { get; set; } = new();
     }
 }

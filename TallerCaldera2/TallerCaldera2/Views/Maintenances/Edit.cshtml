@@ -2,7 +2,9 @@
 
 @{
     ViewData["Title"] = "Editar mantenimiento";
-    var initialSketch = string.Join("|", Model.SketchMarks?.Select(m => m.PosX + "," + m.PosY) ?? Enumerable.Empty<string>());
+    var initialSketch = string.Join("|",
+        Model.SketchMarks?.Select(m => m.PosX + "," + m.PosY)
+        ?? Enumerable.Empty<string>());
 }
 
 <h2 class="mb-4">✏️ Editar mantenimiento</h2>
@@ -26,7 +28,9 @@
 
                 <div class="col-md-6 mb-3">
                     <label asp-for="VehiclePlate" class="form-label">Placa</label>
-                    <select asp-for="VehiclePlate" class="form-control" asp-items="ViewBag.VehiclePlate"></select>
+                    <select asp-for="VehiclePlate"
+                            class="form-control"
+                            asp-items="ViewBag.VehiclePlate"></select>
                     <span asp-validation-for="VehiclePlate" class="text-danger"></span>
                 </div>
             </div>
@@ -47,8 +51,33 @@
 
             <div class="mb-3">
                 <label asp-for="Observations" class="form-label"></label>
-                <textarea asp-for="Observations" class="form-control" rows="3"></textarea>
+                <textarea asp-for="Observations"
+                          class="form-control"
+                          rows="3"></textarea>
                 <span asp-validation-for="Observations" class="text-danger"></span>
+            </div>
+
+            <!-- ================= NUEVOS CAMPOS ================= -->
+            <div class="mb-3">
+                <label asp-for="TrabajosPorRealizar" class="form-label">
+                    Trabajos por realizar
+                </label>
+                <textarea asp-for="TrabajosPorRealizar"
+                          class="form-control"
+                          rows="3"
+                          placeholder="Trabajos pendientes o por realizar…"></textarea>
+                <span asp-validation-for="TrabajosPorRealizar" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="TrabajosRealizados" class="form-label">
+                    Trabajos realizados
+                </label>
+                <textarea asp-for="TrabajosRealizados"
+                          class="form-control"
+                          rows="3"
+                          placeholder="Detalle de los trabajos realizados…"></textarea>
+                <span asp-validation-for="TrabajosRealizados" class="text-danger"></span>
             </div>
 
             <div class="row">
@@ -78,11 +107,13 @@
                         <div class="text-center">
                             <img src="@photo.ImageUrl" class="photo-thumb mb-1" />
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox"
+                                <input class="form-check-input"
+                                       type="checkbox"
                                        name="deletePhotoIds"
                                        value="@photo.Id"
                                        id="photo_@photo.Id" />
-                                <label class="form-check-label small" for="photo_@photo.Id">
+                                <label class="form-check-label small"
+                                       for="photo_@photo.Id">
                                     Eliminar
                                 </label>
                             </div>
@@ -107,7 +138,8 @@
                 <div class="card-body">
                     <h6 class="text-muted mb-1">Boceto del vehículo</h6>
                     <small class="text-muted d-block mb-3">
-                        Click para agregar una <strong>X</strong>, click sobre la <strong>X</strong> para quitarla
+                        Click para agregar una <strong>X</strong>,
+                        click sobre la <strong>X</strong> para quitarla
                     </small>
 
                     <div id="sketch-container"
@@ -168,56 +200,56 @@
     <script>
         (function () {
             const container = document.getElementById('sketch-container');
+            const img = container.querySelector('img');
             const hidden = document.getElementById('SketchData');
+
             let marks = [];
 
-            function renderMarks() {
-                container.querySelectorAll('.sketch-mark').forEach(m => m.remove());
+            // 🔄 Cargar marcas iniciales
+            const initial = container.dataset.initialMarks;
+            if (initial) {
+                initial.split('|').forEach(p => {
+                    const [x, y] = p.split(',');
+                    marks.push({ x: parseInt(x), y: parseInt(y) });
+                });
+            }
 
-                marks.forEach((m, index) => {
+            function render() {
+                container.querySelectorAll('.sketch-mark').forEach(x => x.remove());
+
+                marks.forEach((m, i) => {
                     const el = document.createElement('div');
                     el.className = 'sketch-mark';
                     el.textContent = 'X';
                     el.style.left = m.x + 'px';
                     el.style.top = m.y + 'px';
-                    el.dataset.index = index;
 
-                    el.addEventListener('click', function (ev) {
-                        ev.stopPropagation();
-                        marks.splice(parseInt(this.dataset.index), 1);
-                        renderMarks();
+                    el.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        marks.splice(i, 1);
+                        render();
                     });
 
                     container.appendChild(el);
                 });
 
-                hidden.value = marks.map(m => m.x + ',' + m.y).join('|');
+                hidden.value = marks.map(m => `${m.x},${m.y}`).join('|');
             }
 
-            const initial = container.getAttribute('data-initial-marks');
-            if (initial) {
-                initial.split('|').forEach(p => {
-                    const xy = p.split(',');
-                    if (xy.length === 2) {
-                        const x = parseInt(xy[0]);
-                        const y = parseInt(xy[1]);
-                        if (!isNaN(x) && !isNaN(y)) {
-                            marks.push({ x, y });
-                        }
-                    }
-                });
-                renderMarks();
-            }
-
-            container.addEventListener('click', function (e) {
-                const rect = container.getBoundingClientRect();
+            img.addEventListener('click', function (e) {
+                const rect = img.getBoundingClientRect();
                 marks.push({
                     x: Math.round(e.clientX - rect.left),
                     y: Math.round(e.clientY - rect.top)
                 });
-                renderMarks();
+                render();
             });
+
+            container.closest('form').addEventListener('submit', function () {
+                hidden.value = marks.map(m => `${m.x},${m.y}`).join('|');
+            });
+
+            render();
         })();
     </script>
 }
-

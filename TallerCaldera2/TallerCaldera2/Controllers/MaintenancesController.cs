@@ -73,26 +73,28 @@ namespace TallerCaldera2.Controllers
             List<IFormFile> photos,
             string SketchData)
         {
+            // 🔹 Guardar mantenimiento primero
+            _context.Add(maintenance);
+            await _context.SaveChangesAsync();
+
+            // 🔹 GUARDAR BOCETO SIEMPRE (NO depende del ModelState)
+            SaveSketchMarks(maintenance.Id, SketchData);
+
             if (!ModelState.IsValid)
             {
                 ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate", maintenance.VehiclePlate);
                 return View(maintenance);
             }
 
-            // Guardar mantenimiento primero
-            _context.Add(maintenance);
-            await _context.SaveChangesAsync();
-
-            // Actualizar última fecha de mantenimiento del vehículo
+            // Actualizar vehículo
             var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Plate == maintenance.VehiclePlate);
             if (vehicle != null)
             {
                 vehicle.LastMaintenanceDate = maintenance.Date;
             }
 
-            // CREAR ALERTA DE MANTENIMIENTO
+            // Crear alerta
             var dueDate = maintenance.Date.AddMonths(6);
-
             bool exists = await _context.Alerts.AnyAsync(a =>
                 a.VehiclePlate == maintenance.VehiclePlate &&
                 a.DueDate == dueDate);
@@ -111,11 +113,7 @@ namespace TallerCaldera2.Controllers
             // Guardar fotos
             await SavePhotosAsync(maintenance.Id, photos);
 
-            // Guardar marcas del boceto
-            SaveSketchMarks(maintenance.Id, SketchData);
-
             await _context.SaveChangesAsync();
-
             return RedirectToAction(nameof(Index));
         }
 
@@ -134,7 +132,6 @@ namespace TallerCaldera2.Controllers
                 return NotFound();
 
             ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate", maintenance.VehiclePlate);
-
             return View(maintenance);
         }
 
@@ -159,22 +156,32 @@ namespace TallerCaldera2.Controllers
             if (existing == null)
                 return NotFound();
 
+            // 🔹 REEMPLAZAR BOCETO SIEMPRE
+            var oldMarks = existing.SketchMarks.ToList();
+            _context.SketchMarks.RemoveRange(oldMarks);
+            SaveSketchMarks(existing.Id, SketchData);
+
             if (!ModelState.IsValid)
             {
                 ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate", maintenance.VehiclePlate);
                 return View(existing);
             }
 
-            // Actualizar campos básicos
+            // Campos básicos
             existing.Date = maintenance.Date;
             existing.Type = maintenance.Type;
             existing.Provider = maintenance.Provider;
             existing.Observations = maintenance.Observations;
+
+            // Nuevos campos
+            existing.TrabajosPorRealizar = maintenance.TrabajosPorRealizar;
+            existing.TrabajosRealizados = maintenance.TrabajosRealizados;
+
             existing.Cost = maintenance.Cost;
             existing.Mileage = maintenance.Mileage;
             existing.VehiclePlate = maintenance.VehiclePlate;
 
-            // Borrar fotos seleccionadas
+            // Borrar fotos
             if (deletePhotoIds != null && deletePhotoIds.Length > 0)
             {
                 var toDelete = existing.Photos
@@ -183,10 +190,11 @@ namespace TallerCaldera2.Controllers
 
                 foreach (var photo in toDelete)
                 {
-                    // borrar archivo físico
                     if (!string.IsNullOrWhiteSpace(photo.ImageUrl))
                     {
-                        var physical = Path.Combine(_env.WebRootPath, photo.ImageUrl.TrimStart('/').Replace('/', Path.DirectorySeparatorChar));
+                        var physical = Path.Combine(_env.WebRootPath,
+                            photo.ImageUrl.TrimStart('/').Replace('/', Path.DirectorySeparatorChar));
+
                         if (System.IO.File.Exists(physical))
                             System.IO.File.Delete(physical);
                     }
@@ -198,12 +206,7 @@ namespace TallerCaldera2.Controllers
             // Agregar fotos nuevas
             await SavePhotosAsync(existing.Id, newPhotos);
 
-            // Reemplazar marcas del boceto
-            var oldMarks = existing.SketchMarks.ToList();
-            _context.SketchMarks.RemoveRange(oldMarks);
-            SaveSketchMarks(existing.Id, SketchData);
-
-            // Actualizar fecha de último mantenimiento
+            // Actualizar vehículo
             var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Plate == existing.VehiclePlate);
             if (vehicle != null)
             {
@@ -211,7 +214,6 @@ namespace TallerCaldera2.Controllers
             }
 
             await _context.SaveChangesAsync();
-
             return RedirectToAction(nameof(Index));
         }
 
@@ -242,12 +244,13 @@ namespace TallerCaldera2.Controllers
 
             if (maintenance != null)
             {
-                // Borrar archivos físicos de fotos
                 foreach (var photo in maintenance.Photos)
                 {
                     if (!string.IsNullOrWhiteSpace(photo.ImageUrl))
                     {
-                        var physical = Path.Combine(_env.WebRootPath, photo.ImageUrl.TrimStart('/').Replace('/', Path.DirectorySeparatorChar));
+                        var physical = Path.Combine(_env.WebRootPath,
+                            photo.ImageUrl.TrimStart('/').Replace('/', Path.DirectorySeparatorChar));
+
                         if (System.IO.File.Exists(physical))
                             System.IO.File.Delete(physical);
                     }
@@ -259,6 +262,10 @@ namespace TallerCaldera2.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        // ============================
+        // HELPERS
+        // ============================
 
         private async Task SavePhotosAsync(int maintenanceId, List<IFormFile> photos)
         {
@@ -276,17 +283,13 @@ namespace TallerCaldera2.Controllers
                     var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(file.FileName);
                     var filePath = Path.Combine(uploadsFolder, fileName);
 
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        await file.CopyToAsync(stream);
-                    }
-
-                    var relativePath = $"/uploads/maintenances/{maintenanceId}/{fileName}";
+                    using var stream = new FileStream(filePath, FileMode.Create);
+                    await file.CopyToAsync(stream);
 
                     _context.MaintenancePhotos.Add(new MaintenancePhoto
                     {
                         MaintenanceId = maintenanceId,
-                        ImageUrl = relativePath
+                        ImageUrl = $"/uploads/maintenances/{maintenanceId}/{fileName}"
                     });
                 }
             }
@@ -300,7 +303,7 @@ namespace TallerCaldera2.Controllers
             var pairs = sketchData.Split('|', StringSplitOptions.RemoveEmptyEntries);
             foreach (var p in pairs)
             {
-                var xy = p.Split(',', StringSplitOptions.RemoveEmptyEntries);
+                var xy = p.Split(',');
                 if (xy.Length == 2 &&
                     int.TryParse(xy[0], out var x) &&
                     int.TryParse(xy[1], out var y))
