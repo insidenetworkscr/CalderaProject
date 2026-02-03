@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "s9e9H5LGMn+3au1WIKPSHX6tnZGsdXUc0px8m1viMhE=",
+  "Hash": "A2H0Dff61kTYkPs71GZ0FFJyIuVUjhnyAdfnxR0CJVQ=",
   "Source": "TallerCaldera2",
   "BasePath": "_content/TallerCaldera2",
   "Mode": "Default",
@@ -1445,6 +1445,48 @@
       "OriginalItemSpec": "wwwroot\\uploads\\maintenances\\1\\dc642bd54bed4b52b8a1b028343378bb.png"
     },
     {
+      "Identity": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\maintenances\\2\\3439756db0db471b91fa245257fdf1df.png",
+      "SourceId": "TallerCaldera2",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\",
+      "BasePath": "_content/TallerCaldera2",
+      "RelativePath": "uploads/maintenances/2/3439756db0db471b91fa245257fdf1df#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "8bxndw0onh",
+      "Integrity": "nEr8QZwUJJicQrGar8T7X8fdpAJSkqLOxOsZlEwW2XE=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\maintenances\\2\\3439756db0db471b91fa245257fdf1df.png"
+    },
+    {
+      "Identity": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\maintenances\\2\\618093daa4794866af997396725d9593.png",
+      "SourceId": "TallerCaldera2",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\",
+      "BasePath": "_content/TallerCaldera2",
+      "RelativePath": "uploads/maintenances/2/618093daa4794866af997396725d9593#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "mwz8kuw696",
+      "Integrity": "xrOOVQqhPYgN4vd6oi0zCCESAcYwV0radpeZPYLlQqU=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\maintenances\\2\\618093daa4794866af997396725d9593.png"
+    },
+    {
       "Identity": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\maintenances\\2\\c0dfd21130b143b3878316f691468821.png",
       "SourceId": "TallerCaldera2",
       "SourceType": "Discovered",
@@ -1464,6 +1506,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\maintenances\\2\\c0dfd21130b143b3878316f691468821.png"
+    },
+    {
+      "Identity": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\maintenances\\2\\ec89843e694844a2afd13b994d7f3607.png",
+      "SourceId": "TallerCaldera2",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\",
+      "BasePath": "_content/TallerCaldera2",
+      "RelativePath": "uploads/maintenances/2/ec89843e694844a2afd13b994d7f3607#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "gmcwye8d0r",
+      "Integrity": "GN5+qMH3Z1OvdhwdHHhc+DmAaaZKV0SUgpFyw7l02+Q=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\maintenances\\2\\ec89843e694844a2afd13b994d7f3607.png"
     },
     {
       "Identity": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\maintenances\\25\\34e9d752ca4d40c7b4973f19917657d0.png",
@@ -7485,6 +7548,170 @@
       ]
     },
     {
+      "Route": "uploads/maintenances/2/3439756db0db471b91fa245257fdf1df.8bxndw0onh.png",
+      "AssetFile": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\maintenances\\2\\3439756db0db471b91fa245257fdf1df.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "202952"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"nEr8QZwUJJicQrGar8T7X8fdpAJSkqLOxOsZlEwW2XE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Feb 2026 04:14:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "8bxndw0onh"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/maintenances/2/3439756db0db471b91fa245257fdf1df.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-nEr8QZwUJJicQrGar8T7X8fdpAJSkqLOxOsZlEwW2XE="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/maintenances/2/3439756db0db471b91fa245257fdf1df.png",
+      "AssetFile": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\maintenances\\2\\3439756db0db471b91fa245257fdf1df.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "202952"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"nEr8QZwUJJicQrGar8T7X8fdpAJSkqLOxOsZlEwW2XE=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Feb 2026 04:14:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-nEr8QZwUJJicQrGar8T7X8fdpAJSkqLOxOsZlEwW2XE="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/maintenances/2/618093daa4794866af997396725d9593.mwz8kuw696.png",
+      "AssetFile": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\maintenances\\2\\618093daa4794866af997396725d9593.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1114031"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xrOOVQqhPYgN4vd6oi0zCCESAcYwV0radpeZPYLlQqU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Feb 2026 04:14:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "mwz8kuw696"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/maintenances/2/618093daa4794866af997396725d9593.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-xrOOVQqhPYgN4vd6oi0zCCESAcYwV0radpeZPYLlQqU="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/maintenances/2/618093daa4794866af997396725d9593.png",
+      "AssetFile": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\maintenances\\2\\618093daa4794866af997396725d9593.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1114031"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"xrOOVQqhPYgN4vd6oi0zCCESAcYwV0radpeZPYLlQqU=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Feb 2026 04:14:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-xrOOVQqhPYgN4vd6oi0zCCESAcYwV0radpeZPYLlQqU="
+        }
+      ]
+    },
+    {
       "Route": "uploads/maintenances/2/c0dfd21130b143b3878316f691468821.9fzltp5ksh.png",
       "AssetFile": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\maintenances\\2\\c0dfd21130b143b3878316f691468821.png",
       "Selectors": [],
@@ -7563,6 +7790,88 @@
         {
           "Name": "integrity",
           "Value": "sha256-lTepOUGHBPU/BsrjwvBmv7BsAPb8Zeg/cIstuAAUvrA="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/maintenances/2/ec89843e694844a2afd13b994d7f3607.gmcwye8d0r.png",
+      "AssetFile": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\maintenances\\2\\ec89843e694844a2afd13b994d7f3607.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "920612"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"GN5+qMH3Z1OvdhwdHHhc+DmAaaZKV0SUgpFyw7l02+Q=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Feb 2026 04:14:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "gmcwye8d0r"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/maintenances/2/ec89843e694844a2afd13b994d7f3607.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-GN5+qMH3Z1OvdhwdHHhc+DmAaaZKV0SUgpFyw7l02+Q="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/maintenances/2/ec89843e694844a2afd13b994d7f3607.png",
+      "AssetFile": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\uploads\\maintenances\\2\\ec89843e694844a2afd13b994d7f3607.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "920612"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"GN5+qMH3Z1OvdhwdHHhc+DmAaaZKV0SUgpFyw7l02+Q=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Tue, 03 Feb 2026 04:14:34 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-GN5+qMH3Z1OvdhwdHHhc+DmAaaZKV0SUgpFyw7l02+Q="
         }
       ]
     },

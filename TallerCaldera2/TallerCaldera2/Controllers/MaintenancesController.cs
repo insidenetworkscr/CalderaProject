@@ -79,6 +79,16 @@ namespace TallerCaldera2.Controllers
                 .Where(i => !string.IsNullOrWhiteSpace(i.Servicio))
                 .ToList();
 
+            // ✅ CALCULAR COSTO TOTAL DESDE LOS ITEMS (SIN IVA)
+            if (maintenance.Items != null && maintenance.Items.Any())
+            {
+                maintenance.Cost = maintenance.Items.Sum(i => i.Unidad * i.Precio);
+            }
+            else
+            {
+                maintenance.Cost = 0;
+            }
+
             // 🔹 Guardar mantenimiento primero
             _context.Add(maintenance);
             await _context.SaveChangesAsync();
@@ -88,12 +98,15 @@ namespace TallerCaldera2.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate", maintenance.VehiclePlate);
+                ViewData["VehiclePlate"] = new SelectList(
+                    _context.Vehicles, "Plate", "Plate", maintenance.VehiclePlate);
                 return View(maintenance);
             }
 
             // Actualizar vehículo
-            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Plate == maintenance.VehiclePlate);
+            var vehicle = await _context.Vehicles
+                .FirstOrDefaultAsync(v => v.Plate == maintenance.VehiclePlate);
+
             if (vehicle != null)
             {
                 vehicle.LastMaintenanceDate = maintenance.Date;
