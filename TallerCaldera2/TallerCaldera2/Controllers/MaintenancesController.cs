@@ -70,31 +70,15 @@ namespace TallerCaldera2.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
-            Maintenance maintenance,
-            List<IFormFile> photos,
-            string SketchData)
+    Maintenance maintenance,
+    List<IFormFile> photos,
+    string SketchData)
         {
-            // ✅ LIMPIAR ITEMS VACÍOS (NO AFECTA NADA EXISTENTE)
             maintenance.Items = maintenance.Items?
                 .Where(i => !string.IsNullOrWhiteSpace(i.Servicio))
                 .ToList();
 
-            // ✅ CALCULAR COSTO TOTAL DESDE LOS ITEMS (SIN IVA)
-            if (maintenance.Items != null && maintenance.Items.Any())
-            {
-                maintenance.Cost = maintenance.Items.Sum(i => i.Unidad * i.Precio);
-            }
-            else
-            {
-                maintenance.Cost = 0;
-            }
-
-            // 🔹 Guardar mantenimiento primero
-            _context.Add(maintenance);
-            await _context.SaveChangesAsync();
-
-            // 🔹 GUARDAR BOCETO SIEMPRE (NO depende del ModelState)
-            SaveSketchMarks(maintenance.Id, SketchData);
+            maintenance.Cost = maintenance.Items?.Sum(i => i.Unidad * i.Precio) ?? 0;
 
             if (!ModelState.IsValid)
             {
@@ -103,22 +87,22 @@ namespace TallerCaldera2.Controllers
                 return View(maintenance);
             }
 
-            // Actualizar vehículo
+            _context.Add(maintenance);
+            await _context.SaveChangesAsync();
+
+            SaveSketchMarks(maintenance.Id, SketchData);
+            await SavePhotosAsync(maintenance.Id, photos);
+
             var vehicle = await _context.Vehicles
                 .FirstOrDefaultAsync(v => v.Plate == maintenance.VehiclePlate);
 
             if (vehicle != null)
-            {
                 vehicle.LastMaintenanceDate = maintenance.Date;
-            }
 
-            // Crear alerta
             var dueDate = maintenance.Date.AddMonths(6);
-            bool exists = await _context.Alerts.AnyAsync(a =>
+            if (!await _context.Alerts.AnyAsync(a =>
                 a.VehiclePlate == maintenance.VehiclePlate &&
-                a.DueDate == dueDate);
-
-            if (!exists)
+                a.DueDate == dueDate))
             {
                 _context.Alerts.Add(new Alert
                 {
@@ -129,30 +113,8 @@ namespace TallerCaldera2.Controllers
                 });
             }
 
-            // Guardar fotos
-            await SavePhotosAsync(maintenance.Id, photos);
-
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        // GET: Maintenances/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-                return NotFound();
-
-            var maintenance = await _context.Maintenances
-                .Include(m => m.Photos)
-                .Include(m => m.SketchMarks)
-                .Include(m => m.Items) // ✅ AÑADIDO
-                .FirstOrDefaultAsync(m => m.Id == id);
-
-            if (maintenance == null)
-                return NotFound();
-
-            ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate", maintenance.VehiclePlate);
-            return View(maintenance);
         }
 
         // POST: Maintenances/Edit/5

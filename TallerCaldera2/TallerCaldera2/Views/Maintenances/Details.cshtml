@@ -131,6 +131,33 @@
         </div>
     </div>
 
+    <!-- ================= IMÁGENES ================= -->
+    <div class="card shadow-sm border-0 rounded-4 mt-4">
+        <div class="card-header bg-light fw-semibold">
+            <i class="bi bi-camera me-2"></i> Imágenes del mantenimiento
+        </div>
+
+        <div class="card-body">
+            @if (Model.Photos != null && Model.Photos.Any())
+            {
+                <div class="row g-3">
+                    @foreach (var photo in Model.Photos)
+                    {
+                        <div class="col-md-4 col-sm-6">
+                            <img src="@photo.ImageUrl"
+                                 class="img-fluid rounded border"
+                                 alt="Imagen mantenimiento" />
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <span class="text-muted">No hay imágenes registradas.</span>
+            }
+        </div>
+    </div>
+
 </div>
 
 @section Scripts {
