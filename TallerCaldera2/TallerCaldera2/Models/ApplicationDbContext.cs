@@ -16,6 +16,7 @@ namespace TallerCaldera2.Models
         public DbSet<Alert> Alerts { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<MaintenanceItem> MaintenanceItems { get; set; }
 
         // 🔹 PROFORMAS
         public DbSet<Proforma> Proformas { get; set; }

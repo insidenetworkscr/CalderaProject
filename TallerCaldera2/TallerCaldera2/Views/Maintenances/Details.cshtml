@@ -26,6 +26,7 @@
 
     <div class="row g-4">
 
+        <!-- ================= DATOS ================= -->
         <div class="col-lg-6">
             <div class="card shadow-sm border-0 rounded-4">
                 <div class="card-header bg-light fw-semibold">
@@ -55,7 +56,6 @@
                         <dt class="col-sm-4">Observaciones</dt>
                         <dd class="col-sm-8">@Model.Observations</dd>
 
-                        <!-- 🔹 NUEVOS CAMPOS -->
                         <dt class="col-sm-4">Trabajos por realizar</dt>
                         <dd class="col-sm-8">
                             @(string.IsNullOrWhiteSpace(Model.TrabajosPorRealizar)
@@ -74,6 +74,7 @@
             </div>
         </div>
 
+        <!-- ================= BOCETO ================= -->
         <div class="col-lg-6">
             <div class="card shadow-sm border-0 rounded-4">
                 <div class="card-header bg-light fw-semibold">
@@ -91,6 +92,45 @@
         </div>
 
     </div>
+
+    <!-- ================= SERVICIOS ================= -->
+    <div class="card shadow-sm border-0 rounded-4 mt-4">
+        <div class="card-header bg-light fw-semibold">
+            <i class="bi bi-list-check me-2"></i> Servicios realizados
+        </div>
+
+        <div class="card-body">
+            @if (Model.Items == null || !Model.Items.Any())
+            {
+                <p class="text-muted mb-0">No hay servicios registrados.</p>
+            }
+            else
+            {
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Servicio</th>
+                                <th>Unidad</th>
+                                <th class="text-end">Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Items)
+                            {
+                                <tr>
+                                    <td style="white-space:pre-line">@item.Servicio</td>
+                                    <td>@item.Unidad</td>
+                                    <td class="text-end">₡@item.Precio.ToString("N0")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+    </div>
+
 </div>
 
 @section Scripts {

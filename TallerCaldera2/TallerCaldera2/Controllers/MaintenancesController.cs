@@ -46,6 +46,7 @@ namespace TallerCaldera2.Controllers
                 .Include(m => m.Vehicle)
                 .Include(m => m.Photos)
                 .Include(m => m.SketchMarks)
+                .Include(m => m.Items) // ✅ AÑADIDO
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (maintenance == null)
@@ -73,6 +74,11 @@ namespace TallerCaldera2.Controllers
             List<IFormFile> photos,
             string SketchData)
         {
+            // ✅ LIMPIAR ITEMS VACÍOS (NO AFECTA NADA EXISTENTE)
+            maintenance.Items = maintenance.Items?
+                .Where(i => !string.IsNullOrWhiteSpace(i.Servicio))
+                .ToList();
+
             // 🔹 Guardar mantenimiento primero
             _context.Add(maintenance);
             await _context.SaveChangesAsync();
@@ -126,6 +132,7 @@ namespace TallerCaldera2.Controllers
             var maintenance = await _context.Maintenances
                 .Include(m => m.Photos)
                 .Include(m => m.SketchMarks)
+                .Include(m => m.Items) // ✅ AÑADIDO
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (maintenance == null)
@@ -151,6 +158,7 @@ namespace TallerCaldera2.Controllers
             var existing = await _context.Maintenances
                 .Include(m => m.Photos)
                 .Include(m => m.SketchMarks)
+                .Include(m => m.Items) // ✅ AÑADIDO
                 .FirstOrDefaultAsync(m => m.Id == id);
 
             if (existing == null)
@@ -160,6 +168,12 @@ namespace TallerCaldera2.Controllers
             var oldMarks = existing.SketchMarks.ToList();
             _context.SketchMarks.RemoveRange(oldMarks);
             SaveSketchMarks(existing.Id, SketchData);
+
+            // ✅ SINCRONIZAR ITEMS (MISMO PATRÓN QUE BOCETO)
+            _context.MaintenanceItems.RemoveRange(existing.Items);
+            existing.Items = maintenance.Items?
+                .Where(i => !string.IsNullOrWhiteSpace(i.Servicio))
+                .ToList();
 
             if (!ModelState.IsValid)
             {

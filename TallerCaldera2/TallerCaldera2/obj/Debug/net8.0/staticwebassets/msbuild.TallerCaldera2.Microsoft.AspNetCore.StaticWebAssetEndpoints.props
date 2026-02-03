@@ -784,13 +784,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\TallerCaldera2.flgvq98e8m.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-w4NgWx\u002BPXSZ/T0uTv1dwm2edW7VqJCyiqugNKGB3p5o="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1132"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022w4NgWx\u002BPXSZ/T0uTv1dwm2edW7VqJCyiqugNKGB3p5o=\u0022"},{"Name":"Last-Modified","Value":"Mon, 02 Feb 2026 18:33:24 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1132"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022w4NgWx\u002BPXSZ/T0uTv1dwm2edW7VqJCyiqugNKGB3p5o=\u0022"},{"Name":"Last-Modified","Value":"Tue, 03 Feb 2026 00:52:52 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/TallerCaldera2/TallerCaldera2.flgvq98e8m.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\TallerCaldera2.flgvq98e8m.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"flgvq98e8m"},{"Name":"integrity","Value":"sha256-w4NgWx\u002BPXSZ/T0uTv1dwm2edW7VqJCyiqugNKGB3p5o="},{"Name":"label","Value":"_content/TallerCaldera2/TallerCaldera2.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1132"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022w4NgWx\u002BPXSZ/T0uTv1dwm2edW7VqJCyiqugNKGB3p5o=\u0022"},{"Name":"Last-Modified","Value":"Mon, 02 Feb 2026 18:33:24 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1132"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022w4NgWx\u002BPXSZ/T0uTv1dwm2edW7VqJCyiqugNKGB3p5o=\u0022"},{"Name":"Last-Modified","Value":"Tue, 03 Feb 2026 00:52:52 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/TallerCaldera2/uploads/maintenances/1/dc642bd54bed4b52b8a1b028343378bb.7xpud7p590.png">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\uploads\maintenances\1\dc642bd54bed4b52b8a1b028343378bb.png'))</AssetFile>
