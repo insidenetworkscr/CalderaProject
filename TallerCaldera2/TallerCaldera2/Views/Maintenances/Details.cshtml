@@ -85,7 +85,10 @@
                     <div id="sketch-container"
                          class="sketch-container border rounded p-2"
                          data-initial-marks="@sketchData">
-                        <img src="~/images/car-sketch.png" class="img-fluid" />
+
+                        <img id="sketch-img"
+                             src="~/images/car-sketch.png"
+                             class="img-fluid" />
                     </div>
                 </div>
             </div>
@@ -131,33 +134,6 @@
         </div>
     </div>
 
-    <!-- ================= IMÁGENES ================= -->
-    <div class="card shadow-sm border-0 rounded-4 mt-4">
-        <div class="card-header bg-light fw-semibold">
-            <i class="bi bi-camera me-2"></i> Imágenes del mantenimiento
-        </div>
-
-        <div class="card-body">
-            @if (Model.Photos != null && Model.Photos.Any())
-            {
-                <div class="row g-3">
-                    @foreach (var photo in Model.Photos)
-                    {
-                        <div class="col-md-4 col-sm-6">
-                            <img src="@photo.ImageUrl"
-                                 class="img-fluid rounded border"
-                                 alt="Imagen mantenimiento" />
-                        </div>
-                    }
-                </div>
-            }
-            else
-            {
-                <span class="text-muted">No hay imágenes registradas.</span>
-            }
-        </div>
-    </div>
-
 </div>
 
 @section Scripts {
@@ -173,24 +149,41 @@
             font-size: 22px;
             transform: translate(-50%, -50%);
             pointer-events: none;
+            font-weight: bold;
         }
     </style>
 
     <script>
         (function () {
             const container = document.getElementById('sketch-container');
+            const img = document.getElementById('sketch-img');
             const data = container.dataset.initialMarks;
             if (!data) return;
 
-            data.split('|').forEach(p => {
-                const [x, y] = p.split(',');
-                const el = document.createElement('div');
-                el.className = 'sketch-mark';
-                el.textContent = 'X';
-                el.style.left = x + 'px';
-                el.style.top = y + 'px';
-                container.appendChild(el);
-            });
+            img.onload = function () {
+
+                const imgRect = img.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
+
+                const offsetX = imgRect.left - containerRect.left;
+                const offsetY = imgRect.top - containerRect.top;
+
+                const scaleX = img.clientWidth / img.naturalWidth;
+                const scaleY = img.clientHeight / img.naturalHeight;
+
+                data.split('|').forEach(p => {
+                    const [x, y] = p.split(',').map(Number);
+
+                    const el = document.createElement('div');
+                    el.className = 'sketch-mark';
+                    el.textContent = 'X';
+
+                    el.style.left = (x * scaleX + offsetX) + 'px';
+                    el.style.top = (y * scaleY + offsetY) + 'px';
+
+                    container.appendChild(el);
+                });
+            };
         })();
     </script>
 }
