@@ -2,205 +2,259 @@
 
 @{
     ViewData["Title"] = "Nuevo mantenimiento";
+
+    if (Model.Items == null)
+    {
+        Model.Items = new List<TallerCaldera2.Models.MaintenanceItem>();
+    }
 }
 
 <div class="container py-4">
 
-    <!-- ================= HEADER ================= -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2 class="fw-bold">
-            <i class="bi bi-wrench-adjustable me-2"></i> Registrar mantenimiento
-        </h2>
-        <a asp-action="Index" class="btn btn-outline-secondary">
-            <i class="bi bi-arrow-left"></i> Volver
-        </a>
-    </div>
+    <h2 class="fw-bold mb-4">
+        Registrar mantenimiento
+    </h2>
 
     <form asp-action="Create" enctype="multipart/form-data">
 
-        <input type="hidden" asp-for="Id" />
-        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <!-- ================= DATOS GENERALES ================= -->
-        <div class="card shadow-sm border-0 rounded-4 mb-4">
-            <div class="card-header bg-light fw-semibold">
-                <i class="bi bi-info-circle me-2"></i> Datos del mantenimiento
+        <!-- ================= DATOS ================= -->
+
+        <div class="row">
+
+            <div class="col-md-4 mb-3">
+                <label asp-for="Date"></label>
+                <input asp-for="Date" type="date" class="form-control" />
             </div>
 
-            <div class="card-body row g-3">
-                <div class="col-md-3">
-                    <label asp-for="Date" class="form-label">Fecha</label>
-                    <input asp-for="Date" type="date" class="form-control" />
-                </div>
-
-                <div class="col-md-3">
-                    <label asp-for="VehiclePlate" class="form-label">Vehículo</label>
-                    <select asp-for="VehiclePlate"
-                            class="form-select"
-                            asp-items="ViewBag.VehiclePlate">
-                    </select>
-                </div>
-
-                <div class="col-md-3">
-                    <label asp-for="Type" class="form-label">Tipo de mantenimiento</label>
-                    <input asp-for="Type" class="form-control" placeholder="Preventivo, correctivo…" />
-                </div>
-
-                <div class="col-md-3">
-                    <label asp-for="Provider" class="form-label">Proveedor</label>
-                    <input asp-for="Provider" class="form-control" placeholder="Repuestos XYZ" />
-                </div>
-
-                <div class="col-md-4">
-                    <label asp-for="Mileage" class="form-label">Kilometraje</label>
-                    <input asp-for="Mileage" class="form-control" placeholder="120 000" />
-                </div>
-
-                <div class="col-md-4">
-                    <label asp-for="Cost" class="form-label">Costo</label>
-                    <input asp-for="Cost" class="form-control" placeholder="₡" />
-                </div>
-
-                <div class="col-md-12">
-                    <label asp-for="Observations" class="form-label">Observaciones</label>
-                    <textarea asp-for="Observations" class="form-control" rows="3"></textarea>
-                </div>
-
-                <div class="col-md-12">
-                    <label asp-for="TrabajosPorRealizar" class="form-label">Trabajos por realizar</label>
-                    <textarea asp-for="TrabajosPorRealizar" class="form-control" rows="3"></textarea>
-                </div>
-
-                <div class="col-md-12">
-                    <label asp-for="TrabajosRealizados" class="form-label">Trabajos realizados</label>
-                    <textarea asp-for="TrabajosRealizados" class="form-control" rows="3"></textarea>
-                </div>
+            <div class="col-md-4 mb-3">
+                <label asp-for="VehiclePlate"></label>
+                <select asp-for="VehiclePlate"
+                        class="form-control"
+                        asp-items="ViewBag.VehiclePlate"></select>
             </div>
+
+            <div class="col-md-4 mb-3">
+                <label asp-for="Type"></label>
+                <input asp-for="Type" class="form-control" />
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label asp-for="Provider"></label>
+                <input asp-for="Provider" class="form-control" />
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label asp-for="Mileage"></label>
+                <input asp-for="Mileage" class="form-control" />
+            </div>
+
+            <!-- COSTO AUTOMATICO -->
+            <div class="col-md-4 mb-3">
+                <label>Costo total</label>
+                <input asp-for="Cost" class="form-control" readonly />
+            </div>
+
+            <div class="col-md-12 mb-3">
+                <label asp-for="Observations"></label>
+                <textarea asp-for="Observations" class="form-control"></textarea>
+            </div>
+
+            <div class="col-md-12 mb-3">
+                <label asp-for="TrabajosPorRealizar"></label>
+                <textarea asp-for="TrabajosPorRealizar" class="form-control"></textarea>
+            </div>
+
+            <div class="col-md-12 mb-3">
+                <label asp-for="TrabajosRealizados"></label>
+                <textarea asp-for="TrabajosRealizados" class="form-control"></textarea>
+            </div>
+
         </div>
+
+        <hr />
 
         <!-- ================= SERVICIOS ================= -->
-        <div class="card shadow-sm border-0 rounded-4 mb-4">
-            <div class="card-header bg-light fw-semibold">
-                <i class="bi bi-list-check me-2"></i> Detalle de servicios
-            </div>
 
-            <div class="card-body">
-                <table class="table" id="itemsTable">
-                    <thead>
-                        <tr>
-                            <th style="width:60%">Servicio</th>
-                            <th style="width:15%">Unidad</th>
-                            <th style="width:20%">Precio</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (int i = 0; i < Model.Items.Count; i++)
-                        {
-                            <tr>
-                                <td>
-                                    <textarea asp-for="Items[@i].Servicio"
-                                              class="form-control"
-                                              rows="2"
-                                              placeholder="Detalle del servicio realizado"></textarea>
-                                </td>
-                                <td>
-                                    <input asp-for="Items[@i].Unidad"
-                                           class="form-control"
-                                           placeholder="Unidad" />
-                                </td>
-                                <td>
-                                    <input asp-for="Items[@i].Precio"
-                                           type="number"
-                                           step="0.01"
-                                           class="form-control" />
-                                </td>
-                                <td>
-                                    <button type="button"
-                                            class="btn btn-danger"
-                                            onclick="removeRow(this)">X</button>
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+        <h5>Servicios</h5>
 
-                <button type="button"
-                        class="btn btn-secondary"
-                        onclick="addRow()">
-                    ➕ Servicio
-                </button>
-            </div>
-        </div>
+        <table class="table table-bordered" id="itemsTable">
+            <thead>
+                <tr>
+                    <th>Servicio</th>
+                    <th>Unidad</th>
+                    <th>Precio</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+            </tbody>
+        </table>
+
+        <button type="button" class="btn btn-success mb-3" id="addRow">
+            ➕ Agregar servicio
+        </button>
+
+        <hr />
 
         <!-- ================= FOTOS ================= -->
-        <div class="card shadow-sm border-0 rounded-4 mb-4">
-            <div class="card-header bg-light fw-semibold">
-                <i class="bi bi-camera me-2"></i> Evidencia fotográfica
-            </div>
 
-            <div class="card-body">
-                <input type="file" name="photos" class="form-control" multiple />
-            </div>
-        </div>
+        <h5>Fotos</h5>
+
+        <input type="file" name="photos" multiple class="form-control" />
+
+        <hr />
 
         <!-- ================= BOCETO ================= -->
-        <div class="card shadow-sm border-0 rounded-4 mb-4">
-            <div class="card-header bg-light fw-semibold">
-                <i class="bi bi-pencil-square me-2"></i> Boceto del vehículo
-            </div>
 
-            <div class="card-body">
-                <div id="sketch-container"
-                     class="sketch-container border rounded p-2"
-                     style="max-width:600px;">
-                    <img src="~/images/car-sketch.png" class="img-fluid" />
-                </div>
+        <h5>Boceto</h5>
 
-                <input type="hidden" id="SketchData" name="SketchData" />
-            </div>
+        <div id="sketch-container" class="border sketch-container">
+
+            <img src="~/images/car-sketch.png" class="img-fluid" />
+
         </div>
 
-        <div class="d-flex justify-content-end gap-2">
-            <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
-            <button type="submit" class="btn btn-primary px-4">
-                <i class="bi bi-save me-1"></i> Guardar mantenimiento
-            </button>
-        </div>
+        <input type="hidden" id="SketchData" name="SketchData" />
+
+        <br />
+
+        <button type="submit" class="btn btn-primary">
+            Guardar
+        </button>
 
     </form>
 </div>
 
+
 @section Scripts {
+
     <partial name="_ValidationScriptsPartial" />
 
     <script>
-        function addRow() {
-            let i = document.querySelectorAll("#itemsTable tbody tr").length;
-            document.querySelector("#itemsTable tbody").insertAdjacentHTML("beforeend",
-                `<tr>
-                    <td>
-                        <textarea name="Items[${i}].Servicio" class="form-control" rows="2"></textarea>
-                    </td>
-                    <td>
-                        <input name="Items[${i}].Unidad" class="form-control" />
-                    </td>
-                    <td>
-                        <input name="Items[${i}].Precio" type="number" step="0.01" class="form-control" />
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn-danger" onclick="removeRow(this)">X</button>
-                    </td>
-                </tr>`);
+
+        // ===== COSTO AUTOMATICO =====
+
+        function calcularCostoTotal() {
+
+            let total = 0;
+
+            document.querySelectorAll("#itemsTable tbody tr").forEach(row => {
+
+                let unidad = parseFloat(row.querySelector('[name*=".Unidad"]')?.value) || 0;
+                let precio = parseFloat(row.querySelector('[name*=".Precio"]')?.value) || 0;
+
+                total += unidad * precio;
+            });
+
+            document.querySelector('[name="Cost"]').value = total.toFixed(2);
         }
 
-        function removeRow(btn) {
-            btn.closest("tr").remove();
-        }
+        document.addEventListener("input", function (e) {
+
+            if (e.target.name?.includes("Unidad") ||
+                e.target.name?.includes("Precio")) {
+
+                calcularCostoTotal();
+            }
+        });
+
+
+        // ===== AGREGAR FILA =====
+
+        document.getElementById("addRow").addEventListener("click", function () {
+
+            let table = document.querySelector("#itemsTable tbody");
+            let index = table.rows.length;
+
+            let row = `
+            <tr>
+                <td>
+                    <input name="Items[${index}].Servicio" class="form-control" />
+                </td>
+                <td>
+                    <input name="Items[${index}].Unidad" type="number" class="form-control" />
+                </td>
+                <td>
+                    <input name="Items[${index}].Precio" type="number" class="form-control" />
+                </td>
+                <td>
+                    <button type="button" class="btn btn-danger remove-row">X</button>
+                </td>
+            </tr>`;
+
+            table.insertAdjacentHTML("beforeend", row);
+
+            calcularCostoTotal();
+        });
+
+
+        // ===== ELIMINAR FILA =====
+
+        document.addEventListener("click", function (e) {
+
+            if (e.target.classList.contains("remove-row")) {
+                e.target.closest("tr").remove();
+                calcularCostoTotal();
+            }
+        });
+
+
+        // ===== BOCETO =====
+
+        (function () {
+
+            const container = document.getElementById('sketch-container');
+            const img = container.querySelector('img');
+            const hidden = document.getElementById('SketchData');
+
+            let marks = [];
+
+            function render() {
+
+                container.querySelectorAll('.sketch-mark').forEach(x => x.remove());
+
+                marks.forEach((m, i) => {
+
+                    const el = document.createElement('div');
+                    el.className = 'sketch-mark';
+                    el.textContent = 'X';
+
+                    el.style.left = m.x + 'px';
+                    el.style.top = m.y + 'px';
+
+                    el.onclick = function (e) {
+                        e.stopPropagation();
+                        marks.splice(i, 1);
+                        render();
+                    };
+
+                    container.appendChild(el);
+                });
+
+                hidden.value = marks.map(m => `${m.x},${m.y}`).join('|');
+            }
+
+            img.onclick = function (e) {
+
+                const rect = img.getBoundingClientRect();
+
+                marks.push({
+                    x: Math.round(e.clientX - rect.left),
+                    y: Math.round(e.clientY - rect.top)
+                });
+
+                render();
+            };
+
+        })();
+
     </script>
 
-    <!-- === SCRIPT DEL BOCETO (SIN CAMBIOS) === -->
     <style>
+
         .sketch-container {
             position: relative;
             display: inline-block;
@@ -209,54 +263,11 @@
         .sketch-mark {
             position: absolute;
             color: red;
-            font-size: 22px;
+            font-weight: bold;
             transform: translate(-50%, -50%);
             cursor: pointer;
         }
+
     </style>
 
-    <script>
-        (function () {
-            const container = document.getElementById('sketch-container');
-            const img = container.querySelector('img');
-            const hidden = document.getElementById('SketchData');
-
-            let marks = [];
-
-            function render() {
-                container.querySelectorAll('.sketch-mark').forEach(x => x.remove());
-
-                marks.forEach((m, i) => {
-                    const el = document.createElement('div');
-                    el.className = 'sketch-mark';
-                    el.textContent = 'X';
-                    el.style.left = m.x + 'px';
-                    el.style.top = m.y + 'px';
-
-                    el.addEventListener('click', function (e) {
-                        e.stopPropagation();
-                        marks.splice(i, 1);
-                        render();
-                    });
-
-                    container.appendChild(el);
-                });
-
-                hidden.value = marks.map(m => `${m.x},${m.y}`).join('|');
-            }
-
-            img.addEventListener('click', function (e) {
-                const rect = img.getBoundingClientRect();
-                marks.push({
-                    x: Math.round(e.clientX - rect.left),
-                    y: Math.round(e.clientY - rect.top)
-                });
-                render();
-            });
-
-            container.closest('form').addEventListener('submit', function () {
-                hidden.value = marks.map(m => `${m.x},${m.y}`).join('|');
-            });
-        })();
-    </script>
 }

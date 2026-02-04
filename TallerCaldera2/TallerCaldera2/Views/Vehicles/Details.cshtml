@@ -199,6 +199,13 @@
                                            class="btn btn-sm btn-outline-primary">
                                             Editar
                                         </a>
+
+                                        <a asp-controller="Maintenances"
+                                           asp-action="Delete"
+                                           asp-route-id="@m.Id"
+                                           class="btn btn-sm btn-outline-danger">
+                                            Eliminar
+                                        </a>
                                     </td>
                                 </tr>
                             }

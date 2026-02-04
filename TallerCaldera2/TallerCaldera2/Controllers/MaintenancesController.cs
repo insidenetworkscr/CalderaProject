@@ -23,7 +23,7 @@ namespace TallerCaldera2.Controllers
             _env = env;
         }
 
-        // GET: Maintenances
+        // ================= INDEX =================
         public async Task<IActionResult> Index()
         {
             var maintenances = await _context.Maintenances
@@ -36,54 +36,54 @@ namespace TallerCaldera2.Controllers
             return View(maintenances);
         }
 
-        // GET: Maintenances/Details/5
+        // ================= DETAILS =================
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-                return NotFound();
+            if (id == null) return NotFound();
 
             var maintenance = await _context.Maintenances
                 .Include(m => m.Vehicle)
                 .Include(m => m.Photos)
                 .Include(m => m.SketchMarks)
-                .Include(m => m.Items) // ✅ AÑADIDO
+                .Include(m => m.Items)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (maintenance == null)
-                return NotFound();
+            if (maintenance == null) return NotFound();
 
             return View(maintenance);
         }
 
-        // GET: Maintenances/Create
+        // ================= CREATE GET =================
         public IActionResult Create(string vehiclePlate = null)
         {
             ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate", vehiclePlate);
+
             return View(new Maintenance
             {
                 Date = DateTime.Now,
-                VehiclePlate = vehiclePlate
+                VehiclePlate = vehiclePlate,
+                Items = new List<MaintenanceItem>()
             });
         }
 
-        // POST: Maintenances/Create
+        // ================= CREATE POST =================
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(
-    Maintenance maintenance,
-    List<IFormFile> photos,
-    string SketchData)
+        public async Task<IActionResult> Create(Maintenance maintenance, List<IFormFile> photos, string SketchData)
         {
+            ModelState.Remove("Cost");
+
             maintenance.Items = maintenance.Items?
                 .Where(i => !string.IsNullOrWhiteSpace(i.Servicio))
-                .ToList();
+                .ToList() ?? new List<MaintenanceItem>();
 
-            maintenance.Cost = maintenance.Items?.Sum(i => i.Unidad * i.Precio) ?? 0;
+            maintenance.Cost = maintenance.Items.Sum(i => i.Unidad * i.Precio);
 
             if (!ModelState.IsValid)
             {
-                ViewData["VehiclePlate"] = new SelectList(
-                    _context.Vehicles, "Plate", "Plate", maintenance.VehiclePlate);
+                ViewData["VehiclePlate"] =
+                    new SelectList(_context.Vehicles, "Plate", "Plate", maintenance.VehiclePlate);
+
                 return View(maintenance);
             }
 
@@ -93,31 +93,35 @@ namespace TallerCaldera2.Controllers
             SaveSketchMarks(maintenance.Id, SketchData);
             await SavePhotosAsync(maintenance.Id, photos);
 
-            var vehicle = await _context.Vehicles
-                .FirstOrDefaultAsync(v => v.Plate == maintenance.VehiclePlate);
-
-            if (vehicle != null)
-                vehicle.LastMaintenanceDate = maintenance.Date;
-
-            var dueDate = maintenance.Date.AddMonths(6);
-            if (!await _context.Alerts.AnyAsync(a =>
-                a.VehiclePlate == maintenance.VehiclePlate &&
-                a.DueDate == dueDate))
-            {
-                _context.Alerts.Add(new Alert
-                {
-                    VehiclePlate = maintenance.VehiclePlate,
-                    DueDate = dueDate,
-                    Message = "Mantenimiento próximo",
-                    IsShown = false
-                });
-            }
-
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
-        // POST: Maintenances/Edit/5
+
+        // ================= EDIT GET =================
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var maintenance = await _context.Maintenances
+                .Include(m => m.Photos)
+                .Include(m => m.SketchMarks)
+                .Include(m => m.Items)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            if (maintenance == null) return NotFound();
+
+            ViewData["VehiclePlate"] = new SelectList(
+                _context.Vehicles,
+                "Plate",
+                "Plate",
+                maintenance.VehiclePlate);
+
+            return View(maintenance);
+        }
+
+        // ================= EDIT POST =================
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(
@@ -127,28 +131,37 @@ namespace TallerCaldera2.Controllers
             string SketchData,
             int[] deletePhotoIds)
         {
-            if (id != maintenance.Id)
-                return NotFound();
+            if (id != maintenance.Id) return NotFound();
 
             var existing = await _context.Maintenances
                 .Include(m => m.Photos)
                 .Include(m => m.SketchMarks)
-                .Include(m => m.Items) // ✅ AÑADIDO
+                .Include(m => m.Items)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (existing == null)
-                return NotFound();
+            if (existing == null) return NotFound();
 
-            // 🔹 REEMPLAZAR BOCETO SIEMPRE
-            var oldMarks = existing.SketchMarks.ToList();
-            _context.SketchMarks.RemoveRange(oldMarks);
+            // 🔥 IMPORTANTE
+            ModelState.Remove("Cost");
+
+            // ----- BOCETO -----
+            _context.SketchMarks.RemoveRange(existing.SketchMarks);
             SaveSketchMarks(existing.Id, SketchData);
 
-            // ✅ SINCRONIZAR ITEMS (MISMO PATRÓN QUE BOCETO)
+            // ----- ITEMS -----
             _context.MaintenanceItems.RemoveRange(existing.Items);
+
             existing.Items = maintenance.Items?
                 .Where(i => !string.IsNullOrWhiteSpace(i.Servicio))
-                .ToList();
+                .Select(i => new MaintenanceItem
+                {
+                    Servicio = i.Servicio,
+                    Unidad = i.Unidad,
+                    Precio = i.Precio,
+                    MaintenanceId = existing.Id
+                }).ToList() ?? new List<MaintenanceItem>();
+
+            existing.Cost = existing.Items.Sum(i => i.Unidad * i.Precio);
 
             if (!ModelState.IsValid)
             {
@@ -156,26 +169,20 @@ namespace TallerCaldera2.Controllers
                 return View(existing);
             }
 
-            // Campos básicos
+            // ----- CAMPOS -----
             existing.Date = maintenance.Date;
             existing.Type = maintenance.Type;
             existing.Provider = maintenance.Provider;
             existing.Observations = maintenance.Observations;
-
-            // Nuevos campos
             existing.TrabajosPorRealizar = maintenance.TrabajosPorRealizar;
             existing.TrabajosRealizados = maintenance.TrabajosRealizados;
-
-            existing.Cost = maintenance.Cost;
             existing.Mileage = maintenance.Mileage;
             existing.VehiclePlate = maintenance.VehiclePlate;
 
-            // Borrar fotos
+            // ----- BORRAR FOTOS -----
             if (deletePhotoIds != null && deletePhotoIds.Length > 0)
             {
-                var toDelete = existing.Photos
-                    .Where(p => deletePhotoIds.Contains(p.Id))
-                    .ToList();
+                var toDelete = existing.Photos.Where(p => deletePhotoIds.Contains(p.Id)).ToList();
 
                 foreach (var photo in toDelete)
                 {
@@ -192,37 +199,32 @@ namespace TallerCaldera2.Controllers
                 }
             }
 
-            // Agregar fotos nuevas
             await SavePhotosAsync(existing.Id, newPhotos);
 
-            // Actualizar vehículo
             var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Plate == existing.VehiclePlate);
+
             if (vehicle != null)
-            {
                 vehicle.LastMaintenanceDate = existing.Date;
-            }
 
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Maintenances/Delete/5
+        // ================= DELETE =================
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null)
-                return NotFound();
+            if (id == null) return NotFound();
 
             var maintenance = await _context.Maintenances
                 .Include(m => m.Vehicle)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (maintenance == null)
-                return NotFound();
+            if (maintenance == null) return NotFound();
 
             return View(maintenance);
         }
 
-        // POST: Maintenances/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -252,27 +254,24 @@ namespace TallerCaldera2.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ============================
-        // HELPERS
-        // ============================
-
+        // ================= HELPERS =================
         private async Task SavePhotosAsync(int maintenanceId, List<IFormFile> photos)
         {
-            if (photos == null || photos.Count == 0)
-                return;
+            if (photos == null || photos.Count == 0) return;
 
-            var uploadsFolder = Path.Combine(_env.WebRootPath, "uploads", "maintenances", maintenanceId.ToString());
-            if (!Directory.Exists(uploadsFolder))
-                Directory.CreateDirectory(uploadsFolder);
+            var folder = Path.Combine(_env.WebRootPath, "uploads", "maintenances", maintenanceId.ToString());
+
+            if (!Directory.Exists(folder))
+                Directory.CreateDirectory(folder);
 
             foreach (var file in photos)
             {
-                if (file != null && file.Length > 0)
+                if (file.Length > 0)
                 {
                     var fileName = Guid.NewGuid().ToString("N") + Path.GetExtension(file.FileName);
-                    var filePath = Path.Combine(uploadsFolder, fileName);
+                    var path = Path.Combine(folder, fileName);
 
-                    using var stream = new FileStream(filePath, FileMode.Create);
+                    using var stream = new FileStream(path, FileMode.Create);
                     await file.CopyToAsync(stream);
 
                     _context.MaintenancePhotos.Add(new MaintenancePhoto
@@ -286,13 +285,14 @@ namespace TallerCaldera2.Controllers
 
         private void SaveSketchMarks(int maintenanceId, string sketchData)
         {
-            if (string.IsNullOrWhiteSpace(sketchData))
-                return;
+            if (string.IsNullOrWhiteSpace(sketchData)) return;
 
             var pairs = sketchData.Split('|', StringSplitOptions.RemoveEmptyEntries);
+
             foreach (var p in pairs)
             {
                 var xy = p.Split(',');
+
                 if (xy.Length == 2 &&
                     int.TryParse(xy[0], out var x) &&
                     int.TryParse(xy[1], out var y))
