@@ -11,128 +11,187 @@
 
 <div class="container py-4">
 
-    <h2 class="fw-bold mb-4">
-        Registrar mantenimiento
-    </h2>
+    <!-- ================= HEADER ================= -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">
+            <i class="bi bi-wrench-adjustable me-2"></i> Registrar mantenimiento
+        </h2>
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Volver
+        </a>
+    </div>
 
     <form asp-action="Create" enctype="multipart/form-data">
 
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" />
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
 
-        <!-- ================= DATOS ================= -->
-
-        <div class="row">
-
-            <div class="col-md-4 mb-3">
-                <label asp-for="Date"></label>
-                <input asp-for="Date" type="date" class="form-control" />
+        <!-- ================= DATOS GENERALES ================= -->
+        <div class="card shadow-sm border-0 rounded-4 mb-4">
+            <div class="card-header bg-light fw-semibold">
+                <i class="bi bi-info-circle me-2"></i> Datos del mantenimiento
             </div>
 
-            <div class="col-md-4 mb-3">
-                <label asp-for="VehiclePlate"></label>
-                <select asp-for="VehiclePlate"
-                        class="form-control"
-                        asp-items="ViewBag.VehiclePlate"></select>
+            <div class="card-body row g-3">
+                <div class="col-md-3">
+                    <label asp-for="Date" class="form-label">Fecha</label>
+                    <input asp-for="Date" type="date" class="form-control" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-3">
+                    <label asp-for="VehiclePlate" class="form-label">Vehículo</label>
+                    <select asp-for="VehiclePlate"
+                            class="form-select"
+                            asp-items="ViewBag.VehiclePlate">
+                    </select>
+                    <span asp-validation-for="VehiclePlate" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-3">
+                    <label asp-for="Type" class="form-label">Tipo de mantenimiento</label>
+                    <input asp-for="Type" class="form-control" placeholder="Preventivo, correctivo…" />
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-3">
+                    <label asp-for="Provider" class="form-label">Proveedor</label>
+                    <input asp-for="Provider" class="form-control" placeholder="Repuestos XYZ" />
+                    <span asp-validation-for="Provider" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-4">
+                    <label asp-for="Mileage" class="form-label">Kilometraje</label>
+                    <input asp-for="Mileage" class="form-control" placeholder="120 000" />
+                    <span asp-validation-for="Mileage" class="text-danger"></span>
+                </div>
+
+                <!-- COSTO AUTOMATICO -->
+                <div class="col-md-4 mb-3">
+                    <label>Costo total</label>
+                    <input asp-for="Cost" class="form-control" readonly />
+                </div>
+
+                <div class="col-md-12">
+                    <label asp-for="Observations" class="form-label">Observaciones</label>
+                    <textarea asp-for="Observations"
+                              class="form-control"
+                              rows="3"
+                              placeholder="Detalle del trabajo realizado…">
+                    </textarea>
+                    <span asp-validation-for="Observations" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <label asp-for="TrabajosPorRealizar"></label>
+                    <textarea asp-for="TrabajosPorRealizar" class="form-control"></textarea>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <label asp-for="TrabajosRealizados"></label>
+                    <textarea asp-for="TrabajosRealizados" class="form-control"></textarea>
+                </div>
+
             </div>
 
-            <div class="col-md-4 mb-3">
-                <label asp-for="Type"></label>
-                <input asp-for="Type" class="form-control" />
+            <hr />
+
+            <!-- ================= SERVICIOS ================= -->
+
+            <h5>Servicios</h5>
+
+            <table class="table table-bordered" id="itemsTable">
+                <thead>
+                    <tr>
+                        <th>Servicio</th>
+                        <th>Unidad</th>
+                        <th>Precio</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                </tbody>
+            </table>
+
+            <button type="button" class="btn btn-success mb-3" id="addRow">
+                ➕ Agregar servicio
+            </button>
+
+            <hr />
+
+            <!-- ================= FOTOS ================= -->
+            <div class="card shadow-sm border-0 rounded-4 mb-4">
+                <div class="card-header bg-light fw-semibold">
+                    <i class="bi bi-camera me-2"></i> Evidencia fotográfica
+                </div>
+
+                <div class="card-body">
+                    <label class="form-label">Fotos del mantenimiento</label>
+                    <input type="file" name="photos" class="form-control" multiple />
+                    <small class="text-muted">
+                        Puede seleccionar varias imágenes del trabajo realizado.
+                    </small>
+                </div>
             </div>
 
-            <div class="col-md-4 mb-3">
-                <label asp-for="Provider"></label>
-                <input asp-for="Provider" class="form-control" />
+            <!-- ================= BOCETO ================= -->
+            <div class="card shadow-sm border-0 rounded-4 mb-4">
+                <div class="card-header bg-light fw-semibold">
+                    <i class="bi bi-pencil-square me-2"></i> Boceto del vehículo
+                </div>
+
+                <div class="card-body">
+                    <p class="text-muted mb-2">
+                        Haga clic sobre el vehículo para marcar daños o revisiones (<strong>X</strong>).
+                        Haga clic sobre una marca para eliminarla.
+                    </p>
+
+                    <div id="sketch-container"
+                         class="sketch-container border rounded p-2"
+                         style="max-width:600px;">
+                        <img id="sketch-image"
+                             src="~/images/car-sketch.png"
+                             class="img-fluid"
+                             alt="Boceto del vehículo" />
+                    </div>
+
+                    <input type="hidden" id="SketchData" name="SketchData" />
+                </div>
             </div>
 
-            <div class="col-md-4 mb-3">
-                <label asp-for="Mileage"></label>
-                <input asp-for="Mileage" class="form-control" />
+            <!-- ================= ACCIONES ================= -->
+            <div class="d-flex justify-content-end gap-2">
+                <a asp-action="Index" class="btn btn-outline-secondary">
+                    Cancelar
+                </a>
+                <button type="submit" class="btn btn-primary px-4">
+                    <i class="bi bi-save me-1"></i> Guardar mantenimiento
+                </button>
             </div>
-
-            <!-- COSTO AUTOMATICO -->
-            <div class="col-md-4 mb-3">
-                <label>Costo total</label>
-                <input asp-for="Cost" class="form-control" readonly />
-            </div>
-
-            <div class="col-md-12 mb-3">
-                <label asp-for="Observations"></label>
-                <textarea asp-for="Observations" class="form-control"></textarea>
-            </div>
-
-            <div class="col-md-12 mb-3">
-                <label asp-for="TrabajosPorRealizar"></label>
-                <textarea asp-for="TrabajosPorRealizar" class="form-control"></textarea>
-            </div>
-
-            <div class="col-md-12 mb-3">
-                <label asp-for="TrabajosRealizados"></label>
-                <textarea asp-for="TrabajosRealizados" class="form-control"></textarea>
-            </div>
-
-        </div>
-
-        <hr />
-
-        <!-- ================= SERVICIOS ================= -->
-
-        <h5>Servicios</h5>
-
-        <table class="table table-bordered" id="itemsTable">
-            <thead>
-                <tr>
-                    <th>Servicio</th>
-                    <th>Unidad</th>
-                    <th>Precio</th>
-                    <th></th>
-                </tr>
-            </thead>
-
-            <tbody>
-            </tbody>
-        </table>
-
-        <button type="button" class="btn btn-success mb-3" id="addRow">
-            ➕ Agregar servicio
-        </button>
-
-        <hr />
-
-        <!-- ================= FOTOS ================= -->
-
-        <h5>Fotos</h5>
-
-        <input type="file" name="photos" multiple class="form-control" />
-
-        <hr />
-
-        <!-- ================= BOCETO ================= -->
-
-        <h5>Boceto</h5>
-
-        <div id="sketch-container" class="border sketch-container">
-
-            <img src="~/images/car-sketch.png" class="img-fluid" />
-
-        </div>
-
-        <input type="hidden" id="SketchData" name="SketchData" />
-
-        <br />
-
-        <button type="submit" class="btn btn-primary">
-            Guardar
-        </button>
 
     </form>
 </div>
 
-
 @section Scripts {
 
     <partial name="_ValidationScriptsPartial" />
+    <style>
+        .sketch-container {
+            position: relative;
+            display: inline-block;
+        }
 
+        .sketch-mark {
+            position: absolute;
+            color: red;
+            font-weight: bold;
+            font-size: 22px;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            user-select: none;
+        }
+    </style>
     <script>
 
         // ===== COSTO AUTOMATICO =====
@@ -200,74 +259,52 @@
                 calcularCostoTotal();
             }
         });
+    </script>
 
 
-        // ===== BOCETO =====
 
+
+    <script>
+              // ===== BOCETO =====
         (function () {
-
             const container = document.getElementById('sketch-container');
-            const img = container.querySelector('img');
             const hidden = document.getElementById('SketchData');
-
             let marks = [];
 
-            function render() {
+            function renderMarks() {
+                container.querySelectorAll('.sketch-mark').forEach(m => m.remove());
 
-                container.querySelectorAll('.sketch-mark').forEach(x => x.remove());
-
-                marks.forEach((m, i) => {
-
+                marks.forEach((m, index) => {
                     const el = document.createElement('div');
                     el.className = 'sketch-mark';
                     el.textContent = 'X';
-
                     el.style.left = m.x + 'px';
                     el.style.top = m.y + 'px';
+                    el.dataset.index = index;
 
-                    el.onclick = function (e) {
-                        e.stopPropagation();
-                        marks.splice(i, 1);
-                        render();
-                    };
+                    el.addEventListener('click', function (ev) {
+                        ev.stopPropagation();
+                        marks.splice(parseInt(this.dataset.index), 1);
+                        renderMarks();
+                    });
 
                     container.appendChild(el);
                 });
 
-                hidden.value = marks.map(m => `${m.x},${m.y}`).join('|');
+                hidden.value = marks.map(m => m.x + ',' + m.y).join('|');
             }
 
-            img.onclick = function (e) {
-
-                const rect = img.getBoundingClientRect();
-
+            container.addEventListener('click', function (e) {
+                const rect = container.getBoundingClientRect();
                 marks.push({
                     x: Math.round(e.clientX - rect.left),
                     y: Math.round(e.clientY - rect.top)
                 });
-
-                render();
-            };
-
+                renderMarks();
+            });
         })();
-
     </script>
 
-    <style>
 
-        .sketch-container {
-            position: relative;
-            display: inline-block;
-        }
-
-        .sketch-mark {
-            position: absolute;
-            color: red;
-            font-weight: bold;
-            transform: translate(-50%, -50%);
-            cursor: pointer;
-        }
-
-    </style>
 
 }

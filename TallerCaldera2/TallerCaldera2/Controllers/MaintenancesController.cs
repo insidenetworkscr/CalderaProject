@@ -90,8 +90,36 @@ namespace TallerCaldera2.Controllers
             _context.Add(maintenance);
             await _context.SaveChangesAsync();
 
-            SaveSketchMarks(maintenance.Id, SketchData);
+            // Actualizar última fecha de mantenimiento del vehículo
+            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Plate == maintenance.VehiclePlate);
+            if (vehicle != null)
+            {
+                vehicle.LastMaintenanceDate = maintenance.Date;
+            }
+
+            // CREAR ALERTA DE MANTENIMIENTO
+            var dueDate = maintenance.Date.AddMonths(6);
+
+            bool exists = await _context.Alerts.AnyAsync(a =>
+                a.VehiclePlate == maintenance.VehiclePlate &&
+                a.DueDate == dueDate);
+
+            if (!exists)
+            {
+                _context.Alerts.Add(new Alert
+                {
+                    VehiclePlate = maintenance.VehiclePlate,
+                    DueDate = dueDate,
+                    Message = "Mantenimiento próximo",
+                    IsShown = false
+                });
+            }
+
+            // Guardar fotos
             await SavePhotosAsync(maintenance.Id, photos);
+
+            // Guardar marcas del boceto
+            SaveSketchMarks(maintenance.Id, SketchData);
 
             await _context.SaveChangesAsync();
 
@@ -131,7 +159,8 @@ namespace TallerCaldera2.Controllers
             string SketchData,
             int[] deletePhotoIds)
         {
-            if (id != maintenance.Id) return NotFound();
+            if (id != maintenance.Id)
+                return NotFound();
 
             var existing = await _context.Maintenances
                 .Include(m => m.Photos)
@@ -139,16 +168,13 @@ namespace TallerCaldera2.Controllers
                 .Include(m => m.Items)
                 .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (existing == null) return NotFound();
+            if (existing == null)
+                return NotFound();
 
-            // 🔥 IMPORTANTE
+            // 🔥 IMPORTANTE: el costo NO viene del form
             ModelState.Remove("Cost");
 
-            // ----- BOCETO -----
-            _context.SketchMarks.RemoveRange(existing.SketchMarks);
-            SaveSketchMarks(existing.Id, SketchData);
-
-            // ----- ITEMS -----
+            // ================= ITEMS =================
             _context.MaintenanceItems.RemoveRange(existing.Items);
 
             existing.Items = maintenance.Items?
@@ -159,37 +185,51 @@ namespace TallerCaldera2.Controllers
                     Unidad = i.Unidad,
                     Precio = i.Precio,
                     MaintenanceId = existing.Id
-                }).ToList() ?? new List<MaintenanceItem>();
+                })
+                .ToList() ?? new List<MaintenanceItem>();
 
+            // ✅ COSTO SIEMPRE CALCULADO EN SERVIDOR
             existing.Cost = existing.Items.Sum(i => i.Unidad * i.Precio);
 
             if (!ModelState.IsValid)
             {
-                ViewData["VehiclePlate"] = new SelectList(_context.Vehicles, "Plate", "Plate", maintenance.VehiclePlate);
+                ViewData["VehiclePlate"] = new SelectList(
+                    _context.Vehicles,
+                    "Plate",
+                    "Plate",
+                    maintenance.VehiclePlate);
+
                 return View(existing);
             }
 
-            // ----- CAMPOS -----
+            // ================= CAMPOS BÁSICOS =================
             existing.Date = maintenance.Date;
             existing.Type = maintenance.Type;
             existing.Provider = maintenance.Provider;
             existing.Observations = maintenance.Observations;
-            existing.TrabajosPorRealizar = maintenance.TrabajosPorRealizar;
-            existing.TrabajosRealizados = maintenance.TrabajosRealizados;
             existing.Mileage = maintenance.Mileage;
             existing.VehiclePlate = maintenance.VehiclePlate;
+            existing.TrabajosPorRealizar = maintenance.TrabajosPorRealizar;
+            existing.TrabajosRealizados = maintenance.TrabajosRealizados;
 
-            // ----- BORRAR FOTOS -----
+            // ❌ NO volver a tocar Cost aquí
+            // existing.Cost = maintenance.Cost;  <-- ELIMINADO
+
+            // ================= BORRAR FOTOS =================
             if (deletePhotoIds != null && deletePhotoIds.Length > 0)
             {
-                var toDelete = existing.Photos.Where(p => deletePhotoIds.Contains(p.Id)).ToList();
+                var toDelete = existing.Photos
+                    .Where(p => deletePhotoIds.Contains(p.Id))
+                    .ToList();
 
                 foreach (var photo in toDelete)
                 {
                     if (!string.IsNullOrWhiteSpace(photo.ImageUrl))
                     {
-                        var physical = Path.Combine(_env.WebRootPath,
-                            photo.ImageUrl.TrimStart('/').Replace('/', Path.DirectorySeparatorChar));
+                        var physical = Path.Combine(
+                            _env.WebRootPath,
+                            photo.ImageUrl.TrimStart('/')
+                                .Replace('/', Path.DirectorySeparatorChar));
 
                         if (System.IO.File.Exists(physical))
                             System.IO.File.Delete(physical);
@@ -199,9 +239,16 @@ namespace TallerCaldera2.Controllers
                 }
             }
 
+            // ================= NUEVAS FOTOS =================
             await SavePhotosAsync(existing.Id, newPhotos);
 
-            var vehicle = await _context.Vehicles.FirstOrDefaultAsync(v => v.Plate == existing.VehiclePlate);
+            // ================= BOCETO =================
+            _context.SketchMarks.RemoveRange(existing.SketchMarks);
+            SaveSketchMarks(existing.Id, SketchData);
+
+            // ================= ACTUALIZAR VEHÍCULO =================
+            var vehicle = await _context.Vehicles
+                .FirstOrDefaultAsync(v => v.Plate == existing.VehiclePlate);
 
             if (vehicle != null)
                 vehicle.LastMaintenanceDate = existing.Date;
@@ -210,6 +257,7 @@ namespace TallerCaldera2.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
 
         // ================= DELETE =================
         public async Task<IActionResult> Delete(int? id)
@@ -285,14 +333,13 @@ namespace TallerCaldera2.Controllers
 
         private void SaveSketchMarks(int maintenanceId, string sketchData)
         {
-            if (string.IsNullOrWhiteSpace(sketchData)) return;
+            if (string.IsNullOrWhiteSpace(sketchData))
+                return;
 
             var pairs = sketchData.Split('|', StringSplitOptions.RemoveEmptyEntries);
-
             foreach (var p in pairs)
             {
-                var xy = p.Split(',');
-
+                var xy = p.Split(',', StringSplitOptions.RemoveEmptyEntries);
                 if (xy.Length == 2 &&
                     int.TryParse(xy[0], out var x) &&
                     int.TryParse(xy[1], out var y))

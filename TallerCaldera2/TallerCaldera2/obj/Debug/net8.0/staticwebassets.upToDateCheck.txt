@@ -63,6 +63,11 @@ wwwroot\lib\jquery-validation\LICENSE.md
 wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js
 wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js
 wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt
+wwwroot\uploads\maintenances\22\1ac833fe2ec440f09b6fd85c32ba01c3.png
+wwwroot\uploads\maintenances\22\6f76c205a3bb4698aa088eef2b9e82bf.png
+wwwroot\uploads\maintenances\22\71ff8ca2204f469eb032ecc30db7d3ff.png
+wwwroot\uploads\maintenances\22\c1ff2f4fdc214848a668a06953477503.png
+wwwroot\uploads\maintenances\23\601f1da971494c42abb0ecea909ba3fe.png
 wwwroot\uploads\maintenances\25\34e9d752ca4d40c7b4973f19917657d0.png
 wwwroot\uploads\mantenimientos\b32aa8c9-6922-4a9a-9dcb-9d7f9d550f69.png
 wwwroot\uploads\proformas\0bb1c489-78f2-41c9-a739-72ed61186f65.png

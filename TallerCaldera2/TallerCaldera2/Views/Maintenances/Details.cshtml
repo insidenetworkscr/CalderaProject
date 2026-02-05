@@ -48,13 +48,21 @@
                         <dd class="col-sm-8">@Model.Provider</dd>
 
                         <dt class="col-sm-4">Kilometraje</dt>
-                        <dd class="col-sm-8">@Model.Mileage</dd>
+                        <dd class="col-sm-8">
+                            @(Model.Mileage?.ToString("N0") ?? "—") km
+                        </dd>
 
                         <dt class="col-sm-4">Costo</dt>
-                        <dd class="col-sm-8">₡@Model.Cost</dd>
+                        <dd class="col-sm-8 fw-semibold text-success">
+                            ₡@(Model.Cost?.ToString("N0") ?? "0")
+                        </dd>
 
                         <dt class="col-sm-4">Observaciones</dt>
-                        <dd class="col-sm-8">@Model.Observations</dd>
+                        <dd class="col-sm-8">
+                            @(!string.IsNullOrWhiteSpace(Model.Observations)
+                                ? Model.Observations
+                                : "—")
+                        </dd>
 
                         <dt class="col-sm-4">Trabajos por realizar</dt>
                         <dd class="col-sm-8">
@@ -74,116 +82,157 @@
             </div>
         </div>
 
+
+
         <!-- ================= BOCETO ================= -->
         <div class="col-lg-6">
-            <div class="card shadow-sm border-0 rounded-4">
+            <div class="card shadow-sm border-0 rounded-4 h-100">
                 <div class="card-header bg-light fw-semibold">
                     <i class="bi bi-pencil-square me-2"></i> Boceto del vehículo
                 </div>
 
                 <div class="card-body">
+                    @if (Model.SketchMarks?.Any() == true)
+                    {
+                        <p class="text-muted">
+                            Boceto en modo solo lectura.
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="text-muted">
+                            No hay boceto registrado.
+                        </p>
+                    }
+
                     <div id="sketch-container"
                          class="sketch-container border rounded p-2"
+                         style="max-width:600px;"
                          data-initial-marks="@sketchData">
 
-                        <img id="sketch-img"
+                        <img id="sketch-image"
                              src="~/images/car-sketch.png"
-                             class="img-fluid" />
+                             class="img-fluid"
+                             alt="Boceto del vehículo" />
                     </div>
                 </div>
             </div>
         </div>
 
-    </div>
+        <!-- ================= SERVICIOS ================= -->
+        <div class="card shadow-sm border-0 rounded-4 mt-4">
+            <div class="card-header bg-light fw-semibold">
+                <i class="bi bi-list-check me-2"></i> Servicios realizados
+            </div>
 
-    <!-- ================= SERVICIOS ================= -->
-    <div class="card shadow-sm border-0 rounded-4 mt-4">
-        <div class="card-header bg-light fw-semibold">
-            <i class="bi bi-list-check me-2"></i> Servicios realizados
-        </div>
-
-        <div class="card-body">
-            @if (Model.Items == null || !Model.Items.Any())
-            {
-                <p class="text-muted mb-0">No hay servicios registrados.</p>
-            }
-            else
-            {
-                <div class="table-responsive">
-                    <table class="table table-hover align-middle">
-                        <thead class="table-light">
-                            <tr>
-                                <th>Servicio</th>
-                                <th>Unidad</th>
-                                <th class="text-end">Precio</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model.Items)
-                            {
+            <div class="card-body">
+                @if (Model.Items == null || !Model.Items.Any())
+                {
+                    <p class="text-muted mb-0">No hay servicios registrados.</p>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
                                 <tr>
-                                    <td style="white-space:pre-line">@item.Servicio</td>
-                                    <td>@item.Unidad</td>
-                                    <td class="text-end">₡@item.Precio.ToString("N0")</td>
+                                    <th>Servicio</th>
+                                    <th>Unidad</th>
+                                    <th class="text-end">Precio</th>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            }
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.Items)
+                                {
+                                    <tr>
+                                        <td style="white-space:pre-line">@item.Servicio</td>
+                                        <td>@item.Unidad</td>
+                                        <td class="text-end">₡@item.Precio.ToString("N0")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
         </div>
+
+        <!-- ================= IMÁGENES ================= -->
+        <div class="card shadow-sm border-0 rounded-4 mt-4">
+            <div class="card-header bg-light fw-semibold">
+                <i class="bi bi-camera me-2"></i> Imágenes del mantenimiento
+            </div>
+
+            <div class="card-body">
+                @if (Model.Photos != null && Model.Photos.Any())
+                {
+                    <div class="row g-3">
+                        @foreach (var photo in Model.Photos)
+                        {
+                            <div class="col-md-4 col-sm-6">
+                                <img src="@photo.ImageUrl"
+                                     class="img-fluid rounded border"
+                                     alt="Imagen mantenimiento" />
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <span class="text-muted">No hay imágenes registradas.</span>
+                }
+            </div>
+        </div>
+
     </div>
 
-</div>
 
-@section Scripts {
-    <style>
-        .sketch-container {
-            position: relative;
-            display: inline-block;
-        }
+    @section Scripts {
+        <style>
+            .sketch-container {
+                position: relative;
+                display: inline-block;
+            }
 
-        .sketch-mark {
-            position: absolute;
-            color: red;
-            font-size: 22px;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            font-weight: bold;
-        }
-    </style>
+            .sketch-mark {
+                position: absolute;
+                color: red;
+                font-weight: bold;
+                font-size: 22px;
+                transform: translate(-50%, -50%);
+                pointer-events: none;
+                user-select: none;
+            }
+        </style>
 
-    <script>
-        (function () {
-            const container = document.getElementById('sketch-container');
-            const img = document.getElementById('sketch-img');
-            const data = container.dataset.initialMarks;
-            if (!data) return;
+        <script>
+            (function () {
+                const container = document.getElementById('sketch-container');
+                let marks = [];
 
-            img.onload = function () {
+                function renderMarks() {
+                    container.querySelectorAll('.sketch-mark').forEach(m => m.remove());
 
-                const imgRect = img.getBoundingClientRect();
-                const containerRect = container.getBoundingClientRect();
+                    marks.forEach(m => {
+                        const el = document.createElement('div');
+                        el.className = 'sketch-mark';
+                        el.textContent = 'X';
+                        el.style.left = m.x + 'px';
+                        el.style.top = m.y + 'px';
+                        container.appendChild(el);
+                    });
+                }
 
-                const offsetX = imgRect.left - containerRect.left;
-                const offsetY = imgRect.top - containerRect.top;
-
-                const scaleX = img.clientWidth / img.naturalWidth;
-                const scaleY = img.clientHeight / img.naturalHeight;
-
-                data.split('|').forEach(p => {
-                    const [x, y] = p.split(',').map(Number);
-
-                    const el = document.createElement('div');
-                    el.className = 'sketch-mark';
-                    el.textContent = 'X';
-
-                    el.style.left = (x * scaleX + offsetX) + 'px';
-                    el.style.top = (y * scaleY + offsetY) + 'px';
-
-                    container.appendChild(el);
-                });
-            };
-        })();
-    </script>
-}
+                const initial = container.getAttribute('data-initial-marks');
+                if (initial) {
+                    initial.split('|').forEach(p => {
+                        const [x, y] = p.split(',');
+                        if (!isNaN(x) && !isNaN(y)) {
+                            marks.push({ x: parseInt(x), y: parseInt(y) });
+                        }
+                    });
+                    renderMarks();
+                }
+            })();
+        </script>
+    }
