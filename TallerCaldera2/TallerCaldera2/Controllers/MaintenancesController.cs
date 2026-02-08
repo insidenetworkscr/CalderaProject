@@ -260,6 +260,28 @@ namespace TallerCaldera2.Controllers
             if (vehicle != null)
                 vehicle.LastMaintenanceDate = existing.Date;
 
+            // ================= ACTUALIZAR ALERTA =================
+            var dueDate = existing.Date.AddMonths(6);
+
+            var existingAlert = await _context.Alerts
+                .FirstOrDefaultAsync(a => a.VehiclePlate == existing.VehiclePlate);
+
+            if (existingAlert != null)
+            {
+                existingAlert.DueDate = dueDate;
+                existingAlert.IsShown = false;
+            }
+            else
+            {
+                _context.Alerts.Add(new Alert
+                {
+                    VehiclePlate = existing.VehiclePlate,
+                    DueDate = dueDate,
+                    Message = "Mantenimiento próximo",
+                    IsShown = false
+                });
+            }
+
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(Index));
