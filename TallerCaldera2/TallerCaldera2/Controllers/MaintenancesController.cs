@@ -100,12 +100,19 @@ namespace TallerCaldera2.Controllers
             // CREAR ALERTA DE MANTENIMIENTO
             var dueDate = maintenance.Date.AddMonths(6);
 
-            bool exists = await _context.Alerts.AnyAsync(a =>
-                a.VehiclePlate == maintenance.VehiclePlate &&
-                a.DueDate == dueDate);
+            // Buscar alerta existente del vehículo
+            var existingAlert = await _context.Alerts
+                .FirstOrDefaultAsync(a => a.VehiclePlate == maintenance.VehiclePlate);
 
-            if (!exists)
+            if (existingAlert != null)
             {
+                // Actualizar alerta existente con nueva fecha
+                existingAlert.DueDate = dueDate;
+                existingAlert.IsShown = false;
+            }
+            else
+            {
+                // Crear alerta nueva solo si no existe
                 _context.Alerts.Add(new Alert
                 {
                     VehiclePlate = maintenance.VehiclePlate,
