@@ -69,6 +69,8 @@ namespace TallerCaldera2.Controllers
         // ================= CREATE POST =================
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [RequestSizeLimit(524288000)]
+        [RequestFormLimits(MultipartBodyLengthLimit = 524288000)]
         public async Task<IActionResult> Create(Maintenance maintenance, List<IFormFile> photos, string SketchData)
         {
             ModelState.Remove("Cost");

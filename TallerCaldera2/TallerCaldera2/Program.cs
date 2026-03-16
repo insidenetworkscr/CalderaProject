@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TallerCaldera2.Models;
 using QuestPDF.Infrastructure;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +14,25 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString);
 });
 
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.Limits.MaxRequestBodySize = 1073741824; // 1 GB
+});
+
+builder.Services.Configure<FormOptions>(options =>
+{
+    options.MultipartBodyLengthLimit = 1073741824; // 1 GB
+});
+
+builder.Services.Configure<IISServerOptions>(options =>
+{
+    options.MaxRequestBodySize = 1073741824; // 1 GB
+});
+
 builder.Services.AddControllersWithViews();
 
-// NECESARIO PARA SESSION EN LAYOUT
+// NECESARIO PARA SESSION
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddSession(options =>

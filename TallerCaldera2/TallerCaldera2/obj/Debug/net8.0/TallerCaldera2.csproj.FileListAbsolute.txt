@@ -879,3 +879,4 @@ C:\Proyectos\CalderaProject\TallerCaldera2\TallerCaldera2\bin\Debug\net8.0\runti
 C:\Proyectos\CalderaProject\TallerCaldera2\TallerCaldera2\bin\Debug\net8.0\runtimes\win-x86\native\qpdf.dll
 C:\Proyectos\CalderaProject\TallerCaldera2\TallerCaldera2\bin\Debug\net8.0\runtimes\win-x86\native\zlib1.dll
 C:\Proyectos\CalderaProject\TallerCaldera2\TallerCaldera2\obj\Debug\net8.0\TallerCaldera2.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\kevin\OneDrive\Escritorio\Proyectos\CalderaProject\TallerCaldera2\TallerCaldera2\bin\Debug\net8.0\XLM\web.config
