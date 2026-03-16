@@ -133,12 +133,16 @@ namespace TallerCaldera2.PdfDocuments
                     col.Item().AlignRight().Column(c =>
                     {
                         c.Item().Text($"Subtotal: {_proforma.Subtotal.ToString("C", _cr)}");
-                        c.Item().Text($"IVA (13%): {_proforma.Iva.ToString("C", _cr)}");
+
+                        if (_proforma.AplicarIva)
+                        {
+                            c.Item().Text($"IVA (13%): {_proforma.Iva.ToString("C", _cr)}");
+                        }
 
                         c.Item()
                             .Background("#dcfce7")
                             .Padding(10)
-                            .Text($"TOTAL: {_proforma.TotalConIva.ToString("C", _cr)}")
+                            .Text($"{(_proforma.AplicarIva ? "TOTAL CON IVA" : "TOTAL")}: {_proforma.TotalConIva.ToString("C", _cr)}")
                             .FontSize(15)
                             .Bold();
                     });

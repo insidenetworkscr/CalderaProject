@@ -28,6 +28,8 @@ namespace TallerCaldera2.Models
         public DateTime? LastMaintenanceDate { get; set; }
         public string OilType { get; set; }
 
+        public bool Marcha { get; set; }
+
         public ICollection<Maintenance> Maintenances { get; set; } = new List<Maintenance>();
     }
 }

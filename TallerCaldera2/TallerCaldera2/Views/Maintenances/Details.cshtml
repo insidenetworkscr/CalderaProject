@@ -52,6 +52,28 @@
                             @(Model.Mileage?.ToString("N0") ?? "—") km
                         </dd>
 
+                        <dt class="col-sm-4">Forma de pago</dt>
+                        <dd class="col-sm-8">
+                            @(string.IsNullOrWhiteSpace(Model.FormaPago)
+                                ? "—"
+                                : Model.FormaPago)
+                        </dd>
+
+                        <dt class="col-sm-4">Combustible</dt>
+                        <dd class="col-sm-8">
+                            @{
+                                var fuel = Model.Combustible;
+                                var color = fuel == "Alto" ? "success"
+                                : fuel == "Medio" ? "warning"
+                                : fuel == "Bajo" ? "danger"
+                                : "secondary";
+                            }
+
+                            <span class="badge bg-@color">
+                                @(string.IsNullOrWhiteSpace(fuel) ? "—" : fuel)
+                            </span>
+                        </dd>
+
                         <dt class="col-sm-4">Costo</dt>
                         <dd class="col-sm-8 fw-semibold text-success">
                             ₡@(Model.Cost?.ToString("N0") ?? "0")

@@ -3,16 +3,12 @@
   "WorkspaceRootPath": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\controllers\\maintenancescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\controllers\\maintenancescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\maintenances\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\maintenances\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\controllers\\alertcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\controllers\\alertcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\alert\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\alert\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\models\\maintenancephoto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\models\\maintenancephoto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\models\\maintenanceitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -23,24 +19,80 @@
       "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\models\\maintenance.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\models\\alert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\models\\alert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\controllers\\maintenancescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\controllers\\maintenancescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\maintenances\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\maintenances\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\pdfdocuments\\proformapdf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\pdfdocuments\\proformapdf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\proformas\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\proformas\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\models\\proforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\models\\proforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\controllers\\proformascontroller .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\controllers\\proformascontroller .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\models\\proformaitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\models\\proformaitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\vehicles\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\vehicles\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\vehicles\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\vehicles\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\vehicles\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\vehicles\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\models\\vehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\models\\vehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\controllers\\vehiclescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\controllers\\vehiclescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\maintenances\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\maintenances\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\maintenances\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\maintenances\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\maintenances\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\maintenances\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\controllers\\alertcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\controllers\\alertcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\alert\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\alert\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\models\\alert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\models\\alert.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\models\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -51,28 +103,8 @@
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:TallerCaldera2\\Migrations\\20260203001518_AddServicioUnidadToMaintenanceItems.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\models\\proformaitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\models\\proformaitem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\models\\proforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\models\\proforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\proformas\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\proformas\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\vehicles\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\vehicles\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\models\\proformaimagen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\models\\proformaimagen.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\pdfdocuments\\proformapdf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\pdfdocuments\\proformapdf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\wwwroot\\images\\logo_caldera.png||{58961B49-13E0-48C0-9258-13CBC4D40279}",
@@ -111,10 +143,6 @@
       "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\appointments\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\models\\vehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\models\\vehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\controllers\\authcontroller .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\controllers\\authcontroller .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -127,16 +155,8 @@
       "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\maintenances\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\vehicles\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\vehicles\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\migrations\\20260106011053_addmarcamodelotoproforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\migrations\\20260106011053_addmarcamodelotoproforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\controllers\\proformascontroller .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\controllers\\proformascontroller .cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\proformas\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -149,10 +169,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\models\\maintenancephoto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\models\\maintenancephoto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\models\\sketchmark.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -179,24 +195,12 @@
       "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\migrations\\20251113210808_initial.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\controllers\\vehiclescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\controllers\\vehiclescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\controllers\\appointmentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\controllers\\appointmentscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -233,10 +237,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\vehicles\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\views\\vehicles\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\views\\vehicles\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -293,6 +293,22 @@
     {
       "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\migrations\\20260202235409_addmaintenanceitems.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\migrations\\20260202235409_addmaintenanceitems.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\migrations\\20260312020629_addformapagocombustible.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\migrations\\20260312020629_addformapagocombustible.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\migrations\\20260315011944_addmarchatovehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\migrations\\20260315011944_addmarchatovehicle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\migrations\\20260315012537_addmarchatovehicle2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\migrations\\20260315012537_addmarchatovehicle2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|c:\\proyectos\\calderaproject\\tallercaldera2\\tallercaldera2\\migrations\\20260315214620_addaplicarivaproforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9EED54B-0DEE-4E7B-A484-952827D6F627}|TallerCaldera2\\TallerCaldera2.csproj|solutionrelative:tallercaldera2\\migrations\\20260315214620_addaplicarivaproforma.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -302,83 +318,107 @@
       "DocumentGroups": [
         {
           "DockedWidth": 128,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 9,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "ProformaItem.cs",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\ProformaItem.cs",
+              "RelativeDocumentMoniker": "TallerCaldera2\\Models\\ProformaItem.cs",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\ProformaItem.cs",
+              "RelativeToolTip": "TallerCaldera2\\Models\\ProformaItem.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-05T19:51:07.601Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Maintenances\\Details.cshtml",
-              "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Maintenances\\Details.cshtml",
-              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Maintenances\\Details.cshtml",
-              "RelativeToolTip": "TallerCaldera2\\Views\\Maintenances\\Details.cshtml",
-              "ViewState": "AgIAAMoAAAAAAAAAAAAUwO4AAAAAAAAAAAAAAA==",
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Proformas\\Create.cshtml",
+              "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Proformas\\Create.cshtml",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Proformas\\Create.cshtml",
+              "RelativeToolTip": "TallerCaldera2\\Views\\Proformas\\Create.cshtml",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAAEEAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-13T21:23:56.275Z"
+              "WhenOpened": "2026-01-05T19:53:51.001Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "TallerCaldera2\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAANcAAAAAAAAAAAAwwOQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-12-27T20:36:32.425Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "AlertController.cs",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Controllers\\AlertController.cs",
+              "RelativeDocumentMoniker": "TallerCaldera2\\Controllers\\AlertController.cs",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Controllers\\AlertController.cs",
+              "RelativeToolTip": "TallerCaldera2\\Controllers\\AlertController.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAowCwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-05T23:45:16.63Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Maintenances\\Create.cshtml",
-              "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Maintenances\\Create.cshtml",
-              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Maintenances\\Create.cshtml",
-              "RelativeToolTip": "TallerCaldera2\\Views\\Maintenances\\Create.cshtml",
-              "ViewState": "AgIAABIBAAAAAAAAAAAcwDUBAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-27T20:36:47.725Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Maintenances\\Edit.cshtml",
-              "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Maintenances\\Edit.cshtml",
-              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Maintenances\\Edit.cshtml",
-              "RelativeToolTip": "TallerCaldera2\\Views\\Maintenances\\Edit.cshtml",
-              "ViewState": "AgIAAPcAAAAAAAAAAAAUwCkBAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-13T21:23:50.216Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\appsettings.json",
-              "RelativeDocumentMoniker": "TallerCaldera2\\appsettings.json",
-              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\appsettings.json",
-              "RelativeToolTip": "TallerCaldera2\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAACEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-11-05T22:40:38.311Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
               "Title": "Proforma.cs",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\Proforma.cs",
               "RelativeDocumentMoniker": "TallerCaldera2\\Models\\Proforma.cs",
               "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\Proforma.cs",
               "RelativeToolTip": "TallerCaldera2\\Models\\Proforma.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAuwCoAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAABEAAAAAAAAAAAAIwCYAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-05T19:50:51.798Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Vehicles\\Details.cshtml",
-              "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Vehicles\\Details.cshtml",
-              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Vehicles\\Details.cshtml",
-              "RelativeToolTip": "TallerCaldera2\\Views\\Vehicles\\Details.cshtml",
-              "ViewState": "AgIAAL0AAAAAAAAAAAAAAM4AAAAWAAAAAAAAAA==",
+              "DocumentIndex": 6,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "TallerCaldera2\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAJUAAAAAAAAAAAAwwMQAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-13T23:11:42.588Z"
+              "WhenOpened": "2025-11-05T23:52:02.491Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MaintenancesController.cs",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Controllers\\MaintenancesController.cs",
+              "RelativeDocumentMoniker": "TallerCaldera2\\Controllers\\MaintenancesController.cs",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Controllers\\MaintenancesController.cs",
+              "RelativeToolTip": "TallerCaldera2\\Controllers\\MaintenancesController.cs",
+              "ViewState": "AgIAAGgBAAAAAAAAAAAkwIMBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-10T22:44:13.792Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "Maintenance.cs",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\Maintenance.cs",
+              "RelativeDocumentMoniker": "TallerCaldera2\\Models\\Maintenance.cs",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\Maintenance.cs",
+              "RelativeToolTip": "TallerCaldera2\\Models\\Maintenance.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAA8wDQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-05T22:42:04.042Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "MaintenanceItem.cs",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\MaintenanceItem.cs",
               "RelativeDocumentMoniker": "TallerCaldera2\\Models\\MaintenanceItem.cs",
@@ -391,19 +431,67 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "MaintenancesController.cs",
-              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Controllers\\MaintenancesController.cs",
-              "RelativeDocumentMoniker": "TallerCaldera2\\Controllers\\MaintenancesController.cs",
-              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Controllers\\MaintenancesController.cs",
-              "RelativeToolTip": "TallerCaldera2\\Controllers\\MaintenancesController.cs",
-              "ViewState": "AgIAAPgAAAAAAAAAAAAgwBoBAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-10T22:44:13.792Z",
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Maintenances\\Create.cshtml",
+              "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Maintenances\\Create.cshtml",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Maintenances\\Create.cshtml",
+              "RelativeToolTip": "TallerCaldera2\\Views\\Maintenances\\Create.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8BAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-03-12T01:50:03.378Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 76,
+              "Title": "20260315214620_AddAplicarIvaProforma.cs",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Migrations\\20260315214620_AddAplicarIvaProforma.cs",
+              "RelativeDocumentMoniker": "TallerCaldera2\\Migrations\\20260315214620_AddAplicarIvaProforma.cs",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Migrations\\20260315214620_AddAplicarIvaProforma.cs",
+              "RelativeToolTip": "TallerCaldera2\\Migrations\\20260315214620_AddAplicarIvaProforma.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T21:46:21.039Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "MaintenancePhoto.cs",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\MaintenancePhoto.cs",
+              "RelativeDocumentMoniker": "TallerCaldera2\\Models\\MaintenancePhoto.cs",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\MaintenancePhoto.cs",
+              "RelativeToolTip": "TallerCaldera2\\Models\\MaintenancePhoto.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-13T21:50:12.494Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ProformaPdf.cs",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\PdfDocuments\\ProformaPdf.cs",
+              "RelativeDocumentMoniker": "TallerCaldera2\\PdfDocuments\\ProformaPdf.cs",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\PdfDocuments\\ProformaPdf.cs",
+              "RelativeToolTip": "TallerCaldera2\\PdfDocuments\\ProformaPdf.cs",
+              "ViewState": "AgIAAJUAAAAAAAAAAADwv7oAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-05T19:53:03.044Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ProformasController .cs",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Controllers\\ProformasController .cs",
+              "RelativeDocumentMoniker": "TallerCaldera2\\Controllers\\ProformasController .cs",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Controllers\\ProformasController .cs",
+              "RelativeToolTip": "TallerCaldera2\\Controllers\\ProformasController .cs",
+              "ViewState": "AgIAAJoAAAAAAAAAAAAcwLEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-05T19:51:57.668Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
               "Title": "20260203001518_AddServicioUnidadToMaintenanceItems.cs",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Migrations\\20260203001518_AddServicioUnidadToMaintenanceItems.cs",
               "RelativeDocumentMoniker": "TallerCaldera2\\Migrations\\20260203001518_AddServicioUnidadToMaintenanceItems.cs",
@@ -415,20 +503,79 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AlertController.cs",
-              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Controllers\\AlertController.cs",
-              "RelativeDocumentMoniker": "TallerCaldera2\\Controllers\\AlertController.cs",
-              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Controllers\\AlertController.cs",
-              "RelativeToolTip": "TallerCaldera2\\Controllers\\AlertController.cs",
-              "ViewState": "AgIAABgAAAAAAAAAAAAowCwAAAABAAAAAAAAAA==",
+              "DocumentIndex": 75,
+              "Title": "20260315012537_AddMarchaToVehicle2.cs",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Migrations\\20260315012537_AddMarchaToVehicle2.cs",
+              "RelativeDocumentMoniker": "TallerCaldera2\\Migrations\\20260315012537_AddMarchaToVehicle2.cs",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Migrations\\20260315012537_AddMarchaToVehicle2.cs",
+              "RelativeToolTip": "TallerCaldera2\\Migrations\\20260315012537_AddMarchaToVehicle2.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T23:45:16.63Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-15T01:25:37.189Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 74,
+              "Title": "20260315011944_AddMarchaToVehicle.cs",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Migrations\\20260315011944_AddMarchaToVehicle.cs",
+              "RelativeDocumentMoniker": "TallerCaldera2\\Migrations\\20260315011944_AddMarchaToVehicle.cs",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Migrations\\20260315011944_AddMarchaToVehicle.cs",
+              "RelativeToolTip": "TallerCaldera2\\Migrations\\20260315011944_AddMarchaToVehicle.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-15T01:19:44.234Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Vehicles\\Details.cshtml",
+              "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Vehicles\\Details.cshtml",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Vehicles\\Details.cshtml",
+              "RelativeToolTip": "TallerCaldera2\\Views\\Vehicles\\Details.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFYAAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-13T23:11:42.588Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Vehicles\\Edit.cshtml",
+              "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Vehicles\\Edit.cshtml",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Vehicles\\Edit.cshtml",
+              "RelativeToolTip": "TallerCaldera2\\Views\\Vehicles\\Edit.cshtml",
+              "ViewState": "AgIAADYAAAAAAAAAAAAUwFMAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-07T01:46:47.4Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Vehicles\\Create.cshtml",
+              "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Vehicles\\Create.cshtml",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Vehicles\\Create.cshtml",
+              "RelativeToolTip": "TallerCaldera2\\Views\\Vehicles\\Create.cshtml",
+              "ViewState": "AgIAAEEAAAAAAAAAAAAYwGEAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-07T00:56:48.197Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Maintenances\\Edit.cshtml",
+              "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Maintenances\\Edit.cshtml",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Maintenances\\Edit.cshtml",
+              "RelativeToolTip": "TallerCaldera2\\Views\\Maintenances\\Edit.cshtml",
+              "ViewState": "AgIAADIAAAAAAAAAAAAUwFUAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-13T21:23:50.216Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
               "Title": "Alert.cs",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\Alert.cs",
               "RelativeDocumentMoniker": "TallerCaldera2\\Models\\Alert.cs",
@@ -440,19 +587,67 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Maintenance.cs",
-              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\Maintenance.cs",
-              "RelativeDocumentMoniker": "TallerCaldera2\\Models\\Maintenance.cs",
-              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\Maintenance.cs",
-              "RelativeToolTip": "TallerCaldera2\\Models\\Maintenance.cs",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAmwCIAAAAwAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T22:42:04.042Z"
+              "DocumentIndex": 19,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\appsettings.json",
+              "RelativeDocumentMoniker": "TallerCaldera2\\appsettings.json",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\appsettings.json",
+              "RelativeToolTip": "TallerCaldera2\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAACEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-05T22:40:38.311Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 17,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Maintenances\\Details.cshtml",
+              "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Maintenances\\Details.cshtml",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Maintenances\\Details.cshtml",
+              "RelativeToolTip": "TallerCaldera2\\Views\\Maintenances\\Details.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEoAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-13T21:23:56.275Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Vehicle.cs",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\Vehicle.cs",
+              "RelativeDocumentMoniker": "TallerCaldera2\\Models\\Vehicle.cs",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\Vehicle.cs",
+              "RelativeToolTip": "TallerCaldera2\\Models\\Vehicle.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAA9wB4AAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-05T22:42:05.492Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "VehiclesController.cs",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Controllers\\VehiclesController.cs",
+              "RelativeDocumentMoniker": "TallerCaldera2\\Controllers\\VehiclesController.cs",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Controllers\\VehiclesController.cs",
+              "RelativeToolTip": "TallerCaldera2\\Controllers\\VehiclesController.cs",
+              "ViewState": "AgIAAIYAAAAAAAAAAAAAwKIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-07T00:51:21.411Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 73,
+              "Title": "20260312020629_AddFormaPagoCombustible.cs",
+              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Migrations\\20260312020629_AddFormaPagoCombustible.cs",
+              "RelativeDocumentMoniker": "TallerCaldera2\\Migrations\\20260312020629_AddFormaPagoCombustible.cs",
+              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Migrations\\20260312020629_AddFormaPagoCombustible.cs",
+              "RelativeToolTip": "TallerCaldera2\\Migrations\\20260312020629_AddFormaPagoCombustible.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-12T02:06:29.433Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Alert\\Index.cshtml",
               "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Alert\\Index.cshtml",
@@ -488,7 +683,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 23,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "TallerCaldera2\\Models\\ApplicationDbContext.cs",
@@ -512,7 +707,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 26,
               "Title": "Logo_Caldera.png",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\images\\Logo_Caldera.png",
               "RelativeDocumentMoniker": "TallerCaldera2\\wwwroot\\images\\Logo_Caldera.png",
@@ -523,43 +718,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "ProformaPdf.cs",
-              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\PdfDocuments\\ProformaPdf.cs",
-              "RelativeDocumentMoniker": "TallerCaldera2\\PdfDocuments\\ProformaPdf.cs",
-              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\PdfDocuments\\ProformaPdf.cs",
-              "RelativeToolTip": "TallerCaldera2\\PdfDocuments\\ProformaPdf.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAwwDQAAAAnAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T19:53:03.044Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Proformas\\Create.cshtml",
-              "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Proformas\\Create.cshtml",
-              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Proformas\\Create.cshtml",
-              "RelativeToolTip": "TallerCaldera2\\Views\\Proformas\\Create.cshtml",
-              "ViewState": "AgIAAGkAAAAAAAAAAAAAAH4AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-01-05T19:53:51.001Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "ProformaItem.cs",
-              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\ProformaItem.cs",
-              "RelativeDocumentMoniker": "TallerCaldera2\\Models\\ProformaItem.cs",
-              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\ProformaItem.cs",
-              "RelativeToolTip": "TallerCaldera2\\Models\\ProformaItem.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T19:51:07.601Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 34,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Appointments\\Index.cshtml",
               "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Appointments\\Index.cshtml",
@@ -571,19 +730,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Vehicles\\Create.cshtml",
-              "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Vehicles\\Create.cshtml",
-              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Vehicles\\Create.cshtml",
-              "RelativeToolTip": "TallerCaldera2\\Views\\Vehicles\\Create.cshtml",
-              "ViewState": "AgIAAEUAAAAAAAAAAAAwwGsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-07T00:56:48.197Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 33,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\User.cs",
               "RelativeDocumentMoniker": "TallerCaldera2\\Models\\User.cs",
@@ -595,19 +742,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "Vehicle.cs",
-              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\Vehicle.cs",
-              "RelativeDocumentMoniker": "TallerCaldera2\\Models\\Vehicle.cs",
-              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\Vehicle.cs",
-              "RelativeToolTip": "TallerCaldera2\\Models\\Vehicle.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAA9wCEAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-05T22:42:05.492Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 25,
               "Title": "ProformaImagen.cs",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\ProformaImagen.cs",
               "RelativeDocumentMoniker": "TallerCaldera2\\Models\\ProformaImagen.cs",
@@ -619,7 +754,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 30,
               "Title": "logo-taller2.png",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\images\\logo-taller2.png",
               "RelativeDocumentMoniker": "TallerCaldera2\\wwwroot\\images\\logo-taller2.png",
@@ -630,7 +765,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 29,
               "Title": "toyota-logo.png",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\images\\toyota-logo.png",
               "RelativeDocumentMoniker": "TallerCaldera2\\wwwroot\\images\\toyota-logo.png",
@@ -641,7 +776,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 28,
               "Title": "honda-logo.png",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\images\\honda-logo.png",
               "RelativeDocumentMoniker": "TallerCaldera2\\wwwroot\\images\\honda-logo.png",
@@ -652,7 +787,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 27,
               "Title": "car-sketch.png",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\wwwroot\\images\\car-sketch.png",
               "RelativeDocumentMoniker": "TallerCaldera2\\wwwroot\\images\\car-sketch.png",
@@ -663,7 +798,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 43,
               "Title": "ErrorViewModel.cs",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\ErrorViewModel.cs",
               "RelativeDocumentMoniker": "TallerCaldera2\\Models\\ErrorViewModel.cs",
@@ -675,7 +810,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 31,
               "Title": "Create.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Appointments\\Create.cshtml",
               "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Appointments\\Create.cshtml",
@@ -687,19 +822,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
-              "Title": "ProformasController .cs",
-              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Controllers\\ProformasController .cs",
-              "RelativeDocumentMoniker": "TallerCaldera2\\Controllers\\ProformasController .cs",
-              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Controllers\\ProformasController .cs",
-              "RelativeToolTip": "TallerCaldera2\\Controllers\\ProformasController .cs",
-              "ViewState": "AgIAAJUAAAAAAAAAAAAAwLEAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-05T19:51:57.668Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 32,
               "Title": "Appointment.cs",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\Appointment.cs",
               "RelativeDocumentMoniker": "TallerCaldera2\\Models\\Appointment.cs",
@@ -711,7 +834,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 37,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Maintenances\\Index.cshtml",
               "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Maintenances\\Index.cshtml",
@@ -723,7 +846,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 38,
               "Title": "20260106011053_AddMarcaModeloToProforma.cs",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Migrations\\20260106011053_AddMarcaModeloToProforma.cs",
               "RelativeDocumentMoniker": "TallerCaldera2\\Migrations\\20260106011053_AddMarcaModeloToProforma.cs",
@@ -735,7 +858,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 35,
               "Title": "AuthController .cs",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Controllers\\AuthController .cs",
               "RelativeDocumentMoniker": "TallerCaldera2\\Controllers\\AuthController .cs",
@@ -747,19 +870,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
-              "Title": "MaintenancePhoto.cs",
-              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\MaintenancePhoto.cs",
-              "RelativeDocumentMoniker": "TallerCaldera2\\Models\\MaintenancePhoto.cs",
-              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\MaintenancePhoto.cs",
-              "RelativeToolTip": "TallerCaldera2\\Models\\MaintenancePhoto.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T21:50:12.494Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 36,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Vehicles\\Index.cshtml",
               "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Vehicles\\Index.cshtml",
@@ -771,7 +882,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 42,
               "Title": "SketchMark.cs",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\SketchMark.cs",
               "RelativeDocumentMoniker": "TallerCaldera2\\Models\\SketchMark.cs",
@@ -783,7 +894,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 39,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Proformas\\Index.cshtml",
               "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Proformas\\Index.cshtml",
@@ -795,7 +906,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 40,
               "Title": "20260105202810_AddImagenUrlToProforma.cs",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Migrations\\20260105202810_AddImagenUrlToProforma.cs",
               "RelativeDocumentMoniker": "TallerCaldera2\\Migrations\\20260105202810_AddImagenUrlToProforma.cs",
@@ -807,7 +918,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 41,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Program.cs",
               "RelativeDocumentMoniker": "TallerCaldera2\\Program.cs",
@@ -819,7 +930,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 45,
               "Title": "20251113215717_Fotos.cs",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Migrations\\20251113215717_Fotos.cs",
               "RelativeDocumentMoniker": "TallerCaldera2\\Migrations\\20251113215717_Fotos.cs",
@@ -831,7 +942,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 44,
               "Title": "20251113223221_AddSketchMarks.cs",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Migrations\\20251113223221_AddSketchMarks.cs",
               "RelativeDocumentMoniker": "TallerCaldera2\\Migrations\\20251113223221_AddSketchMarks.cs",
@@ -843,7 +954,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 46,
               "Title": "20251113212249_UpdateMaintenanceAndVehicle.cs",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Migrations\\20251113212249_UpdateMaintenanceAndVehicle.cs",
               "RelativeDocumentMoniker": "TallerCaldera2\\Migrations\\20251113212249_UpdateMaintenanceAndVehicle.cs",
@@ -855,7 +966,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 47,
               "Title": "20251113210808_Initial.cs",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Migrations\\20251113210808_Initial.cs",
               "RelativeDocumentMoniker": "TallerCaldera2\\Migrations\\20251113210808_Initial.cs",
@@ -867,19 +978,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
-              "Title": "VehiclesController.cs",
-              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Controllers\\VehiclesController.cs",
-              "RelativeDocumentMoniker": "TallerCaldera2\\Controllers\\VehiclesController.cs",
-              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Controllers\\VehiclesController.cs",
-              "RelativeToolTip": "TallerCaldera2\\Controllers\\VehiclesController.cs",
-              "ViewState": "AgIAAHoAAAAAAAAAAAAAwAMAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-07T00:51:21.411Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 48,
               "Title": "HomeController.cs",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "TallerCaldera2\\Controllers\\HomeController.cs",
@@ -891,7 +990,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 49,
               "Title": "AppointmentsController.cs",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Controllers\\AppointmentsController.cs",
               "RelativeDocumentMoniker": "TallerCaldera2\\Controllers\\AppointmentsController.cs",
@@ -903,19 +1002,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "TallerCaldera2\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAJUAAAAAAAAAAAAwwMQAAAA7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-05T23:52:02.491Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 52,
               "Title": "DashboardViewModel.cs",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Models\\ViewModels\\DashboardViewModel.cs",
               "RelativeDocumentMoniker": "TallerCaldera2\\Models\\ViewModels\\DashboardViewModel.cs",
@@ -927,7 +1014,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 50,
               "Title": "_ViewStart.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\_ViewStart.cshtml",
               "RelativeDocumentMoniker": "TallerCaldera2\\Views\\_ViewStart.cshtml",
@@ -939,19 +1026,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Home\\Index.cshtml",
-              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "TallerCaldera2\\Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAOsAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-27T20:36:32.425Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 53,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Appointments\\Edit.cshtml",
               "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Appointments\\Edit.cshtml",
@@ -963,7 +1038,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 51,
               "Title": "_ViewImports.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\_ViewImports.cshtml",
               "RelativeDocumentMoniker": "TallerCaldera2\\Views\\_ViewImports.cshtml",
@@ -975,7 +1050,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 54,
               "Title": "Delete.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Appointments\\Delete.cshtml",
               "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Appointments\\Delete.cshtml",
@@ -1035,7 +1110,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
+              "DocumentIndex": 58,
               "Title": "Privacy.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Home\\Privacy.cshtml",
               "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Home\\Privacy.cshtml",
@@ -1047,7 +1122,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 56,
               "Title": "_ValidationScriptsPartial.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
               "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
@@ -1059,7 +1134,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 55,
               "Title": "Error.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Shared\\Error.cshtml",
               "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Shared\\Error.cshtml",
@@ -1071,7 +1146,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 57,
               "Title": "Delete.cshtml",
               "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Maintenances\\Delete.cshtml",
               "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Maintenances\\Delete.cshtml",
@@ -1080,18 +1155,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-11-13T21:24:03.947Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 58,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Vehicles\\Edit.cshtml",
-              "RelativeDocumentMoniker": "TallerCaldera2\\Views\\Vehicles\\Edit.cshtml",
-              "ToolTip": "C:\\Proyectos\\CalderaProject\\TallerCaldera2\\TallerCaldera2\\Views\\Vehicles\\Edit.cshtml",
-              "RelativeToolTip": "TallerCaldera2\\Views\\Vehicles\\Edit.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-07T01:46:47.4Z"
             },
             {
               "$type": "Document",

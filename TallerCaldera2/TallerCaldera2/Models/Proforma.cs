@@ -24,6 +24,8 @@ namespace TallerCaldera2.Models
         public string Marca { get; set; } = string.Empty;
         public string Modelo { get; set; } = string.Empty;
 
+        public bool AplicarIva { get; set; }
+
         public List<ProformaItem> Items { get; set; } = new();
 
         // CÁLCULOS
@@ -31,7 +33,7 @@ namespace TallerCaldera2.Models
         public decimal Subtotal => Items.Sum(i => i.Subtotal);
 
         [NotMapped]
-        public decimal Iva => Subtotal * 0.13m;
+        public decimal Iva => AplicarIva ? Subtotal * 0.13m : 0;
 
         [NotMapped]
         public decimal TotalConIva => Subtotal + Iva;

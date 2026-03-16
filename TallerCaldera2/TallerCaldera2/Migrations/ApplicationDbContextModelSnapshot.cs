@@ -123,11 +123,19 @@ namespace TallerCaldera2.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Combustible")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal?>("Cost")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("FormaPago")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("Mileage")
                         .HasColumnType("int");
@@ -220,6 +228,9 @@ namespace TallerCaldera2.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("AplicarIva")
+                        .HasColumnType("bit");
 
                     b.Property<string>("ClienteEmail")
                         .IsRequired()
@@ -368,6 +379,9 @@ namespace TallerCaldera2.Migrations
 
                     b.Property<DateTime?>("LastMaintenanceDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<bool>("Marcha")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Model")
                         .IsRequired()

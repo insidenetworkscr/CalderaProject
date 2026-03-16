@@ -218,6 +218,8 @@ namespace TallerCaldera2.Controllers
             existing.VehiclePlate = maintenance.VehiclePlate;
             existing.TrabajosPorRealizar = maintenance.TrabajosPorRealizar;
             existing.TrabajosRealizados = maintenance.TrabajosRealizados;
+            existing.FormaPago = maintenance.FormaPago;
+            existing.Combustible = maintenance.Combustible;
 
             // ❌ NO volver a tocar Cost aquí
             // existing.Cost = maintenance.Cost;  <-- ELIMINADO

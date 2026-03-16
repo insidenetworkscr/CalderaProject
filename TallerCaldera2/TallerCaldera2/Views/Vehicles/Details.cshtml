@@ -70,6 +70,21 @@
                             <div class="info-item"><strong>Teléfono:</strong> @Model.ClientPhone</div>
                             <div class="info-item"><strong>Correo:</strong> @Model.ClientEmail</div>
                             <div class="info-item"><strong>Dirección:</strong> @Model.ClientAddress</div>
+                            <div class="info-item">
+                                <strong>Marcha:</strong>
+                                @if (Model.Marcha)
+                                {
+                                    <span class="badge bg-info">
+                                        <i class="bi bi-gear-wide-connected"></i> Automático
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-secondary">
+                                        <i class="bi bi-gear"></i> Manual
+                                    </span>
+                                }
+                            </div>
                         </div>
 
                         <div class="col-sm-6">

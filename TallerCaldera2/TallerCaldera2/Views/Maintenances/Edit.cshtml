@@ -61,6 +61,30 @@
                     <input asp-for="Mileage" class="form-control" />
                 </div>
 
+                <div class="form-group">
+                    <label asp-for="FormaPago"></label>
+                    <input asp-for="FormaPago" class="form-control" />
+                </div>
+
+                <div class="form-group">
+                    <label>Nivel de Combustible</label>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" asp-for="Combustible" value="Bajo">
+                        <label class="form-check-label">Bajo</label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" asp-for="Combustible" value="Medio">
+                        <label class="form-check-label">Medio</label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" asp-for="Combustible" value="Alto">
+                        <label class="form-check-label">Alto</label>
+                    </div>
+                </div>
+
                 <!-- COSTO AUTOMÁTICO -->
                 <div class="col-md-4">
                     <label>Costo total</label>

@@ -72,6 +72,32 @@
                 </div>
 
                 <div class="col-md-3">
+                    <label class="form-label">Marcha</label>
+
+                    <div class="form-check">
+                        <input class="form-check-input"
+                               type="radio"
+                               asp-for="Marcha"
+                               value="false">
+
+                        <label class="form-check-label">
+                            Manual
+                        </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input"
+                               type="radio"
+                               asp-for="Marcha"
+                               value="true">
+
+                        <label class="form-check-label">
+                            Automático
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
                     <label asp-for="LastMaintenanceDate" class="form-label">Último mantenimiento</label>
                     <input asp-for="LastMaintenanceDate" type="date" class="form-control" />
                 </div>

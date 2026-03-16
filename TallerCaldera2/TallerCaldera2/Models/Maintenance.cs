@@ -29,6 +29,10 @@ namespace TallerCaldera2.Models
         [Column(TypeName = "decimal(18,2)")]
         public decimal? Cost { get; set; }
 
+        public string FormaPago { get; set; }
+
+        public string Combustible { get; set; }
+
         public int? Mileage { get; set; }
 
         [Required]
