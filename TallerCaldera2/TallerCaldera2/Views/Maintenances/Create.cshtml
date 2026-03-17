@@ -154,7 +154,7 @@
 
                 <div class="card-body">
                     <label class="form-label">Fotos del mantenimiento</label>
-                    <input type="file" name="photos" class="form-control" multiple />
+                    <input type="file" id="photoInput" name="photos" class="form-control" multiple accept="image/*" />
                     <small class="text-muted">
                         Puede seleccionar varias imágenes del trabajo realizado.
                     </small>
@@ -331,6 +331,75 @@
         })();
     </script>
 
+    <script>
+        document.getElementById('photoInput').addEventListener('change', async function (e) {
 
+            const files = e.target.files;
+            const newFiles = [];
+
+            for (let file of files) {
+
+                // Si no es imagen, lo deja igual
+                if (!file.type.startsWith('image/')) {
+                    newFiles.push(file);
+                    continue;
+                }
+
+                try {
+                    const compressed = await compressImage(file);
+                    newFiles.push(compressed);
+                } catch {
+                    newFiles.push(file);
+                }
+            }
+
+            const dataTransfer = new DataTransfer();
+            newFiles.forEach(f => dataTransfer.items.add(f));
+
+            e.target.files = dataTransfer.files;
+        });
+
+        function compressImage(file) {
+
+            return new Promise((resolve) => {
+
+                const img = new Image();
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    img.src = e.target.result;
+                };
+
+                img.onload = function () {
+
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+
+                    const maxWidth = 1024;
+                    const scale = img.width > maxWidth ? maxWidth / img.width : 1;
+
+                    const width = img.width * scale;
+                    const height = img.height * scale;
+
+                    canvas.width = width;
+                    canvas.height = height;
+
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    canvas.toBlob(function (blob) {
+
+                        const newFile = new File([blob], file.name.replace(/\.\w+$/, ".jpg"), {
+                            type: 'image/jpeg'
+                        });
+
+                        resolve(newFile);
+
+                    }, 'image/jpeg', 0.7);
+                };
+
+                reader.readAsDataURL(file);
+            });
+        }
+    </script>
 
 }

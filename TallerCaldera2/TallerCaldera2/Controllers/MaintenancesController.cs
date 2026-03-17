@@ -180,7 +180,7 @@ namespace TallerCaldera2.Controllers
             if (existing == null)
                 return NotFound();
 
-            // 🔥 IMPORTANTE: el costo NO viene del form
+           
             ModelState.Remove("Cost");
 
             // ================= ITEMS =================
